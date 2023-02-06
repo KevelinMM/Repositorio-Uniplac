@@ -7,13 +7,13 @@ function MyApp({ Component, pageProps }) {
   return (
     <div>
       <Head>
-        <title>Site modelo Uniplac</title>
-        <meta name="description" content="Site modelo Uniplac" />
+        <title>Repositório Institucional Uniplac</title>
+        <meta name="description" content="Repositório Institucional" />
         <link rel="icon" href="http://ww2.uniplaclages.edu.br/aviso-webmail/img/logo.png" />
       </Head>
-
-      <Component {...pageProps} className="min-h-screen"/>
-
+      <Header/>
+      <Component {...pageProps}/>
+      <Footer/>
     </div>
   );
 }
