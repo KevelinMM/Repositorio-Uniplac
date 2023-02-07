@@ -7,12 +7,6 @@ const base = [
   { title: "Alimentação", subtitle: "subartigo 2", autor: "autor 2" },
 
   { title: "Filosofia", subtitle: "subartigo 3", autor: "autor 3" },
-
-  { title: "artigo 4", subtitle: "subartigo 4", autor: "Thiago" },
-
-  { title: "artigo 5", subtitle: "subartigo 5", autor: "autor 5" },
-
-  { title: "artigo 6", subtitle: "subartigo 6", autor: "autor 6" },
 ];
 
 export default function Header() {
@@ -24,16 +18,15 @@ export default function Header() {
         className="fixed w-full top-0 bg-white border-b border-gray-400 z-20"
       >
         <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-4 ">
-          <div className="pl-4 flex items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 448 512"
-              className="h-5 pr-3 fill-current text-black"
-            >
-              <path d="M0 64C0 28.7 28.7 0 64 0H384c35.3 0 64 28.7 64 64V240H0V64zM0 272H448V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V272zM128 128v16c0 8.8 7.2 16 16 16s16-7.2 16-16V128H288v16c0 8.8 7.2 16 16 16s16-7.2 16-16V128c0-17.7-14.3-32-32-32H160c-17.7 0-32 14.3-32 32zm0 256v16c0 8.8 7.2 16 16 16s16-7.2 16-16V384H288v16c0 8.8 7.2 16 16 16s16-7.2 16-16V384c0-17.7-14.3-32-32-32H160c-17.7 0-32 14.3-32 32z" />
-            </svg>
+          <div className="pl-4 flex items-center cursor-pointer">
+            <Image
+              src={`/logoUniplac.png`}
+              alt="Logo Uniplac"
+              width={60}
+              height={60}
+            />
             <a
-              className="text-gray-900 no-underline hover:no-underline font-extrabold text-xl"
+              className="ml-2 text-gray-900 no-underline hover:no-underline font-extrabold text-xl"
               href="#"
             >
               Repositório Uniplac
@@ -95,13 +88,13 @@ export default function Header() {
                     );
                   }}
                 />
-                <div className="flex w-full absolute">
+                <div className="flex w-full absolute cursor-pointer ">
                   <div className="bg-gray-100 shadow border-l border-r border-b border-gray-500 rounded-b w-full mr-4 px-2">
                     {result.map((e) => {
                       return <p id={e.title}>{e.title}</p>;
                     })}
-                    
-                    <p>Ver todos...</p>
+
+                    <a href="/filtro/12">Ver todos...</a>
                   </div>
                 </div>
               </div>
@@ -113,7 +106,7 @@ export default function Header() {
                   className="inline-block py-2 px-4 text-gray-900 font-bold no-underline"
                   href="#"
                 >
-                  Active
+                  Exemplo 1
                 </a>
               </li>
               <li className="mr-3 py-2 lg:py-0">
@@ -121,17 +114,10 @@ export default function Header() {
                   className="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-2 px-4"
                   href="#"
                 >
-                  link
+                  Exemplo 2
                 </a>
               </li>
-              <li className="mr-3 py-2 lg:py-0">
-                <a
-                  className="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-2 px-4"
-                  href="#"
-                >
-                  link
-                </a>
-              </li>
+        
             </ul>
           </div>
         </div>
