@@ -86,15 +86,25 @@ export default function Header() {
                             .includes(e.target.value.toLowerCase())
                       )
                     );
+                    e.target.value != "" ? document.getElementById("result").hidden = false : document.getElementById("result").hidden = true
                   }}
                 />
                 <div className="flex w-full absolute cursor-pointer ">
-                  <div className="bg-gray-100 shadow border-l border-r border-b border-gray-500 rounded-b w-full mr-4 px-2">
+                  <div className="bg-gray-100 shadow border-l border-r border-b border-gray-500 rounded-b w-full mr-4" hidden id="result">
                     {result.map((e) => {
-                      return <p id={e.title}>{e.title}</p>;
-                    })}
+                      return (
+                        <div key={e.title} className="hover:bg-gray-200 px-2 border-b">
+                          <p className="text-black text-base">{e.title}</p>
 
-                    <a href="/filtro/12">Ver todos...</a>
+                          <p className="text-black font-thin text-xs text-end">{e.autor}</p>
+                        </div>
+                      );
+                    })}
+                    <div className="hover:bg-gray-200 px-2 w-full">
+                      <a href="/filtro/12" >
+                        {result.length >= 1 ? "Ver todos..." : "Nenhum resultado"}
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -117,7 +127,6 @@ export default function Header() {
                   Exemplo 2
                 </a>
               </li>
-        
             </ul>
           </div>
         </div>

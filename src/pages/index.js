@@ -1,21 +1,8 @@
-import { useState } from "react";
 import Back from "../components/Back";
 import Tags from "../components/Tags";
 
 export default function Home() {
-  const [title, setTitle] = useState("Titulo do documento");
-  const [subTitle, setSubTitle] = useState("Sub Titulo do documento...");
-  const [description, setDescription] = useState(
-    "Descrição do documento informando um breve resumo do que se trata."
-  );
-  const [autor, setAutor] = useState("Autor Fulando de Tal");
-  const [type, setType] = useState("Artigo");
-  const [date, setDate] = useState("06/02/2023");
 
-  const [downloadLink, setDownloadLink] = useState("#");
-  const [urlPreview, setUrlPreview] = useState(
-    "https://doem.org.br/ba/modelo/arquivos/pdfviewer/0b517cdc5f9850e3782051c82e7f3234?name=lorem-ipsum.pdf"
-  );
 
   return (
     <section className="bg-gray-100 tracking-normal">
