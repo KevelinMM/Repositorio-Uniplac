@@ -4,11 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+
 html {
   @apply bg-slate-200 font-[rubik] text-gray-700 dark:bg-[#22272b];
 }
-
-
 
 input,
 select {
