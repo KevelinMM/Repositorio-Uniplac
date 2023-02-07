@@ -5,7 +5,7 @@ export default function Footer() {
         <div className="w-full mx-auto flex flex-wrap">
           <div className="flex w-full lg:w-1/2 ">
             <div className="px-8">
-              <h3 className="font-bold text-gray-900">About</h3>
+              <h3 className="font-bold text-gray-900">Sobre</h3>
               <p className="py-4 text-gray-600 text-sm">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Maecenas vel mi ut felis tempus commodo nec id erat. Suspendisse
@@ -20,9 +20,11 @@ export default function Footer() {
                 <li>
                   <a
                     className="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-1"
-                    href="#"
+                    href="www.uniplaclages.edu.br"
+                    target="_blank"
+                    rel="noopener"
                   >
-                    Add social links
+                    Uniplac
                   </a>
                 </li>
               </ul>
