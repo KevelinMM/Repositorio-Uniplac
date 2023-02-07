@@ -2,8 +2,6 @@ import Back from "../components/Back";
 import Tags from "../components/Tags";
 
 export default function Home() {
-
-
   return (
     <section className="bg-gray-100 tracking-normal">
       <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-16 mt-16 min-h-screen">
@@ -45,29 +43,44 @@ export default function Home() {
                     />
                   </div>
 
-                  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <div>
+                  <div class="grid grid-cols-1 gap-4 ">
+                    <div className="flex ">
                       <label class="sr-only" for="email">
                         Email
                       </label>
                       <input
-                        class="w-full rounded-lg border-gray-200 p-3 text-sm"
-                        placeholder="Email address"
+                        class="w-full rounded-l-lg border-gray-200 p-3 text-sm"
+                        placeholder="Email"
                         type="email"
                         id="email"
                       />
+                      <div className="flex items-center">
+                        <label className="text-center bg-blue-400 hover:bg-blue-500 px-2 rounded-r-lg h-full text-white flex items-center cursor-pointer">
+                          Validar email
+                        </label>
+                      </div>
                     </div>
+                  </div>
+                  <div className="flex flex-row-reverse">
+                    <label class="sr-only" for="code">
+                      Código
+                    </label>
 
-                    <div>
-                      <label class="sr-only" for="phone">
-                        Phone
-                      </label>
-                      <input
-                        class="w-full rounded-lg border-gray-200 p-3 text-sm"
-                        placeholder="Phone Number"
-                        type="tel"
-                        id="phone"
-                      />
+                    <input
+                      class="w-full rounded-lg border-gray-200 p-3 text-sm"
+                      placeholder="Código"
+                      type="text"
+                      id="code"
+                      onChange={(e) => document.getElementById("codeok").hidden = false}
+                    />
+                    <div className="absolute search-icon pt-4 pr-3" hidden id="codeok">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512"
+                        className="fill-current pointer-events-none text-green-600 w-4"
+                      >
+                        <path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
+                      </svg>
                     </div>
                   </div>
 
@@ -122,12 +135,37 @@ export default function Home() {
                   </div>
 
                   <div>
+                    <label
+                      class="mb-2 text-sm text-gray-700 flex items-center"
+                      for="file_input"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 384 512"
+                        className="w-3 mr-2"
+                      >
+                        <path d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128z" />
+                      </svg>
+                      <p>Arquivo</p>
+                    </label>
+                    <input
+                      class="block w-full text-sm text-gray-900 border border-gray-300 cursor-pointer bg-gray-50 focus:outline-none"
+                      aria-describedby="file_input_help"
+                      id="file_input"
+                      type="file"
+                    />
+                    <p class="mt-1 text-sm text-gray-500" id="file_input_help">
+                      Apenas arquivos PDF.
+                    </p>
+                  </div>
+
+                  <div>
                     <label class="sr-only" for="message">
                       Message
                     </label>
                     <textarea
                       class="w-full rounded-lg border-gray-200 p-3 text-sm"
-                      placeholder="Message"
+                      placeholder="Mensagem"
                       rows="8"
                       id="message"
                     ></textarea>
@@ -138,7 +176,7 @@ export default function Home() {
                       type="submit"
                       class="inline-flex w-full items-center justify-center rounded-lg bg-black px-5 py-3 text-white sm:w-auto"
                     >
-                      <span class="font-medium"> Send Enquiry </span>
+                      <span class="font-medium"> Enviar </span>
 
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
