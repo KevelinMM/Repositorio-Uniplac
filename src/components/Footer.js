@@ -20,7 +20,7 @@ export default function Footer() {
                 <li>
                   <a
                     className="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-1"
-                    href="www.uniplaclages.edu.br"
+                    href="https://www.uniplaclages.edu.br"
                     target="_blank"
                     rel="noopener"
                   >
