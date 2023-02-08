@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Back from "../../components/Back";
 import Tags from "../../components/Tags";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 export default function Home() {
   const [title, setTitle] = useState("Titulo do documento");
@@ -19,6 +21,7 @@ export default function Home() {
 
   return (
     <section className="bg-gray-100 tracking-normal">
+      <Header/>
       <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-16 mt-16 min-h-screen">
         <Tags />
         <div className="w-full lg:w-4/5 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
@@ -27,6 +30,7 @@ export default function Home() {
 
         <Back />
       </div>
+      <Footer/>
     </section>
   );
 }

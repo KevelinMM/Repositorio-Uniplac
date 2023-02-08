@@ -15,27 +15,28 @@ export default function Header() {
     <header>
       <nav
         id="header"
-        className="fixed w-full top-0 bg-white border-b border-gray-400 z-20"
+        className="fixed w-full top-0 bg-white border-b border-gray-300"
       >
         <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-4 ">
-          <div className="pl-4 flex items-center cursor-pointer">
+          <div className="pl-4 flex items-center cursor-pointer ">
             <Image
               src={`/logoUniplac.png`}
               alt="Logo Uniplac"
               width={60}
               height={60}
+
             />
             <a
-              className="ml-2 text-gray-900 no-underline hover:no-underline font-extrabold text-xl"
-              href="#"
+              className="text-normal ml-2 text-gray-900 no-underline hover:no-underline font-bold md:text-xl"
+              href="/"
             >
-              Repositório Uniplac
+              Repositório Institucional
             </a>
           </div>
           <div className="block lg:hidden pr-4">
             <button
               id="nav-toggle"
-              className="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-900 hover:border-blue-500 appearance-none focus:outline-none"
+              className=" bg-gray-300 flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600  hover:border-blue-500 appearance-none focus:outline-none"
               onClick={(e) =>
                 (document.getElementById("nav-content").hidden =
                   !document.getElementById("nav-content").hidden)
@@ -46,7 +47,6 @@ export default function Header() {
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <title>Menu</title>
                 <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
               </svg>
             </button>
@@ -122,7 +122,7 @@ export default function Header() {
               <li className="mr-3 py-2 lg:py-0">
                 <a
                   className="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-2 px-4"
-                  href="#"
+                  href="/login"
                 >
                   Login
                 </a>
