@@ -12,7 +12,7 @@ export default function Home() {
       <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-16 mt-16 lg:min-h-screen">
         <Tags />
 
-        <div className="text-lg w-full lg:w-4/5 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
+        <div className="text-lg w-full lg:w-4/5 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-300 border-rounded">
           <h2 className="page-title">Últimas Publicações</h2>
           <Publi />
   
