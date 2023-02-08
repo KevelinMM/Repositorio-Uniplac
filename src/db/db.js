@@ -3,9 +3,55 @@ const documents = [
     id: "01",
     title: "Primeiro documento",
     subtitle: "subartigo 1",
-    content: "conteudo",
+    content: "Lorem ipsum dolor sit amet. Aut ratione sunt et labore nemo eum nulla sequi ea laudantium dignissimos aut blanditiis dolorem qui minus eligendi. Vel nulla eius eos libero assumenda quo similique corrupti. Aut quia aliquid sit dignissimos itaque id vitae tenetur At nobis atque et eius recusandae. Vel enim fugiat et nesciunt fugiat ut sapiente iure id adipisci earum in explicabo dolores aut unde commodi nam nobis dicta.",
     autor: "autor 1",
     linkFile: "link",
+    date: "11/07/23"
+  },
+  {
+    id: "02",
+    title: "Segundo documento",
+    subtitle: "subartigo 2",
+    content: "conteudo",
+    autor: "autor 2",
+    linkFile: "link",
+    date: "24/11/23"
+  },
+  {
+    id: "03",
+    title: "Terceiro documento",
+    subtitle: "subartigo 3",
+    content: "conteudo",
+    autor: "autor 3",
+    linkFile: "link",
+    date: "04/01/23"
+  },
+  {
+    id: "04",
+    title: "Quarto documento",
+    subtitle: "subartigo 4",
+    content: "conteudo",
+    autor: "autor 4",
+    linkFile: "link",
+    date: "02/01/23"
+  },
+  {
+    id: "05",
+    title: "Quinto documento",
+    subtitle: "subartigo 5",
+    content: "conteudo",
+    autor: "autor 5",
+    linkFile: "link",
+    date: "23/06/23"
+  },
+  {
+    id: "06",
+    title: "Sexto documento",
+    subtitle: "subartigo 6",
+    content: "conteudo",
+    autor: "autor 6",
+    linkFile: "link",
+    date: "18/10/23"
   },
 ];
 
@@ -27,7 +73,7 @@ const tags = [
   },
   {
     id: "04",
-    tag: "Desenvolvimento",
+    tag: "Dev",
     num: "76"
   },
   {
