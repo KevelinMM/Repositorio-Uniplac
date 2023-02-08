@@ -12,7 +12,7 @@ export default function Detail(props) {
   const [subTitle, setSubTitle] = useState(publi.subtitle);
   const [description, setDescription] = useState(publi.content);
   const [autor, setAutor] = useState(publi.autor);
-  const [type, setType] = useState("Artigo");
+  const [type, setType] = useState(publi.type);
   const [date, setDate] = useState(publi.date);
 
   const [downloadLink, setDownloadLink] = useState(publi.link);

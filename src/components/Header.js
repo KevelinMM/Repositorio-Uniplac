@@ -1,13 +1,9 @@
 import Image from "next/image";
 import { useState } from "react";
+import db from "../db/db"
 
-const base = [
-  { title: "Educação", subtitle: "subartigo 1", autor: "autor 1" },
+const base = db.documents
 
-  { title: "Alimentação", subtitle: "subartigo 2", autor: "autor 2" },
-
-  { title: "Filosofia", subtitle: "subartigo 3", autor: "autor 3" },
-];
 
 export default function Header() {
   const [result, setResult] = useState(base);

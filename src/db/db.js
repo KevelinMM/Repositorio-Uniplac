@@ -5,8 +5,9 @@ const documents = [
     subtitle: "subartigo 1",
     content: "Lorem ipsum dolor sit amet. Aut ratione sunt et labore nemo eum nulla sequi ea laudantium dignissimos aut blanditiis dolorem qui minus eligendi. Vel nulla eius eos libero assumenda quo similique corrupti. Aut quia aliquid sit dignissimos itaque id vitae tenetur At nobis atque et eius recusandae. Vel enim fugiat et nesciunt fugiat ut sapiente iure id adipisci earum in explicabo dolores aut unde commodi nam nobis dicta.",
     autor: "autor 1",
-    linkFile: "link",
-    date: "11/07/23"
+    linkFile: "link", // mesmo do download???
+    date: "11/07/23",
+    type: "Artigo"
   },
   {
     id: 2,
@@ -15,7 +16,8 @@ const documents = [
     content: "conteudo",
     autor: "autor 2",
     linkFile: "link",
-    date: "24/11/23"
+    date: "24/11/23",
+    type: "Artigo"
   },
   {
     id: 3,
@@ -24,7 +26,8 @@ const documents = [
     content: "conteudo",
     autor: "autor 3",
     linkFile: "link",
-    date: "04/01/23"
+    date: "04/01/23",
+    type: "Artigo"
   },
   {
     id: 4,
@@ -33,7 +36,8 @@ const documents = [
     content: "conteudo",
     autor: "autor 4",
     linkFile: "link",
-    date: "02/01/23"
+    date: "02/01/23",
+    type: "Artigo"
   },
   {
     id: 5,
@@ -42,7 +46,8 @@ const documents = [
     content: "conteudo",
     autor: "autor 5",
     linkFile: "link",
-    date: "23/06/23"
+    date: "23/06/23",
+    type: "Artigo"
   },
   {
     id: 6,
@@ -51,7 +56,8 @@ const documents = [
     content: "conteudo",
     autor: "autor 6",
     linkFile: "link",
-    date: "18/10/23"
+    date: "18/10/23",
+    type: "Artigo"
   },
 ];
 
