@@ -13,6 +13,7 @@ export default function Home() {
   function validateCodde(code) {
     if (code.length == 5 && code == correctCode) {
       document.getElementById("codeOk").hidden = false;
+      document.getElementById("code").readOnly = true;
       document.getElementById("codeWrong").hidden = true;
       setAllowed(true);
     } else {
@@ -51,7 +52,7 @@ export default function Home() {
               </div>
 
               <div className="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
-                <form action="" className="space-y-4">
+                <form action="" className="space-y-4" id="formPubli">
                   <div>
                     <label className="sr-only" htmlFor="name">
                       Name
