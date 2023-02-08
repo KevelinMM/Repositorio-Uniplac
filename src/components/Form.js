@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-
 export default function Form() {
   const [correctCode, setCorrectCode] = useState("11111");
   const [allowed, setAllowed] = useState(false);
@@ -41,11 +40,11 @@ export default function Form() {
           <form action="" className="space-y-4" id="formPubli">
             <div>
               <label className="sr-only" htmlFor="name">
-                Name
+                Nome completo do autor
               </label>
               <input
                 className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                placeholder="Name"
+                placeholder="Nome completo do autor"
                 type="text"
                 id="name"
               />
@@ -108,57 +107,78 @@ export default function Form() {
             </div>
 
             {allowed == true ? (
-              <section>
-                <div className="grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
-                  <div>
-                    <input
-                      className="sr-only"
-                      id="option1"
-                      type="radio"
-                      tabIndex="-1"
-                    />
-                    <label
-                      htmlFor="option1"
-                      className="block w-full rounded-lg border border-gray-200 p-3"
-                      tabIndex="0"
-                    >
-                      <span className="text-sm font-medium"> Option 1 </span>
+              <section className="space-y-4">
+                <div>
+                  <label className="sr-only" htmlFor="title">
+                    Titulo
+                  </label>
+                  <input
+                    className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                    placeholder="Título do documento"
+                    type="text"
+                    id="title"
+                  />
+                </div>
+                <div className="">
+                  <label className="sr-only" htmlFor="subTitle">
+                    Sub Titulo
+                  </label>
+                  <input
+                    className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                    placeholder="Sub Título do documento"
+                    type="text"
+                    id="subTitle"
+                  />
+                </div>
+                <div className="w-full flex">
+                  <div className="pr-3">
+                    <label className="sr-only" htmlFor="origin">
+                      Origem
                     </label>
+                    <select
+                      className="rounded-lg border-gray-200 p-3 text-sm pr-8"
+                      id="origin"
+                    >
+                      <option selected disabled>
+                        Selecione a origem
+                      </option>
+                      <option>Sistemas de informação</option>
+                      <option>Direito</option>
+                      <option>Medicina</option>
+                      <option>Outros</option>
+                    </select>
                   </div>
-
                   <div>
-                    <input
-                      className="sr-only"
-                      id="option2"
-                      type="radio"
-                      tabIndex="-1"
-                    />
-                    <label
-                      htmlFor="option2"
-                      className="block w-full rounded-lg border border-gray-200 p-3"
-                      tabIndex="0"
-                    >
-                      <span className="text-sm font-medium"> Option 2 </span>
+                    <label className="sr-only" htmlFor="category">
+                      Categoria
                     </label>
-                  </div>
-
-                  <div>
-                    <input
-                      className="sr-only"
-                      id="option3"
-                      type="radio"
-                      tabIndex="-1"
-                    />
-                    <label
-                      htmlFor="option3"
-                      className="block w-full rounded-lg border border-gray-200 p-3"
-                      tabIndex="0"
+                    <select
+                      className="rounded-lg border-gray-200 p-3 text-sm pr-8"
+                      id="category"
                     >
-                      <span className="text-sm font-medium"> Option 3 </span>
-                    </label>
+                      <option selected disabled>
+                        Selecione a categoria
+                      </option>
+                      <option>Graduação</option>
+                      <option>Pos Graduação</option>
+                      <option>Pesquisa</option>
+                      <option>Evento</option>
+                      <option>Outros</option>
+                    </select>
                   </div>
                 </div>
 
+                <div>
+                  <label className="sr-only" htmlFor="resume">
+                    resumo
+                  </label>
+                  <textarea
+                    className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                    placeholder="Escreva um breve resumo sobre seu trabalho."
+                    rows="8"
+                    id="resume"
+                  ></textarea>
+                </div>
                 <div>
                   <label
                     className="mb-2 text-sm text-gray-700 flex items-center"
@@ -171,34 +191,16 @@ export default function Form() {
                     >
                       <path d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128z" />
                     </svg>
-                    <p>Arquivo</p>
+                    <p>Anexar (apenas PDF)</p>
                   </label>
                   <input
                     className="block w-full text-sm text-gray-900 border border-gray-300 cursor-pointer bg-gray-50 focus:outline-none"
                     aria-describedby="file_input_help"
                     id="file_input"
+                    accept="application/pdf"
                     type="file"
                   />
-                  <p
-                    className="mt-1 text-sm text-gray-500"
-                    id="file_input_help"
-                  >
-                    Apenas arquivos PDF.
-                  </p>
                 </div>
-
-                <div>
-                  <label className="sr-only" htmlFor="message">
-                    Mensagem
-                  </label>
-                  <textarea
-                    className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                    placeholder="Mensagem"
-                    rows="8"
-                    id="message"
-                  ></textarea>
-                </div>
-
                 <div className="mt-4">
                   <button
                     type="submit"

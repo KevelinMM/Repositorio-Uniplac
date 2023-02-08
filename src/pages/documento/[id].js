@@ -15,10 +15,8 @@ export default function Detail(props) {
   const [type, setType] = useState(publi.type);
   const [date, setDate] = useState(publi.date);
 
-  const [downloadLink, setDownloadLink] = useState(publi.link);
-  const [urlPreview, setUrlPreview] = useState(
-    "https://doem.org.br/ba/modelo/arquivos/pdfviewer/0b517cdc5f9850e3782051c82e7f3234?name=lorem-ipsum.pdf"
-  );
+  const [downloadLink, setDownloadLink] = useState(publi.linkDownload);
+  const [urlPreview, setUrlPreview] = useState(publi.linkFile);
 
   return (
     <section className="bg-gray-100 tracking-normal">
