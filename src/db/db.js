@@ -1,6 +1,7 @@
 const documents = [
   {
     id: 1,
+    approved: true,
     title: "Primeiro documento",
     subtitle: "subartigo 1",
     content:
@@ -9,11 +10,13 @@ const documents = [
     linkFile:
       "https://doem.org.br/ba/modelo/arquivos/pdfviewer/0b517cdc5f9850e3782051c82e7f3234?name=lorem-ipsum.pdf", // mesmo do download???
     date: "11/07/23",
-    type: "Artigo",
-    origin: 1,
+    type_id: 2,
+    origin_id: 1,
+    curator_id: 1,
   },
   {
     id: 2,
+    approved: true,
     title: "Segundo documento",
     subtitle: "subartigo 2",
     content: "conteudo",
@@ -21,11 +24,13 @@ const documents = [
     linkFile:
       "https://doem.org.br/ba/modelo/arquivos/pdfviewer/0b517cdc5f9850e3782051c82e7f3234?name=lorem-ipsum.pdf",
     date: "24/11/23",
-    type: "Artigo",
-    origin: 1,
+    type_id: 3,
+    origin_id: 1,
+    curator_id: 1,
   },
   {
     id: 3,
+    approved: true,
     title: "Terceiro documento",
     subtitle: "subartigo 3",
     content: "conteudo",
@@ -33,11 +38,13 @@ const documents = [
     linkFile:
       "https://doem.org.br/ba/modelo/arquivos/pdfviewer/0b517cdc5f9850e3782051c82e7f3234?name=lorem-ipsum.pdf",
     date: "04/01/23",
-    type: "Artigo",
-    origin: 4,
+    type_id: 1,
+    origin_id: 4,
+    curator_id: 1,
   },
   {
     id: 4,
+    approved: true,
     title: "Quarto documento",
     subtitle: "subartigo 4",
     content: "conteudo",
@@ -45,11 +52,13 @@ const documents = [
     linkFile:
       "https://doem.org.br/ba/modelo/arquivos/pdfviewer/0b517cdc5f9850e3782051c82e7f3234?name=lorem-ipsum.pdf",
     date: "02/01/23",
-    type: "Artigo",
-    origin: 2,
+    type_id: 5,
+    origin_id: 2,
+    curator_id: 1,
   },
   {
     id: 5,
+    approved: true,
     title: "Quinto documento",
     subtitle: "subartigo 5",
     content: "conteudo",
@@ -57,11 +66,13 @@ const documents = [
     linkFile:
       "https://doem.org.br/ba/modelo/arquivos/pdfviewer/0b517cdc5f9850e3782051c82e7f3234?name=lorem-ipsum.pdf",
     date: "23/06/23",
-    type: "Artigo",
-    origin: 5,
+    type_id: 4,
+    origin_id: 5,
+    curator_id: 1,
   },
   {
     id: 6,
+    approved: true,
     title: "Sexto documento",
     subtitle: "subartigo 6",
     content: "conteudo",
@@ -69,8 +80,9 @@ const documents = [
     linkFile:
       "https://doem.org.br/ba/modelo/arquivos/pdfviewer/0b517cdc5f9850e3782051c82e7f3234?name=lorem-ipsum.pdf",
     date: "18/10/23",
-    type: "Artigo",
-    origin: 3,
+    type_id: 4,
+    origin_id: 3,
+    curator_id: 1,
   },
 ];
 
@@ -162,6 +174,11 @@ const tags = [
   },
 ];
 
+const documents_tags = [{
+  document_id: 1,
+  tag_id: 2
+}];
+
 const origins = [
   {
     id: 1,
@@ -204,4 +221,4 @@ const types = [
   },
 ];
 
-module.exports = { documents, tags };
+module.exports = { documents, tags, documents_tags, types, origins };
