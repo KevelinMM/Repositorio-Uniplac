@@ -3,7 +3,7 @@ import Back from "../components/Back";
 
 export default function Login() {
   return (
-    <section className="bg-blue-800 bg-opacity-10 min-h-screen">
+    <section className=" bg-gray-100 min-h-screen">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <h1 className="text-3xl text-slate-700 mb-4 font-bold">
           Administradores do Repositório
