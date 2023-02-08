@@ -1,13 +1,15 @@
 export default function Publi(req) {
   const publi = req.content;
 
+  const id = publi.id;
   const title = publi.title;
   const date = publi.date;
   const autor = publi.autor;
   const content = publi.content;
 
   return (
-    <article className="cursor-pointer mt-4 animate-background rounded-xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-[length:400%_400%] p-0.5 shadow-xl transition [animation-duration:_6s] hover:shadow-sm">
+    <a href={"/documento/" + id}
+    className="block cursor-pointer mt-4 animate-background rounded-xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-[length:400%_400%] p-0.5 shadow-xl transition [animation-duration:_6s] hover:shadow-sm">
       <div className="rounded-[10px] bg-white p-4 pt-8 sm:p-6">
         <div className="flex justify-between space-x-2 items-center">
           <span className="text-sm text-gray-600">{autor}</span>
@@ -33,6 +35,6 @@ export default function Publi(req) {
           </span>
         </div>
       </div>
-    </article>
+    </a>
   );
 }

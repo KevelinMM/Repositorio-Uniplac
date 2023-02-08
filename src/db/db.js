@@ -1,6 +1,6 @@
 const documents = [
   {
-    id: "01",
+    id: 1,
     title: "Primeiro documento",
     subtitle: "subartigo 1",
     content: "Lorem ipsum dolor sit amet. Aut ratione sunt et labore nemo eum nulla sequi ea laudantium dignissimos aut blanditiis dolorem qui minus eligendi. Vel nulla eius eos libero assumenda quo similique corrupti. Aut quia aliquid sit dignissimos itaque id vitae tenetur At nobis atque et eius recusandae. Vel enim fugiat et nesciunt fugiat ut sapiente iure id adipisci earum in explicabo dolores aut unde commodi nam nobis dicta.",
@@ -9,7 +9,7 @@ const documents = [
     date: "11/07/23"
   },
   {
-    id: "02",
+    id: 2,
     title: "Segundo documento",
     subtitle: "subartigo 2",
     content: "conteudo",
@@ -18,7 +18,7 @@ const documents = [
     date: "24/11/23"
   },
   {
-    id: "03",
+    id: 3,
     title: "Terceiro documento",
     subtitle: "subartigo 3",
     content: "conteudo",
@@ -27,7 +27,7 @@ const documents = [
     date: "04/01/23"
   },
   {
-    id: "04",
+    id: 4,
     title: "Quarto documento",
     subtitle: "subartigo 4",
     content: "conteudo",
@@ -36,7 +36,7 @@ const documents = [
     date: "02/01/23"
   },
   {
-    id: "05",
+    id: 5,
     title: "Quinto documento",
     subtitle: "subartigo 5",
     content: "conteudo",
@@ -45,7 +45,7 @@ const documents = [
     date: "23/06/23"
   },
   {
-    id: "06",
+    id: 6,
     title: "Sexto documento",
     subtitle: "subartigo 6",
     content: "conteudo",
@@ -57,87 +57,87 @@ const documents = [
 
 const tags = [
   {
-    id: "01",
+    id: 1,
     tag: "Educação",
     num: "42"
   },
   {
-    id: "02",
+    id: 2,
     tag: "Financeiro",
     num: "65"
   },
   {
-    id: "03",
+    id: 3,
     tag: "Tecnologia",
     num: "98"
   },
   {
-    id: "04",
+    id: 4,
     tag: "Dev",
     num: "76"
   },
   {
-    id: "05",
+    id: 5,
     tag: "Filosofia",
     num: "35"
   },
   {
-    id: "06",
+    id: 6,
     tag: "Matemática",
     num: "11"
   },
   {
-    id: "07",
+    id: 7,
     tag: "Ciências",
     num: "65"
   },
   {
-    id: "08",
+    id: 8,
     tag: "Capacitação",
     num: "22"
   },
   {
-    id: "09",
+    id: 9,
     tag: "Identidade",
     num: "43"
   },
   {
-    id: "10",
+    id: 10,
     tag: "Elaboração",
     num: "12"
   },
   {
-    id: "11",
+    id: 11,
     tag: "Monitoria",
     num: "44"
   },
   {
-    id: "12",
+    id: 12,
     tag: "Professores",
     num: "76"
   },
   {
-    id: "13",
+    id: 13,
     tag: "Equipe",
     num: "98"
   },
   {
-    id: "14",
+    id: 14,
     tag: "Numérico",
     num: "05"
   },
   {
-    id: "15",
+    id: 15,
     tag: "Amostra",
     num: "55"
   },
   {
-    id: "16",
+    id: 16,
     tag: "Ciêntifico",
     num: "76"
   },
   {
-    id: "17",
+    id: 17,
     tag: "Texto",
     num: "60"
   },

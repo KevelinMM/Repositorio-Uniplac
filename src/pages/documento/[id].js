@@ -1,20 +1,21 @@
 import { useState } from "react";
-import Back from "../components/Back";
-import Tags from "../components/Tags";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Back from "../../components/Back";
+import Tags from "../../components/Tags";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import db from "../../db/db"
 
-export default function Home() {
-  const [title, setTitle] = useState("Titulo do documento");
-  const [subTitle, setSubTitle] = useState("Sub Titulo do documento...");
-  const [description, setDescription] = useState(
-    "Descrição do documento informando um breve resumo do que se trata."
-  );
-  const [autor, setAutor] = useState("Autor Fulando de Tal");
+export default function Detail(props) {
+  const publi = props.document[0]
+
+  const [title, setTitle] = useState(publi.title);
+  const [subTitle, setSubTitle] = useState(publi.subtitle);
+  const [description, setDescription] = useState(publi.content);
+  const [autor, setAutor] = useState(publi.autor);
   const [type, setType] = useState("Artigo");
-  const [date, setDate] = useState("06/02/2023");
+  const [date, setDate] = useState(publi.date);
 
-  const [downloadLink, setDownloadLink] = useState("#");
+  const [downloadLink, setDownloadLink] = useState(publi.link);
   const [urlPreview, setUrlPreview] = useState(
     "https://doem.org.br/ba/modelo/arquivos/pdfviewer/0b517cdc5f9850e3782051c82e7f3234?name=lorem-ipsum.pdf"
   );
@@ -118,4 +119,10 @@ export default function Home() {
       <Footer />
     </section>
   );
+}
+
+export function getServerSideProps(context){
+  const id = context.params.id
+  const document = db.documents.filter((e) => e.id == id)
+  return {props: {document}}
 }
