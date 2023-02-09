@@ -19,7 +19,7 @@ export default function Home() {
 
         <div className="text-lg w-full lg:w-4/5 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-300 border-rounded">
           <h2 className="page-title">Submissões recentes</h2>
-          {publis.map((e, index) => index <= 4 ? <Publi content={e}/> : "")}
+          {publis.map((e, index) => index <= 4 ? <Publi key={index} content={e}/> : "")}
           
           <Form />
         </div>

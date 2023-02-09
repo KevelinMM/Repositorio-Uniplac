@@ -40,13 +40,7 @@ export default function Detail(props) {
         <Tags />
         <div className="w-full lg:w-4/5 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
           <div className="font-sans">
-            <span className="text-base text-blue-500 font-bold">&laquo;</span>{" "}
-            <a
-              href="javascript:history.back()"
-              className="text-base md:text-sm text-blue-500 font-bold no-underline hover:underline"
-            >
-              Voltar
-            </a>
+            <Back />
             <div className="flex flex-row-reverse gap-2">
               {tagsId.map((e, index) => (
                 <div key={index}>

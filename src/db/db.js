@@ -181,6 +181,18 @@ const documents_tags = [
   },
   {
     document_id: 1,
+    tag_id: 4,
+  },
+  {
+    document_id: 1,
+    tag_id: 6,
+  },
+  {
+    document_id: 1,
+    tag_id: 7,
+  },
+  {
+    document_id: 1,
     tag_id: 16,
   },
   {
