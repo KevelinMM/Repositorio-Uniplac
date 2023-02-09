@@ -8,6 +8,8 @@ export default function Tags() {
     return parseFloat(b.num) - parseFloat(a.num);
 });
 
+
+
   return (
     <div className="px-4 w-full lg:w-1/5 lg:px-6 lg:text-xl text-gray-800 leading-normal">
       <p className="text-base font-bold py-2 lg:pb-6 text-gray-700 mt-4 lg:mt-0">

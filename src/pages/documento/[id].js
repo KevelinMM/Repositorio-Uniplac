@@ -30,8 +30,7 @@ export default function Detail(props) {
 
   const [date, setDate] = useState(publi.date);
 
-  const [downloadLink, setDownloadLink] = useState(publi.linkDownload);
-  const [urlPreview, setUrlPreview] = useState(publi.linkFile);
+  const [fileLink, setFileLink] = useState("http://172.16.248.88:1465/showFile/1004");
 
   return (
     <section className="bg-gray-100 tracking-normal">
@@ -63,7 +62,7 @@ export default function Detail(props) {
 
           <a
             className="hover:bg-green-500 bg-green-600 cursor-pointer flex flex-row px-2 rounded text-white w-32"
-            href={downloadLink}
+            href={fileLink}
             download={title}
           >
             <svg
@@ -88,7 +87,7 @@ export default function Detail(props) {
             <p className="ml-1 font-semibold">Prévia</p>
           </div>
           <div className="bg-gray-200 w-full border-black border ">
-            <iframe src={urlPreview} width="100%" height="700px"></iframe>
+            <iframe src={fileLink} width="100%" height="700px"></iframe>
           </div>
 
           <blockquote className="border-l-4 border-blue-500 italic my-8 pl-4 md:pl-8">
