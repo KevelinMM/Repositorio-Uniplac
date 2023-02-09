@@ -22,7 +22,7 @@ export default function Detail(props) {
       return allTags.filter((e) => e.id === tag.tag_id)[0].tag;
     })
   );
-  console.log(tagsId);
+
   const [title, setTitle] = useState(publi.title);
   const [subTitle, setSubTitle] = useState(publi.subtitle);
   const [description, setDescription] = useState(publi.content);

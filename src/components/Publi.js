@@ -1,3 +1,6 @@
+import { useState } from "react";
+import db from "../db/db";
+
 export default function Publi(req) {
   const publi = req.content;
 
@@ -7,9 +10,20 @@ export default function Publi(req) {
   const autor = publi.autor;
   const content = publi.content;
 
+  const allTags = db.tags;
+  const docTags = db.documents_tags.filter((e) => e.document_id === publi.id);
+
+  const [tagsId, setTagsId] = useState(
+    docTags.map((tag) => {
+      return allTags.filter((e) => e.id === tag.tag_id)[0].tag;
+    })
+  );
+
   return (
-    <a href={"/documento/" + id}
-    className="block cursor-pointer mt-4 animate-background rounded-xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-[length:400%_400%] p-0.5 shadow-xl transition [animation-duration:_6s] hover:shadow-sm">
+    <a
+      href={"/documento/" + id}
+      className="block cursor-pointer mt-4 animate-background rounded-xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-[length:400%_400%] p-0.5 shadow-xl transition [animation-duration:_6s] hover:shadow-sm"
+    >
       <div className="rounded-[10px] bg-white p-4 pt-8 sm:p-6">
         <div className="flex justify-between space-x-2 items-center">
           <span className="text-sm text-gray-600">{autor}</span>
@@ -24,15 +38,11 @@ export default function Publi(req) {
           {content.length > 290 ? content.slice(0, 290) + "..." : content}
         </p>
         <div className="mt-4 flex flex-wrap gap-1">
-          <span className="bg-blue-200 rounded-full text-xs px-3 py-1 ml-2">
-            Tags 1
-          </span>
-          <span className="bg-blue-200 rounded-full text-xs px-3 py-1 ml-2">
-            Tags 2
-          </span>
-          <span className="bg-blue-200 rounded-full text-xs px-3 py-1 ml-2">
-            Tags 3
-          </span>
+          {tagsId.map((e, index) => (
+            <span key={index} className="bg-blue-200 rounded-full text-xs px-3 py-1 ml-2">
+              {e}
+            </span>
+          ))}
         </div>
       </div>
     </a>
