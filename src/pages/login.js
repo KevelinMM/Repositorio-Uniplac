@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Back from "../components/Back";
 
-export default function Login() {
+export default function login() {
   return (
     <section className=" bg-gray-100 min-h-screen">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -63,7 +63,7 @@ export default function Login() {
                   Entrar
                 </button>
                 <a
-                  href="#"
+                  href="admin/superAdm"
                   className="text-sm font-medium text-primary-600 hover:underline"
                 >
                   * Esqueci minha senha
