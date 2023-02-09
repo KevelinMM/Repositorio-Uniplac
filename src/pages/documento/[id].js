@@ -3,16 +3,31 @@ import Back from "../../components/Back";
 import Tags from "../../components/Tags";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import db from "../../db/db"
+import db from "../../db/db";
 
 export default function Detail(props) {
-  const publi = props.document[0]
+  const publi = props.document[0];
 
+  const docTags = db.documents_tags.filter((e) => e.document_id === publi.id);
+
+  const allTypes = db.types;
+  const allTags = db.tags;
+
+  const [typeId, setTypeId] = useState(
+    allTypes.filter((e) => e.id === publi.type_id)[0].type
+  );
+
+  const [tagsId, setTagsId] = useState(
+    docTags.map((tag) => {
+      return allTags.filter((e) => e.id === tag.tag_id)[0].tag;
+    })
+  );
+  console.log(tagsId);
   const [title, setTitle] = useState(publi.title);
   const [subTitle, setSubTitle] = useState(publi.subtitle);
   const [description, setDescription] = useState(publi.content);
   const [autor, setAutor] = useState(publi.autor);
-  const [type, setType] = useState(publi.type);
+
   const [date, setDate] = useState(publi.date);
 
   const [downloadLink, setDownloadLink] = useState(publi.linkDownload);
@@ -32,10 +47,14 @@ export default function Detail(props) {
             >
               Voltar
             </a>
-            <div className="flex flex-row-reverse flex-wrap gap-1">
-              <div className="bg-blue-200 hover:bg-blue-300 cursor-pointer rounded-full px-2">
-                <p>Educação</p>
-              </div>
+            <div className="flex flex-row-reverse gap-2">
+              {tagsId.map((e, index) => (
+                <div key={index}>
+                  <div className="bg-blue-200 rounded-full px-2">
+                    <p>{e}</p>
+                  </div>
+                </div>
+              ))}
             </div>
             <h1 className="font-sans break-normal text-gray-900 pt-6 text-xl">
               {title}
@@ -92,12 +111,22 @@ export default function Detail(props) {
             <p className="flex">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+                className="w-3 mr-2"
+              >
+                <path d="M366.4 18.3L310.7 74.1 435.9 199.3l55.7-55.7c21.9-21.9 21.9-57.3 0-79.2L445.6 18.3c-21.9-21.9-57.3-21.9-79.2 0zM286 94.6l-9.2 2.8L132.7 140.6c-19.9 6-35.7 21.2-42.3 41L1.8 445.8c-3.8 11.3-1 23.9 7.3 32.4L162.7 324.7c-3-6.3-4.7-13.3-4.7-20.7c0-26.5 21.5-48 48-48s48 21.5 48 48s-21.5 48-48 48c-7.4 0-14.4-1.7-20.7-4.7L31.7 500.9c8.6 8.3 21.1 11.2 32.4 7.3l264.3-88.6c19.7-6.6 35-22.4 41-42.3l43.2-144.1 2.8-9.2L286 94.6z" />
+              </svg>
+              Curador: {autor}
+            </p>
+            <p className="flex">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 384 512"
                 className="w-3 mr-2"
               >
                 <path d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128z" />
               </svg>
-              Tipo: {type}
+              Tipo: {typeId}
             </p>
             <p className="flex">
               <svg
@@ -119,8 +148,8 @@ export default function Detail(props) {
   );
 }
 
-export function getServerSideProps(context){
-  const id = context.params.id
-  const document = db.documents.filter((e) => e.id == id)
-  return {props: {document}}
+export function getServerSideProps(context) {
+  const id = context.params.id;
+  const document = db.documents.filter((e) => e.id == id);
+  return { props: { document } };
 }

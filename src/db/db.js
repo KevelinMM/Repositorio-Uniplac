@@ -174,10 +174,20 @@ const tags = [
   },
 ];
 
-const documents_tags = [{
-  document_id: 1,
-  tag_id: 2
-}];
+const documents_tags = [
+  {
+    document_id: 1,
+    tag_id: 2,
+  },
+  {
+    document_id: 1,
+    tag_id: 16,
+  },
+  {
+    document_id: 1,
+    tag_id: 17,
+  },
+];
 
 const origins = [
   {
