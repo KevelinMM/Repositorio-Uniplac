@@ -16,14 +16,14 @@ export default function Tags() {
         TAGs
       </p>
 
-      <div className="overflow-auto h-[70px] space-y-1 lg:hidden flex flex-wrap items-center rounded-b-xl border-t-2 text-gray-700 border-transparent ">
+      <div className="lg:hidden overflow-auto h-[40px] flex items-center text-gray-700">
         {tags.map((e) => (
           <div
             key={e.id}
-            className="bg-blue-200 rounded-full text-xs pl-3 pr-2 py-1 ml-2"
+            className="bg-blue-200 rounded-full text-xs p-2 mx-1 "
           >
-            <span className=" text-sm cursor-pointer">
-              {e.tag} <span className="text-xs bg-blue-100 rounded-full p-1">{e.num}</span>
+            <span className=" text-sm flex items-center">
+              {e.tag} <span className="text-xs bg-blue-100 rounded-full ml-1 p-0.5">{e.num}</span>
             </span>
           </div>
         ))}
