@@ -10,9 +10,11 @@ export default function superAdm() {
   const [tag, setTag] = useState("Exemplos Tag");
   return (
     <section className=" bg-gray-150 min-h-screen p-3 lg:p-24">
-      <div className="flex justify-between mb-10">
-        <p className="text-gray-700 text-3xl  font-bold">Painel</p>
-        <p className="text-gray-700 text-3xl font-bold">{origin}</p>
+      <div className="flex justify-between mb-2 md:mb-10">
+        <p className="text-gray-700 text-lg md:text-3xl font-bold">Painel</p>
+        <p className="text-gray-700 text-lg md:text-3xl font-bold pl-2">
+          {origin}
+        </p>
         <Image
           src={`/logoUniplac.png`}
           alt="Logo Uniplac"
@@ -21,7 +23,7 @@ export default function superAdm() {
         />
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-10 mb-16 ">
+      <div className="grid lg:grid-cols-3 gap-4 md:gap-10 mb-4 md:mb-16 ">
         <div className="bg-slate-300 p-4 rounded-md">
           <div className="flex justify-between mb-4">
             <p className="font-semibold">Categorias</p>
@@ -35,18 +37,18 @@ export default function superAdm() {
                   toClose: true,
                   classes:
                     "bg-zinc-500/20 px-4 py-2 rounded-lg hover:bg-zinc-500/30 transition-all duration-200",
-                  label: "Discard",
+                  label: "Cancelar",
                 },
                 {
                   role: "confirm",
                   toClose: false,
                   classes:
                     "bg-green-500 px-4 py-2 rounded-lg hover:bg-green-600 transition-all duration-200",
-                  label: "Confirm",
+                  label: "Confirmar",
                 },
               ]}
             >
-              <button className="rounded-full px-2 py-1 text-xl bg-green-500 bg-opacity-80">
+              <button className="rounded-full px-1 py-1 text-xl bg-green-500 bg-opacity-80">
                 <MdOutlineAdd />
               </button>
             </Modal>
@@ -64,9 +66,32 @@ export default function superAdm() {
         <div className="bg-slate-300 p-4 rounded-md">
           <div className="flex justify-between mb-4">
             <p className="font-semibold">Origem</p>
-            <button className="rounded-full px-2 py-1 text-xl bg-green-500 bg-opacity-80">
-              <MdOutlineAdd />
-            </button>
+            <Modal
+              title={"Adicionar Categoria"}
+              onConfirm={() => console.log("Button confirm")}
+              onDiscard={() => console.log("Button discard")}
+              buttons={[
+                {
+                  role: "discard",
+                  toClose: true,
+                  classes:
+                    "bg-zinc-500/20 px-4 py-2 rounded-lg hover:bg-zinc-500/30 transition-all duration-200",
+                  label: "Cancelar",
+                },
+                {
+                  role: "confirm",
+                  toClose: false,
+                  classes:
+                    "bg-green-500 px-4 py-2 rounded-lg hover:bg-green-600 transition-all duration-200",
+                  label: "Confirmar",
+                },
+              ]}
+            >
+              <button className="rounded-full px-1 py-1 text-xl bg-green-500 bg-opacity-80">
+                <MdOutlineAdd />
+              </button>
+            </Modal>
+      
           </div>
           <ul className="pl-2 rounded">
             <li className="rounded-md p-2 bg-slate-50 mb-2 flex justify-between shadow-md">
@@ -81,9 +106,32 @@ export default function superAdm() {
         <div className="bg-slate-300 p-4 rounded-md">
           <div className="flex justify-between mb-4">
             <p className="font-semibold">Tags</p>
-            <button className="rounded-full px-2 py-1 text-xl bg-green-500 bg-opacity-80">
-              <MdOutlineAdd />
-            </button>
+            <Modal
+              title={"Adicionar Categoria"}
+              onConfirm={() => console.log("Button confirm")}
+              onDiscard={() => console.log("Button discard")}
+              buttons={[
+                {
+                  role: "discard",
+                  toClose: true,
+                  classes:
+                    "bg-zinc-500/20 px-4 py-2 rounded-lg hover:bg-zinc-500/30 transition-all duration-200",
+                  label: "Cancelar",
+                },
+                {
+                  role: "confirm",
+                  toClose: false,
+                  classes:
+                    "bg-green-500 px-4 py-2 rounded-lg hover:bg-green-600 transition-all duration-200",
+                  label: "Confirmar",
+                },
+              ]}
+            >
+              <button className="rounded-full px-1 py-1 text-xl bg-green-500 bg-opacity-80">
+                <MdOutlineAdd />
+              </button>
+            </Modal>
+ 
           </div>
           <ul className="pl-2 rounded">
             <li className="rounded-md p-2 bg-slate-50 mb-2 flex justify-between shadow-md">

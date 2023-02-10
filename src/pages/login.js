@@ -63,7 +63,7 @@ export default function login() {
                   Entrar
                 </button>
                 <a
-                  href="admin/superAdm"
+                  href="admin"
                   className="text-sm font-medium text-primary-600 hover:underline"
                 >
                   * Esqueci minha senha
