@@ -3,8 +3,12 @@ import Back from "../../components/Back";
 import Tags from "../../components/Tags";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import Card from "../../components/Card";
+import publi from "../../db/db";
 
 export default function Home() {
+  const [publis, setPublis] = useState(publi.documents);
+
   const [title, setTitle] = useState("Titulo do documento");
   const [subTitle, setSubTitle] = useState("Sub Titulo do documento...");
   const [description, setDescription] = useState(
@@ -21,16 +25,19 @@ export default function Home() {
 
   return (
     <section className="bg-gray-100 tracking-normal">
-      <Header/>
+      <Header />
       <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-16 mt-16 min-h-screen">
         <Tags />
         <div className="w-full lg:w-4/5 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
-          Resultado da Pesquisa
+          <h1 className="page-title">Resultado da Pesquisa</h1>{" "}
+          {publis.map((e, index) =>
+            index <= 4 ? <Card key={index} content={e} /> : ""
+          )}
         </div>
 
         <Back />
       </div>
-      <Footer/>
+      <Footer />
     </section>
   );
 }

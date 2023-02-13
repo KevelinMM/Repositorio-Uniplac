@@ -25,31 +25,30 @@ export default function Form() {
     <div className=" py-16 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 gap-x-10 gap-y-2 lg:grid-cols-5">
         <div className="lg:col-span-2 lg:py-12">
-          <p className=" text-lg">Processo de publicação</p>
-
+          <h3 className=" text-lg">Etapas de publicação</h3>
+          <ul className="pl-6  text-sm  list-decimal">
+            <li className="p-1">Valide seu email.</li>
+            <li className="p-1">
+              Preencha o formulário (todos os campos são obrigatórios para
+              publicação).
+            </li>
+            <li className="p-1">
+              Aguarde o retorno pelo seu email cadastrado.
+            </li>
+          </ul>
           <div className="mt-8">
             <a href="" className="text-2xl font-bold text-blue-600">
-              Contato Dúvidas
+              Contato da Biblioteca
             </a>
 
-            <address className="mt-2 not-italic">Repositório Uniplac</address>
+            <p className="text-sm mt-2 not-italic">
+              (Em caso de dúvidas, entre em contato)
+            </p>
           </div>
         </div>
 
         <div className="rounded-lg bg-white p-4 shadow-lg lg:col-span-3 md:p-8 lg:p-12">
-          <form action="" className="space-y-4" id="formPubli">
-            <div>
-              <label className="sr-only" htmlFor="name">
-                Nome completo do autor
-              </label>
-              <input
-                className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                placeholder="Nome completo do autor"
-                type="text"
-                id="name"
-              />
-            </div>
-
+          <form className="space-y-4" id="formPubli">
             <div className="grid grid-cols-1 gap-4 ">
               <div className="flex ">
                 <label className="sr-only" htmlFor="email">
@@ -108,34 +107,32 @@ export default function Form() {
 
             {allowed == true ? (
               <section className="space-y-4">
-                <div>
-                  <label className="sr-only" htmlFor="title">
-                    Titulo
-                  </label>
-                  <input
-                    className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                    placeholder="Título do documento"
-                    type="text"
-                    id="title"
-                  />
-                </div>
-                <div className="">
-                  <label className="sr-only" htmlFor="subTitle">
-                    Sub Titulo
-                  </label>
-                  <input
-                    className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                    placeholder="Sub Título do documento"
-                    type="text"
-                    id="subTitle"
-                  />
-                </div>
+                <input
+                  className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                  placeholder="Nome completo do autor"
+                  type="text"
+                  id="name"
+                />
+                <input
+                  required
+                  className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                  placeholder="Título do documento"
+                  type="text"
+                  id="title"
+                />
+
+                <input
+                  required
+                  className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                  placeholder="Sub Título"
+                  type="text"
+                  id="subTitle"
+                />
+
                 <div className="w-full flex">
                   <div className="pr-3">
-                    <label className="sr-only" htmlFor="origin">
-                      Origem
-                    </label>
                     <select
+                      required
                       className="rounded-lg border-gray-200 p-3 text-sm pr-8"
                       id="origin"
                     >
@@ -148,82 +145,98 @@ export default function Form() {
                       <option>Outros</option>
                     </select>
                   </div>
-                  <div>
-                    <label className="sr-only" htmlFor="category">
-                      Categoria
-                    </label>
-                    <select
-                      className="rounded-lg border-gray-200 p-3 text-sm pr-8"
-                      id="category"
-                    >
-                      <option selected disabled>
-                        Selecione a categoria
-                      </option>
-                      <option>Graduação</option>
-                      <option>Pos Graduação</option>
-                      <option>Pesquisa</option>
-                      <option>Evento</option>
-                      <option>Outros</option>
-                    </select>
-                  </div>
+
+                  <select
+                    required
+                    className="rounded-lg border-gray-200 p-3 text-sm pr-8"
+                    id="category"
+                  >
+                    <option selected disabled>
+                      Selecione a categoria
+                    </option>
+                    <option>Graduação</option>
+                    <option>Pos Graduação</option>
+                    <option>Pesquisa</option>
+                    <option>Evento</option>
+                    <option>Outros</option>
+                  </select>
                 </div>
 
-                <div>
-                  <label className="sr-only" htmlFor="resume">
-                    resumo
-                  </label>
-                  <textarea
-                    className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                    placeholder="Escreva um breve resumo sobre seu trabalho."
-                    rows="8"
-                    id="resume"
-                  ></textarea>
-                </div>
-                <div>
-                  <label
-                    className="mb-2 text-sm text-gray-700 flex items-center"
-                    htmlFor="file_input"
+                <textarea
+                  className="rounded-lg border-gray-200 p-3 text-sm pr-8 w-full"
+                  placeholder="Sugerir 3 palavras chaves para seu trabalho."
+                ></textarea>
+
+                <textarea
+                  required
+                  className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                  placeholder="Escreva um breve resumo sobre seu trabalho."
+                  rows="8"
+                  id="resume"
+                ></textarea>
+
+                <label
+                  className="mb-2 text-sm text-gray-700 flex items-center"
+                  htmlFor="file_input"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 384 512"
+                    className="w-3 mr-2"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 384 512"
-                      className="w-3 mr-2"
-                    >
-                      <path d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128z" />
-                    </svg>
-                    <p>Anexar (apenas PDF)</p>
-                  </label>
+                    <path d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128z" />
+                  </svg>
+                  <p>Anexar (apenas PDF)</p>
+                </label>
+                <input
+                  required
+                  className="block w-full text-sm text-gray-900 border border-gray-300 cursor-pointer bg-gray-50 focus:outline-none"
+                  aria-describedby="file_input_help"
+                  id="file_input"
+                  accept="application/pdf"
+                  type="file"
+                />
+
+                <div class="flex items-center mb-4">
                   <input
-                    className="block w-full text-sm text-gray-900 border border-gray-300 cursor-pointer bg-gray-50 focus:outline-none"
-                    aria-describedby="file_input_help"
-                    id="file_input"
-                    accept="application/pdf"
-                    type="file"
+                    required
+                    id="default-checkbox"
+                    type="checkbox"
+                    value=""
+                    className="w-4 h-4  bg-gray-300 border-gray-600 rounded focus:ring-blue-600 "
                   />
-                </div>
-                <div className="mt-4">
-                  <button
-                    type="submit"
-                    className="inline-flex w-full items-center justify-center rounded-lg bg-black px-5 py-3 text-white sm:w-auto"
+                  <label
+                    for="default-checkbox"
+                    className="ml-2 text-sm font-medium text-gray-600 "
                   >
-                    <span className="font-medium"> Enviar </span>
-
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="ml-3 h-5 w-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M14 5l7 7m0 0l-7 7m7-7H3"
-                      />
-                    </svg>
-                  </button>
+                    Declaro estar ciente que os meus dados pessoais são
+                    coletados e utilizados pela instituição de ensino para
+                    realizar a publicação do documento, controlar o
+                    credenciamento dos participantes e enviar comunicados.
+                  </label>
                 </div>
+
+                <button
+                  type="submit"
+                  className="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-green-500 px-5 py-3 text-white sm:w-auto"
+                >
+                  <span className="font-medium"> Enviar </span>
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="ml-3 h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                  </svg>
+                </button>
               </section>
             ) : (
               ""

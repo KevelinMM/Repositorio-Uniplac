@@ -1,7 +1,7 @@
 import { useState } from "react";
 import db from "../db/db";
 
-export default function Publi(req) {
+export default function Card(req) {
   const publi = req.content;
 
   const id = publi.id;
@@ -12,6 +12,7 @@ export default function Publi(req) {
 
   const allTags = db.tags;
   const docTags = db.documents_tags.filter((e) => e.document_id === publi.id);
+  
 
   const [tagsId, setTagsId] = useState(
     docTags.map((tag) => {
@@ -22,9 +23,9 @@ export default function Publi(req) {
   return (
     <a
       href={"/documento/" + id}
-      className="block cursor-pointer mt-4 animate-background rounded-xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-[length:400%_400%] p-0.5 shadow-xl transition [animation-duration:_6s] hover:shadow-sm"
+      className="block cursor-pointer mt-4 rounded-md bg-gradient-to-r from-blue-700 via-blue-200 to-gray-100 bg-[length:400%_400%] p-0.5 shadow-xl transition [animation-duration:_6s] hover:shadow-sm"
     >
-      <div className="rounded-[10px] bg-white p-4 pt-8 sm:p-6">
+      <div className="rounded-[5px] bg-white p-5 md:px-10">
         <div className="flex justify-between space-x-2 items-center">
           <span className="text-sm text-gray-600">{autor}</span>
           <time dateTime={date} className="block text-xs text-gray-500">

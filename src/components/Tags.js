@@ -16,7 +16,7 @@ export default function Tags() {
         TAGs
       </p>
 
-      <div className="lg:hidden overflow-auto h-[40px] flex items-center text-gray-700">
+      <div className="lg:hidden overflow-auto h-[60px] flex items-center text-gray-700">
         {tags.map((e) => (
           <div
             key={e.id}

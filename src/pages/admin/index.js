@@ -8,6 +8,8 @@ export default function superAdm() {
   const [origin, setOrigin] = useState("Sistemas de Informação");
   const [category, setCategory] = useState("Graduação");
   const [tag, setTag] = useState("Exemplos Tag");
+  const [request, setrequest] = useState("Solicitação");
+
   return (
     <section className=" bg-gray-150 min-h-screen p-3 lg:p-24">
       <div className="flex justify-between mb-2 md:mb-10">
@@ -91,7 +93,6 @@ export default function superAdm() {
                 <MdOutlineAdd />
               </button>
             </Modal>
-      
           </div>
           <ul className="pl-2 rounded">
             <li className="rounded-md p-2 bg-slate-50 mb-2 flex justify-between shadow-md">
@@ -131,7 +132,6 @@ export default function superAdm() {
                 <MdOutlineAdd />
               </button>
             </Modal>
- 
           </div>
           <ul className="pl-2 rounded">
             <li className="rounded-md p-2 bg-slate-50 mb-2 flex justify-between shadow-md">
@@ -148,13 +148,24 @@ export default function superAdm() {
         <p className="font-semibold mb-4">Solicitações</p>
         <select
           id="countries"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+          className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
         >
           <option selected>Pendêntes</option>
           <option value="US">Todos</option>
           <option value="CA">Aprovados</option>
           <option value="FR">Não aprovados</option>
         </select>
+        <ul className="mt-4 text-sm bg-slate-200 rounded-md">
+          <li className="cursor-pointer mx-5 my-3 p-2  flex justify-between shadow-md">
+            <a href="admin/requests/123">{request}</a>
+          </li>
+          <li className="cursor-pointer mx-5 my-3 p-2 flex justify-between shadow-md">
+            <a>{request}</a>
+          </li>
+          <li className="cursor-pointer mx-5 my-3 p-2 flex justify-between shadow-md">
+            <a>{request}</a>
+          </li>
+        </ul>
       </div>
     </section>
   );
