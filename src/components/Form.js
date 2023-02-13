@@ -1,8 +1,20 @@
 import { useState } from "react";
 
-export default function Form() {
+export default function Form(req) {
   const [correctCode, setCorrectCode] = useState("11111");
   const [allowed, setAllowed] = useState(false);
+
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [title, setTitle] = useState();
+  const [subTitle, setSubTitle] = useState();
+  const [origin, setOrigin] = useState();
+  const [type, setType] = useState();
+  const [content, setContent] = useState();
+  const [file, setFile] = useState();
+
+  const [allTypes, setAllTypes] = useState(req.types);
+  const [allOrigins, setAllOrigins] = useState(req.origins);
 
   function sendCode() {
     document.getElementById("infoSendEmail").hidden = false;
@@ -21,9 +33,14 @@ export default function Form() {
     }
     return;
   }
+
+  async function sendDocument(){
+    console.log("mandou")
+  }
+
   return (
     <div className=" py-16 sm:px-6 lg:px-8">
-      <div className="grid grid-cols-1 gap-x-10 gap-y-2 lg:grid-cols-5">
+      <div className="grid grid-cols-1 gap-x-10 gap-y-2 xl:grid-cols-5">
         <div className="lg:col-span-2 lg:py-12">
           <h3 className=" text-lg">Etapas de publicação</h3>
           <ul className="pl-6  text-sm  list-decimal">
@@ -112,6 +129,7 @@ export default function Form() {
                   placeholder="Nome completo do autor"
                   type="text"
                   id="name"
+                  onChange={(e) => setName(e.target.value)}
                 />
                 <input
                   required
@@ -119,17 +137,19 @@ export default function Form() {
                   placeholder="Título do documento"
                   type="text"
                   id="title"
+                  onChange={(e) => setTitle(e.target.value)}
                 />
 
                 <input
                   required
                   className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                  placeholder="Sub Título"
+                  placeholder="Sub-Título"
                   type="text"
                   id="subTitle"
+                  onChange={(e) => setSubTitle(e.target.value)}
                 />
 
-                <div className="w-full md:flex">
+                <div className="w-full sm:flex">
                   <div className="pr-3">
                     <select
                       required
@@ -139,26 +159,25 @@ export default function Form() {
                       <option selected disabled>
                         Selecione a origem
                       </option>
-                      <option>Sistemas de informação</option>
-                      <option>Direito</option>
-                      <option>Medicina</option>
-                      <option>Outros</option>
+                      {allOrigins.map((e) => e.origin == "Outros" ? null :(
+                        <option value={e.id} >{e.origin}</option>
+                      ))}
+                      <option value={1}>Outros</option>
                     </select>
                   </div>
 
                   <select
                     required
-                    className="rounded-lg border-gray-200 p-3 text-sm pr-8"
+                    className="rounded-lg border-gray-200 p-3 text-sm pr-8 mt-4 sm:mt-0"
                     id="category"
                   >
                     <option selected disabled>
                       Selecione a categoria
                     </option>
-                    <option>Graduação</option>
-                    <option>Pos Graduação</option>
-                    <option>Pesquisa</option>
-                    <option>Evento</option>
-                    <option>Outros</option>
+                    {allTypes.map((e) => e.type == "Outros" ? null : (
+                      <option value={e.id}>{e.type}</option>
+                    ))}
+                    <option value="1">Outros</option>
                   </select>
                 </div>
 
@@ -173,6 +192,7 @@ export default function Form() {
                   placeholder="Escreva um breve resumo sobre seu trabalho."
                   rows="8"
                   id="resume"
+                  onChange={(e) => setContent(e.target.value)}
                 ></textarea>
 
                 <label
@@ -197,7 +217,7 @@ export default function Form() {
                   type="file"
                 />
 
-                <div class="flex items-center mb-4">
+                <div className="flex items-center mb-4">
                   <input
                     required
                     id="default-checkbox"
@@ -206,8 +226,8 @@ export default function Form() {
                     className="w-4 h-4  bg-gray-300 border-gray-600 rounded focus:ring-blue-600 "
                   />
                   <label
-                    for="default-checkbox"
-                    className="ml-2 text-sm font-medium text-gray-600 "
+                    htmlFor="default-checkbox"
+                    className="ml-2 text-sm font-medium text-gray-600 text-justify p-4"
                   >
                     Declaro estar ciente que os meus dados pessoais são
                     coletados e utilizados pela instituição de ensino para
@@ -217,7 +237,6 @@ export default function Form() {
                 </div>
 
                 <button
-                  type="submit"
                   className="mt-4 inline-flex items-center justify-center rounded-lg bg-green-500 px-3 py-2 md:px-5 md:py-3 text-white "
                 >
                   <span className="md:font-medium"> Enviar </span>

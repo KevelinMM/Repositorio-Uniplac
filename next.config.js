@@ -5,6 +5,10 @@ const nextConfig = {
   images: {
     domains: ['ww2.uniplaclages.edu.br'],
   },
+  env:{
+    BACKEND: 'http://172.16.248.107:3333/',
+    FILESRV: ''
+  }
 }
 
 module.exports = nextConfig
