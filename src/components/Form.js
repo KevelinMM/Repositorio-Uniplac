@@ -129,7 +129,7 @@ export default function Form() {
                   id="subTitle"
                 />
 
-                <div className="w-full flex">
+                <div className="w-full md:flex">
                   <div className="pr-3">
                     <select
                       required
@@ -218,9 +218,9 @@ export default function Form() {
 
                 <button
                   type="submit"
-                  className="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-green-500 px-5 py-3 text-white sm:w-auto"
+                  className="mt-4 inline-flex items-center justify-center rounded-lg bg-green-500 px-3 py-2 md:px-5 md:py-3 text-white "
                 >
-                  <span className="font-medium"> Enviar </span>
+                  <span className="md:font-medium"> Enviar </span>
 
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
