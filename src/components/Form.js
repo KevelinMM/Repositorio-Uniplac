@@ -12,7 +12,7 @@ export default function Form(req) {
   const [type, setType] = useState();
   const [content, setContent] = useState();
   const [file, setFile] = useState();
-  const [tagList, setTagList] = useState();
+  const [tagList, setTagList] = useState([1,2,3]);
 
   const [allTypes, setAllTypes] = useState(req.types);
   const [allOrigins, setAllOrigins] = useState(req.origins);
@@ -201,15 +201,21 @@ export default function Form(req) {
                 <select
                   className="rounded-lg border-gray-200 p-3 text-sm pr-8 w-full"
                   placeholder="Sugerir 3 palavras chaves para seu trabalho."
+                  onChange={(e) => tagList.push(e.target.value*1) + console.log(tagList)}
                 >
-
-                  {allTags.map((e) => <option key={e.id} value={e.id} onClick={(e) => console.log(e.tag)}>{e.tag}</option>)}
+                  {allTags.map((e) => (
+                    <option key={e.id} value={e.id}>
+                      {e.tag}
+                    </option>
+                  ))}
                 </select>
 
                 <div className="md:my-0">
-                  <span className="bg-blue-200 rounded-full text-xs p-2 ml-2 ">
-                    opa
-                  </span>
+                  {tagList.map((e, index) => 
+                    <span key={index} className="bg-blue-200 rounded-full text-xs p-2 ml-2 ">
+                      {e}
+                    </span>
+                  )}
                 </div>
                 <textarea
                   required
@@ -218,7 +224,7 @@ export default function Form(req) {
                   rows="8"
                   id="resume"
                   onChange={(e) => setContent(e.target.value)}
-                ></textarea>
+                ></textarea> 
 
                 <label
                   className="mb-2 text-sm text-gray-700 flex items-center"

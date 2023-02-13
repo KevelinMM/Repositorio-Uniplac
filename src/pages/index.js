@@ -11,6 +11,7 @@ import axios from "axios";
 export default function Home(props) {
   const [publis, setPublis] = useState(props.documents);
   const [tags, setTags] = useState(props.tags);
+  const [allTags, setAllTags] = useState(props.allTags);
   const [types, setTypes] = useState(props.types);
   const [origins, setOrigin] = useState(props.origins);
 
@@ -25,7 +26,7 @@ export default function Home(props) {
           <h2 className="page-title">Submissões recentes</h2>
           {publis.map((e, index) => index <= 4 ? <Card key={index} content={e}/> : "")}
           
-          <Form types={types} origins={origins} tags={tags} origin/>
+          <Form types={types} origins={origins} tags={allTags} origin/>
         </div>
 
         <Back />
@@ -37,17 +38,19 @@ export default function Home(props) {
 
 export async function getServerSideProps() {
   const getLatestDocuments = await axios.get(process.env.BACKEND + "documentsLatest")
-  const getTags = await axios.get(process.env.BACKEND + "tags");
+  const getTags = await axios.get(process.env.BACKEND + "tagsNum");
+  const getAllTags = await axios.get(process.env.BACKEND + "tags");
   const getTypes = await axios.get(process.env.BACKEND + "types");
   const getOrigins = await axios.get(process.env.BACKEND + "origins");
 
 
   const documents = getLatestDocuments.data
-  const tags = getTags.data
   const types = getTypes.data
+  const tags = getTags.data
+  const allTags = getAllTags.data
   const origins = getOrigins.data
 
 
 
-  return {props: {documents, tags, types, origins}}
+  return {props: {documents, tags, allTags, types, origins}}
 }
