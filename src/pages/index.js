@@ -25,7 +25,7 @@ export default function Home(props) {
           <h2 className="page-title">Submissões recentes</h2>
           {publis.map((e, index) => index <= 4 ? <Card key={index} content={e}/> : "")}
           
-          <Form types={types} origins={origins} origin/>
+          <Form types={types} origins={origins} tags={tags} origin/>
         </div>
 
         <Back />

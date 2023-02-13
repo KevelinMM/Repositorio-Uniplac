@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export default function Form(req) {
   const [correctCode, setCorrectCode] = useState("11111");
-  const [allowed, setAllowed] = useState(false);
+  const [allowed, setAllowed] = useState(true); //default false
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -12,9 +12,11 @@ export default function Form(req) {
   const [type, setType] = useState();
   const [content, setContent] = useState();
   const [file, setFile] = useState();
+  const [tagList, setTagList] = useState();
 
   const [allTypes, setAllTypes] = useState(req.types);
   const [allOrigins, setAllOrigins] = useState(req.origins);
+  const [allTags, setAllTags] = useState(req.tags);
 
   function sendCode() {
     document.getElementById("infoSendEmail").hidden = false;
@@ -34,8 +36,8 @@ export default function Form(req) {
     return;
   }
 
-  async function sendDocument(){
-    console.log("mandou")
+  async function sendDocument() {
+    console.log("mandou");
   }
 
   return (
@@ -65,7 +67,11 @@ export default function Form(req) {
         </div>
 
         <div className="rounded-lg bg-white p-4 shadow-lg lg:col-span-3 md:p-8 lg:p-12">
-          <form className="space-y-4" id="formPubli">
+          <form
+            className="space-y-4"
+            id="formPubli"
+            onSubmit={(e) => sendDocument() + e.preventDefault()}
+          >
             <div className="grid grid-cols-1 gap-4 ">
               <div className="flex ">
                 <label className="sr-only" htmlFor="email">
@@ -76,6 +82,7 @@ export default function Form(req) {
                   placeholder="Email"
                   type="email"
                   id="email"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <div className="flex items-center" onClick={(e) => sendCode()}>
                   <label className="text-sm text-center bg-blue-400 hover:bg-blue-500 px-2 rounded-r-lg h-full text-white flex items-center cursor-pointer">
@@ -155,13 +162,18 @@ export default function Form(req) {
                       required
                       className="rounded-lg border-gray-200 p-3 text-sm pr-8"
                       id="origin"
+                      onChange={(e) => setOrigin(e.target.value)}
                     >
                       <option selected disabled>
                         Selecione a origem
                       </option>
-                      {allOrigins.map((e) => e.origin == "Outros" ? null :(
-                        <option value={e.id} >{e.origin}</option>
-                      ))}
+                      {allOrigins.map((e) =>
+                        e.origin == "Outros" ? null : (
+                          <option key={e.id} value={e.id}>
+                            {e.origin}
+                          </option>
+                        )
+                      )}
                       <option value={1}>Outros</option>
                     </select>
                   </div>
@@ -170,22 +182,35 @@ export default function Form(req) {
                     required
                     className="rounded-lg border-gray-200 p-3 text-sm pr-8 mt-4 sm:mt-0"
                     id="category"
+                    onChange={(e) => setType(e.target.value)}
                   >
                     <option selected disabled>
                       Selecione a categoria
                     </option>
-                    {allTypes.map((e) => e.type == "Outros" ? null : (
-                      <option value={e.id}>{e.type}</option>
-                    ))}
+                    {allTypes.map((e) =>
+                      e.type == "Outros" ? null : (
+                        <option key={e.id} value={e.id}>
+                          {e.type}
+                        </option>
+                      )
+                    )}
                     <option value="1">Outros</option>
                   </select>
                 </div>
 
-                <textarea
+                <select
                   className="rounded-lg border-gray-200 p-3 text-sm pr-8 w-full"
                   placeholder="Sugerir 3 palavras chaves para seu trabalho."
-                ></textarea>
+                >
 
+                  {allTags.map((e) => <option key={e.id} value={e.id} onClick={(e) => console.log(e.tag)}>{e.tag}</option>)}
+                </select>
+
+                <div className="md:my-0">
+                  <span className="bg-blue-200 rounded-full text-xs p-2 ml-2 ">
+                    opa
+                  </span>
+                </div>
                 <textarea
                   required
                   className="w-full rounded-lg border-gray-200 p-3 text-sm"
@@ -215,6 +240,7 @@ export default function Form(req) {
                   id="file_input"
                   accept="application/pdf"
                   type="file"
+                  onChange={(e) => setFile(e.target.value)}
                 />
 
                 <div className="flex items-center mb-4">
@@ -236,9 +262,7 @@ export default function Form(req) {
                   </label>
                 </div>
 
-                <button
-                  className="mt-4 inline-flex items-center justify-center rounded-lg bg-green-500 px-3 py-2 md:px-5 md:py-3 text-white "
-                >
+                <button className="mt-4 inline-flex items-center justify-center rounded-lg bg-green-500 px-3 py-2 md:px-5 md:py-3 text-white ">
                   <span className="md:font-medium"> Enviar </span>
 
                   <svg
