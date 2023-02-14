@@ -71,6 +71,7 @@ export default function Header() {
                     setResult(
                       base.filter(
                         (element) =>
+                        e.target.value.length > 0 ?
                           element.title
                             .toLowerCase()
                             .includes(e.target.value.toLowerCase()) ||
@@ -80,6 +81,7 @@ export default function Header() {
                           element.autor
                             .toLowerCase()
                             .includes(e.target.value.toLowerCase())
+                            : ''
                       )
                     );
                     e.target.value != "" ? document.getElementById("result").hidden = false : document.getElementById("result").hidden = true

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Form(req) {
   const [correctCode, setCorrectCode] = useState("11111");
@@ -12,11 +12,13 @@ export default function Form(req) {
   const [type, setType] = useState();
   const [content, setContent] = useState();
   const [file, setFile] = useState();
-  const [tagList, setTagList] = useState([1,2,3]);
+  const [tagListId, setTagListId] = useState([]);
+  const [lista, setLista] = useState([]);
 
   const [allTypes, setAllTypes] = useState(req.types);
   const [allOrigins, setAllOrigins] = useState(req.origins);
   const [allTags, setAllTags] = useState(req.tags);
+  const [allTagsSearch, setAllTagsSearch] = useState(req.tags);
 
   function sendCode() {
     document.getElementById("infoSendEmail").hidden = false;
@@ -197,25 +199,70 @@ export default function Form(req) {
                     <option value="1">Outros</option>
                   </select>
                 </div>
+                <div>
+                  <input
+                    required
+                    className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                    placeholder="Tags"
+                    type="text"
+                    id="tags"
+                    onChange={(e) => {
+                      setTagListId(
+                        allTagsSearch.filter((element) =>
+                          e.target.value.length > 0
+                            ? element.tag
+                                .toLowerCase()
+                                .includes(e.target.value.toLowerCase()) &&
+                              element.approved == true
+                            : ""
+                        )
+                      );
+                      e.target.value != ""
+                        ? (document.getElementById("resultTags").hidden = false)
+                        : (document.getElementById("result").hidden = true);
+                    }}
+                  />
+                  <div id="resultTags">
+                    {tagListId.map((e) => {
+                      return (
+                        <div
+                          key={e.tag}
+                          className="hover:bg-gray-200 px-2 border-b"
+                          onClick={(y) =>
+                            lista.indexOf(e.id) <= -1
+                              ? (lista.length >= 5
+                                  ? (document.getElementById(
+                                      "tags"
+                                    ).placeholder =
+                                      "Número máximo de tags atingido")
+                                  : lista.push({ id: e.id, tag: e.tag }) +
+                                    setAllTagsSearch(
+                                      allTagsSearch.filter(
+                                        (item) => item.id != e.id
+                                      )
+                                    )) +
+                                (document.getElementById("tags").value = "") +
+                                setTagListId([])
+                              : null
+                          }
+                        >
+                          <a className="text-black text-base">{e.tag}</a>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
 
-                <select
-                  className="rounded-lg border-gray-200 p-3 text-sm pr-8 w-full"
-                  placeholder="Sugerir 3 palavras chaves para seu trabalho."
-                  onChange={(e) => tagList.push(e.target.value*1) + console.log(tagList)}
-                >
-                  {allTags.map((e) => (
-                    <option key={e.id} value={e.id}>
-                      {e.tag}
-                    </option>
-                  ))}
-                </select>
-
-                <div className="md:my-0">
-                  {tagList.map((e, index) => 
-                    <span key={index} className="bg-blue-200 rounded-full text-xs p-2 ml-2 ">
-                      {e}
+                <div className="md:my-0 bg-red-500 flex flex-row">
+                  {lista.map((e, index) => (
+                    <span
+                      key={index}
+                      className="flex flex-row bg-blue-200 hover:bg-gray-200 cursor-pointer rounded-full text-xs p-2 ml-2 "
+                      onClick={(y) => console.log(lista.filter((item) => item.id != e.id))}
+                    >
+                      {e.tag} <span className="text-base">x</span>
                     </span>
-                  )}
+                  ))}
                 </div>
                 <textarea
                   required
@@ -224,7 +271,7 @@ export default function Form(req) {
                   rows="8"
                   id="resume"
                   onChange={(e) => setContent(e.target.value)}
-                ></textarea> 
+                ></textarea>
 
                 <label
                   className="mb-2 text-sm text-gray-700 flex items-center"
