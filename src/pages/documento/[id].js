@@ -1,44 +1,42 @@
 import { useState } from "react";
 import Back from "../../components/Back";
 import Tags from "../../components/Tags";
+import Origin from "../../components/Origin";
+import Type from "../../components/Type";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import db from "../../db/db";
+import axios from "axios";
 
 export default function Detail(props) {
-  const publi = props.document[0];
+  const [tags, setTags] = useState(props.tags);
+  const [allTags, setAllTags] = useState(props.allTags);
+  const [types, setTypes] = useState(props.types);
+  const [origins, setOrigin] = useState(props.origins);
 
-  const docTags = db.documents_tags.filter((e) => e.document_id === publi.id);
+console.log(props.document)
+  const title = props.document[0].title
+  const subTitle = props.document[0].subtitle
+  const content = props.document[0].content
+  const autor = props.document[0].autor
+  const typeId = props.document[0].type_id.type
+  const origemId = props.document[0].origin_id.origin
+  const date = new Date(props.document[0].created_at)
 
-  const allTypes = db.types;
-  const allTags = db.tags;
-
-  const [typeId, setTypeId] = useState(
-    allTypes.filter((e) => e.id === publi.type_id)[0].type
-  );
-
-  const [tagsId, setTagsId] = useState(
-    docTags.map((tag) => {
-      return allTags.filter((e) => e.id === tag.tag_id)[0].tag;
-    })
-  );
-
-  const [title, setTitle] = useState(publi.title);
-  const [subTitle, setSubTitle] = useState(publi.subtitle);
-  const [description, setDescription] = useState(publi.content);
-  const [autor, setAutor] = useState(publi.autor);
-
-  const [date, setDate] = useState(publi.date);
+  const [tagsId, setTagsId] = useState([]);
 
   const [fileLink, setFileLink] = useState(
-    "http://172.16.248.88:1465/showFile/1004"
+    "http://172.16.248.88:1465/showFile/1011"
   );
 
   return (
     <section className="bg-gray-100 tracking-normal">
       <Header />
       <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-16 mt-16 min-h-screen">
-        <Tags />
+        <div className="lg:w-1/5 overflow-auto">
+          <Tags tags={tags} />
+          <Origin origin={origins} />
+          <Type type={types} />
+        </div>
         <div className="w-full lg:w-4/5 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
           <div className="font-sans">
             <div className="flex flex-row-reverse gap-2">
@@ -59,7 +57,7 @@ export default function Detail(props) {
             <hr className="border-b border-gray-400" />
           </div>
 
-          <p className="py-6">{description}</p>
+          <p className="py-6">{content}</p>
 
           <a
             className="hover:bg-green-500 bg-green-600 cursor-pointer flex flex-row px-2 rounded text-white w-32"
@@ -125,12 +123,22 @@ export default function Detail(props) {
             <p className="flex">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 384 512"
+                className="w-3 mr-2"
+              >
+                <path d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128z" />
+              </svg>
+              Origem: {origemId}
+            </p>
+            <p className="flex">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 448 512"
                 className="w-3 mr-2"
               >
                 <path d="M128 0c17.7 0 32 14.3 32 32V64H288V32c0-17.7 14.3-32 32-32s32 14.3 32 32V64h48c26.5 0 48 21.5 48 48v48H0V112C0 85.5 21.5 64 48 64H96V32c0-17.7 14.3-32 32-32zM0 192H448V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V192zm64 80v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm128 0v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H208c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H336zM64 400v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H208zm112 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H336c-8.8 0-16 7.2-16 16z" />
               </svg>
-              Data: {date}
+              Data: {date.toLocaleDateString()}
             </p>
           </blockquote>
         </div>
@@ -142,8 +150,19 @@ export default function Detail(props) {
   );
 }
 
-export function getServerSideProps(context) {
-  const id = context.params.id;
-  const document = db.documents.filter((e) => e.id == id);
-  return { props: { document } };
+export async function getServerSideProps(context) {
+  const id = context.params.id
+  const getDoc = await axios.get(process.env.BACKEND + "documents/" + id);
+  const getTags = await axios.get(process.env.BACKEND + "tagsNum");
+  const getAllTags = await axios.get(process.env.BACKEND + "tags");
+  const getTypes = await axios.get(process.env.BACKEND + "types");
+  const getOrigins = await axios.get(process.env.BACKEND + "origins");
+
+  const document = getDoc.data;
+  const types = getTypes.data;
+  const tags = getTags.data;
+  const allTags = getAllTags.data;
+  const origins = getOrigins.data;
+
+  return { props: {document, tags, allTags, types, origins } };
 }

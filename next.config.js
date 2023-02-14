@@ -8,7 +8,7 @@ const nextConfig = {
   env:{
     BACKEND: 'http://172.16.248.107:3333/',
     API_EMAIL: 'http://api.uniplaclages.edu.br:3991/enviaemail',
-    FILESRV: ''
+    FILESRV: 'http://172.16.248.88:1465/'
   }
 }
 

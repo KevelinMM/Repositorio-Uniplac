@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import sendEmail from "../helpers/sendEmail";
+import createDoc from "../helpers/createDoc";
 
 export default function Form(req) {
   const [correctCode, setCorrectCode] = useState();
-  const [allowed, setAllowed] = useState(false); //default false
+  const [allowed, setAllowed] = useState(true); //default false
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -45,7 +46,16 @@ export default function Form(req) {
   }
 
   async function sendDocument() {
-    console.log("mandou");
+    //console.log("autor " , name);
+    //console.log("email " , email);
+    //console.log("title " , title);
+    //console.log("subTitle " , subTitle);
+    //console.log("content " , content);
+    //console.log("origin " , origin);
+    //console.log("type " , type);
+    //console.log("tags " , lista);
+    //console.log(file);
+    createDoc(name, email, title, subTitle, content, origin, type, lista, file)
   }
 
   return (
@@ -339,7 +349,7 @@ export default function Form(req) {
                   id="file_input"
                   accept=".pdf"
                   type="file"
-                  onChange={(e) => setFile(e.target.value)}
+                  onChange={(e) => setFile(e.target.files)}
                 />
 
                 <div className="flex items-center mb-4 bg-slate-200 px-3 rounded-md">
