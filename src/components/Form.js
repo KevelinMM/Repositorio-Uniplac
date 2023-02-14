@@ -27,7 +27,7 @@ export default function Form(req) {
     const randomNumber = Math.floor(Math.random() * 1000) + 9999;
     setCorrectCode(randomNumber);
 
-    await sendEmail("thiagosartorel@uniplac.net", "titulo", randomNumber);
+    await sendEmail(email, "Código de ativação para envio de documentos", randomNumber);
   }
 
   function validateCodde(code) {
