@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function Form(req) {
@@ -20,8 +21,14 @@ export default function Form(req) {
   const [allTags, setAllTags] = useState(req.tags);
   const [allTagsSearch, setAllTagsSearch] = useState(req.tags);
 
-  function sendCode() {
+  async function sendCode() {
     document.getElementById("infoSendEmail").hidden = false;
+    const send = await axios.post(process.env.API_EMAIL, {
+      "destino":"thiagosartorel@uniplac.net",
+      "assunto":"Codigo para envido de documento",
+      "conteudo":"codigo 5154"
+    })
+    
   }
 
   function validateCodde(code) {
@@ -164,9 +171,10 @@ export default function Form(req) {
                       required
                       className="rounded-lg border-gray-200 p-3 text-sm pr-8"
                       id="origin"
+                      defaultValue="0"
                       onChange={(e) => setOrigin(e.target.value)}
                     >
-                      <option selected disabled>
+                      <option value="0" disabled>
                         Selecione a origem
                       </option>
                       {allOrigins.map((e) =>
@@ -184,9 +192,10 @@ export default function Form(req) {
                     required
                     className="rounded-lg border-gray-200 p-3 text-sm pr-8 mt-4 sm:mt-0"
                     id="category"
+                    defaultValue="0"
                     onChange={(e) => setType(e.target.value)}
                   >
-                    <option selected disabled>
+                    <option value="0" disabled>
                       Selecione a categoria
                     </option>
                     {allTypes.map((e) =>
@@ -201,9 +210,8 @@ export default function Form(req) {
                 </div>
                 <div>
                   <input
-                    required
                     className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                    placeholder="Tags"
+                    placeholder="Busque Tags referentes aos seu trabalho"
                     type="text"
                     id="tags"
                     onChange={(e) => {
@@ -223,8 +231,8 @@ export default function Form(req) {
                     }}
                   />
                   <div id="resultTags">
-                    {tagListId.map((e) => {
-                      return (
+                    {tagListId.length > 0 ? (
+                      tagListId.map((e) => (
                         <div
                           key={e.tag}
                           className="hover:bg-gray-200 px-2 border-b"
@@ -248,19 +256,42 @@ export default function Form(req) {
                         >
                           <a className="text-black text-base">{e.tag}</a>
                         </div>
-                      );
-                    })}
+                      ))
+                    ) : (
+                      <div className="text-end pt-2 ">
+                        <a className="text-base bg-green-200 hover:bg-green-300 px-2 py-1 rounded-lg cursor-pointer"
+                        onClick={(e) => lista.push({"tag":document.getElementById("tags").value}) + (document.getElementById("tags").value = '') + setTagListId([])}>
+                          Adicionar nova tag
+                        </a>
+                      </div>
+                    )}
                   </div>
                 </div>
 
-                <div className="md:my-0 bg-red-500 flex flex-row">
-                  {lista.map((e, index) => (
+                <div className="md:my-0 flex flex-row flex-wrap py-2 gap-2">
+                  {lista.map((e, index) => e.id ? (
                     <span
                       key={index}
-                      className="flex flex-row bg-blue-200 hover:bg-gray-200 cursor-pointer rounded-full text-xs p-2 ml-2 "
-                      onClick={(y) => console.log(lista.filter((item) => item.id != e.id))}
+                      className="flex flex-row items-center  bg-blue-200 hover:bg-gray-200 cursor-pointer rounded-full text-xs px-2 py-1 ml-2"
+                      onClick={(y) =>
+                        allTagsSearch.push({
+                          id: e.id,
+                          tag: e.tag,
+                          approved: true,
+                        }) + setLista(lista.filter((item) => item.id != e.id))
+                      }
                     >
-                      {e.tag} <span className="text-base">x</span>
+                      {e.tag} <span className="text-base pl-1">x</span>
+                    </span>
+                  ) : (
+                    <span
+                      key={index}
+                      className="flex flex-row items-center bg-orange-200 hover:bg-orange-200 cursor-pointer rounded-full text-xs px-2 py-1 ml-2"
+                      onClick={(y) =>
+                        setLista(lista.filter((item) => item.tag != e.tag))
+                      }
+                    >
+                      {e.tag} <span className="text-base pl-1">x</span>
                     </span>
                   ))}
                 </div>
@@ -291,7 +322,7 @@ export default function Form(req) {
                   className="block w-full text-sm text-gray-900 border border-gray-300 cursor-pointer bg-gray-50 focus:outline-none"
                   aria-describedby="file_input_help"
                   id="file_input"
-                  accept="application/pdf"
+                  accept=".pdf"
                   type="file"
                   onChange={(e) => setFile(e.target.value)}
                 />
