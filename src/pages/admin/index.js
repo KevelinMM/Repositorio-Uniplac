@@ -3,6 +3,7 @@ import { useState } from "react";
 import { MdOutlineAdd } from "react-icons/md";
 import { BiTrashAlt } from "react-icons/bi";
 import Modal from "./component/Modal";
+import Back from "../../components/Back";
 
 export default function superAdm() {
   const [origin, setOrigin] = useState("Sistemas de Informação");
@@ -11,7 +12,7 @@ export default function superAdm() {
   const [request, setrequest] = useState("Solicitação");
 
   return (
-    <section className=" bg-gray-150 min-h-screen p-3 lg:p-24">
+    <section className="bg-gradient-to-t from-blue-100 min-h-screen p-3 lg:p-24">
       <div className="flex justify-between mb-2 md:mb-10">
         <p className="text-gray-700 text-lg md:text-3xl font-bold">Painel</p>
         <p className="text-gray-700 text-lg md:text-3xl font-bold pl-2">
