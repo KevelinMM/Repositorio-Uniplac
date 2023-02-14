@@ -6,7 +6,7 @@ async function sendEmail(email, title, content) {
     const send = await axios.post(process.env.BACKEND + "sendEmail", {
       destino: email,
       assunto: title,
-      conteudo: "Seu código de ativação para permição de envio de documente é" + content + "",
+      conteudo: "Seu código de ativação para permição de envio de documente é " + content + "",
     });
     console.log("enviou")
   } catch (e) {
