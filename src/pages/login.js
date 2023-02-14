@@ -3,21 +3,21 @@ import Back from "../components/Back";
 
 export default function login() {
   return (
-    <section className=" bg-gray-100 min-h-screen">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <h1 className="text-3xl text-slate-700 mb-4 font-bold">
+    <section className=" bg-gradient-to-t from-blue-100 min-h-screen">
+      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen ">
+        <h1 className="text-2xl lg:text-3xl text-slate-700 mb-4 font-bold">
           Administradores do Repositório
         </h1>
         <div className="pb-10 pt-4">
           <Image
             src={`/logoUniplac.png`}
             alt="Logo Uniplac"
-            width={120}
-            height={120}
+            width={100}
+            height={100}
           />
         </div>
 
-        <div className="w-full bg-white rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0 ">
+        <div className="w-full bg-white bg-opacity-90 rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0 ">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
               Login
