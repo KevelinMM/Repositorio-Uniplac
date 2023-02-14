@@ -49,39 +49,40 @@ export default function Form(req) {
   }
 
   return (
-    <div className=" py-16 sm:px-6 lg:px-8">
+    <div className=" py-5 lg:py-16 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 gap-x-10 gap-y-2 xl:grid-cols-5">
-        <div className="lg:col-span-2 lg:py-12">
-          <h3 className=" text-lg">Etapas de publicação</h3>
+        <div className=" lg:col-span-2 px-2 lg:py-6 text-justify">
+          <h3 className=" text-lg font-medium">Instruções aos autores</h3>
           <ul className="pl-6  text-sm  list-decimal">
-            <li className="p-1">Valide seu email.</li>
+            <li className="p-1">Realize a validação de seu email.</li>
             <li className="p-1">
-              Preencha o formulário (todos os campos são obrigatórios para
-              publicação).
+              Preencha o formulário para deposito de trabalho (todos os campos
+              são obrigatórios para publicação).
             </li>
             <li className="p-1">
-              Aguarde o retorno pelo seu email cadastrado.
+              Envie e aguarde o retorno de seu orientador pelo email.
             </li>
           </ul>
           <div className="mt-8">
-            <a href="" className="text-2xl font-bold text-blue-600">
+            <a className="text-2xl font-bold text-blue-600">
               Contato da Biblioteca
             </a>
 
-            <p className="text-sm mt-2 not-italic">
+            <p className="text-sm mt-2 not-italic mb-6 lg:mb-0">
               (Em caso de dúvidas, entre em contato)
             </p>
           </div>
         </div>
 
-        <div className="rounded-lg bg-white p-4 shadow-lg lg:col-span-3 md:p-8 lg:p-12">
+        <div className="rounded-lg bg-white shadow-lg lg:col-span-3 pb-6 lg:pt-4 px-4 lg:px-10">
           <form
             className="space-y-4"
             id="formPubli"
             onSubmit={(e) => sendDocument() + e.preventDefault()}
           >
-            <div className="grid grid-cols-1 gap-4 ">
-              <div className="flex ">
+            <div className="grid grid-cols-1 gap-3 ">
+              <h1 className="page-title">Realizar publicação</h1>
+              <div className="flex">
                 <label className="sr-only" htmlFor="email">
                   Email
                 </label>
@@ -136,12 +137,13 @@ export default function Form(req) {
                 <p className="text-red-600 text-xl">x</p>
               </div>
             </div>
+            <p className="text-sm pl-2 pb-2 lg:pb-6">Após validação, siga com o formulário.</p>
 
             {allowed == true ? (
               <section className="space-y-4">
                 <input
                   className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                  placeholder="Nome completo do autor"
+                  placeholder="Nome completo do autor *"
                   type="text"
                   id="name"
                   onChange={(e) => setName(e.target.value)}
@@ -149,7 +151,7 @@ export default function Form(req) {
                 <input
                   required
                   className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                  placeholder="Título do documento"
+                  placeholder="Título do documento *"
                   type="text"
                   id="title"
                   onChange={(e) => setTitle(e.target.value)}
@@ -158,7 +160,7 @@ export default function Form(req) {
                 <input
                   required
                   className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                  placeholder="Sub-Título"
+                  placeholder="Sub-Título *"
                   type="text"
                   id="subTitle"
                   onChange={(e) => setSubTitle(e.target.value)}
@@ -174,7 +176,7 @@ export default function Form(req) {
                       onChange={(e) => setOrigin(e.target.value)}
                     >
                       <option value="0" disabled>
-                        Selecione a origem
+                        Selecione a origem *
                       </option>
                       {allOrigins.map((e) =>
                         e.origin == "Outros" ? null : (
@@ -195,7 +197,7 @@ export default function Form(req) {
                     onChange={(e) => setType(e.target.value)}
                   >
                     <option value="0" disabled>
-                      Selecione a categoria
+                      Selecione a categoria *
                     </option>
                     {allTypes.map((e) =>
                       e.type == "Outros" ? null : (
@@ -278,7 +280,7 @@ export default function Form(req) {
                   </div>
                 </div>
 
-                <div className="md:my-0 flex flex-row flex-wrap py-2 gap-2">
+                <div className=" flex flex-row flex-wrap gap-2">
                   {lista.map((e, index) =>
                     e.id ? (
                       <span
@@ -307,6 +309,7 @@ export default function Form(req) {
                     )
                   )}
                 </div>
+                <p className="px-2 text-md font-medium text-gray-700">Resumo</p>
                 <textarea
                   required
                   className="w-full rounded-lg border-gray-200 p-3 text-sm"
@@ -339,17 +342,17 @@ export default function Form(req) {
                   onChange={(e) => setFile(e.target.value)}
                 />
 
-                <div className="flex items-center mb-4">
+                <div className="flex items-center mb-4 bg-slate-200 px-3 rounded-md">
                   <input
                     required
                     id="default-checkbox"
                     type="checkbox"
                     value=""
-                    className="w-4 h-4  bg-gray-300 border-gray-600 rounded focus:ring-blue-600 "
+                    className="w-4 h-4 bg-gray-300 border-gray-600 rounded focus:ring-blue-600 "
                   />
                   <label
                     htmlFor="default-checkbox"
-                    className="ml-2 text-sm font-medium text-gray-600 text-justify p-4"
+                    className="ml-1 text-sm font-medium text-gray-600 text-justify p-4"
                   >
                     Declaro estar ciente que os meus dados pessoais são
                     coletados e utilizados pela instituição de ensino para
