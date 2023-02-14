@@ -18,7 +18,7 @@ export default function Card(req) {
       href={"/documento/" + id}
       className=" mb-4 block cursor-pointer rounded-md border shadow-xl transition [animation-duration:_6s] hover:shadow-sm"
     >
-      <div className=" bg-white p-3 lg:p-5 md:px-10">
+      <div className=" bg-white p-4 lg:p-5 md:px-10">
         <div className="flex justify-between space-x-2 items-center">
           <span className="text-sm text-gray-600">{autor}</span>
           <time dateTime={date} className="block text-xs text-gray-500">
