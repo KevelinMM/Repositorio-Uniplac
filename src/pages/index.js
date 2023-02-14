@@ -43,7 +43,7 @@ export default function Home(props) {
             index <= 4 ? <Card key={index} content={e} /> : ""
           )}
 
-          <Form types={types} origins={origins} origin />
+          <Form types={types} origins={origins} tags={allTags} />
         </div>
 
         

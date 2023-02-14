@@ -24,11 +24,10 @@ export default function Form(req) {
   async function sendCode() {
     document.getElementById("infoSendEmail").hidden = false;
     const send = await axios.post(process.env.API_EMAIL, {
-      "destino":"thiagosartorel@uniplac.net",
-      "assunto":"Codigo para envido de documento",
-      "conteudo":"codigo 5154"
-    })
-    
+      destino: "thiagosartorel@uniplac.net",
+      assunto: "Codigo para envido de documento",
+      conteudo: "codigo 5154",
+    });
   }
 
   function validateCodde(code) {
@@ -211,7 +210,7 @@ export default function Form(req) {
                 <div>
                   <input
                     className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                    placeholder="Busque Tags referentes aos seu trabalho"
+                    placeholder="Busque Tags referentes ao seu trabalho"
                     type="text"
                     id="tags"
                     onChange={(e) => {
@@ -226,74 +225,87 @@ export default function Form(req) {
                         )
                       );
                       e.target.value != ""
-                        ? (document.getElementById("resultTags").hidden = false)
-                        : (document.getElementById("result").hidden = true);
+                        ? (document.getElementById(
+                            "resultTags"
+                          ).hidden = false) +
+                          (document.getElementById("newTag").hidden = false)
+                        : (document.getElementById("result").hidden = true) +
+                          (document.getElementById("newTag").hidden = true);
                     }}
                   />
                   <div id="resultTags">
-                    {tagListId.length > 0 ? (
-                      tagListId.map((e) => (
-                        <div
-                          key={e.tag}
-                          className="hover:bg-gray-200 px-2 border-b"
-                          onClick={(y) =>
-                            lista.indexOf(e.id) <= -1
-                              ? (lista.length >= 5
-                                  ? (document.getElementById(
-                                      "tags"
-                                    ).placeholder =
-                                      "Número máximo de tags atingido")
-                                  : lista.push({ id: e.id, tag: e.tag }) +
-                                    setAllTagsSearch(
-                                      allTagsSearch.filter(
-                                        (item) => item.id != e.id
-                                      )
-                                    )) +
-                                (document.getElementById("tags").value = "") +
-                                setTagListId([])
-                              : null
-                          }
-                        >
-                          <a className="text-black text-base">{e.tag}</a>
-                        </div>
-                      ))
-                    ) : (
-                      <div className="text-end pt-2 ">
-                        <a className="text-base bg-green-200 hover:bg-green-300 px-2 py-1 rounded-lg cursor-pointer"
-                        onClick={(e) => lista.push({"tag":document.getElementById("tags").value}) + (document.getElementById("tags").value = '') + setTagListId([])}>
-                          Adicionar nova tag
-                        </a>
+                    {tagListId.map((e) => (
+                      <div
+                        key={e.tag}
+                        className="hover:bg-gray-200 px-2 border-b"
+                        onClick={(y) =>
+                          lista.indexOf(e.id) <= -1
+                            ? (lista.length >= 5
+                                ? (document.getElementById("tags").placeholder =
+                                    "Número máximo de tags atingido")
+                                : lista.push({ id: e.id, tag: e.tag }) +
+                                  setAllTagsSearch(
+                                    allTagsSearch.filter(
+                                      (item) => item.id != e.id
+                                    )
+                                  )) +
+                              (document.getElementById("tags").value = "") +
+                              setTagListId([]) +
+                              (document.getElementById("newTag").hidden = true)
+                            : null
+                        }
+                      >
+                        <a className="text-black text-base">{e.tag}</a>
                       </div>
-                    )}
+                    ))}
+                    <div
+                      hidden
+                      id="newTag"
+                      className="bg-green-100 hover:bg-green-200 px-2 cursor-pointer"
+                      onClick={(e) =>
+                        document.getElementById("tags").value != ""
+                          ? lista.push({
+                              tag: document.getElementById("tags").value,
+                            }) +
+                            (document.getElementById("tags").value = "") +
+                            setTagListId([]) +
+                            (document.getElementById("newTag").hidden = true)
+                          : null
+                      }
+                    >
+                      <a className="text-black text-base">Adicionar nova tag</a>
+                    </div>
                   </div>
                 </div>
 
                 <div className="md:my-0 flex flex-row flex-wrap py-2 gap-2">
-                  {lista.map((e, index) => e.id ? (
-                    <span
-                      key={index}
-                      className="flex flex-row items-center  bg-blue-200 hover:bg-gray-200 cursor-pointer rounded-full text-xs px-2 py-1 ml-2"
-                      onClick={(y) =>
-                        allTagsSearch.push({
-                          id: e.id,
-                          tag: e.tag,
-                          approved: true,
-                        }) + setLista(lista.filter((item) => item.id != e.id))
-                      }
-                    >
-                      {e.tag} <span className="text-base pl-1">x</span>
-                    </span>
-                  ) : (
-                    <span
-                      key={index}
-                      className="flex flex-row items-center bg-orange-200 hover:bg-orange-200 cursor-pointer rounded-full text-xs px-2 py-1 ml-2"
-                      onClick={(y) =>
-                        setLista(lista.filter((item) => item.tag != e.tag))
-                      }
-                    >
-                      {e.tag} <span className="text-base pl-1">x</span>
-                    </span>
-                  ))}
+                  {lista.map((e, index) =>
+                    e.id ? (
+                      <span
+                        key={index}
+                        className="flex flex-row items-center  bg-blue-200 hover:bg-gray-200 cursor-pointer rounded-full text-xs px-2 py-1 ml-2"
+                        onClick={(y) =>
+                          allTagsSearch.push({
+                            id: e.id,
+                            tag: e.tag,
+                            approved: true,
+                          }) + setLista(lista.filter((item) => item.id != e.id))
+                        }
+                      >
+                        {e.tag} <span className="text-base pl-1">x</span>
+                      </span>
+                    ) : (
+                      <span
+                        key={index}
+                        className="flex flex-row items-center bg-orange-200 hover:bg-orange-200 cursor-pointer rounded-full text-xs px-2 py-1 ml-2"
+                        onClick={(y) =>
+                          setLista(lista.filter((item) => item.tag != e.tag))
+                        }
+                      >
+                        {e.tag} <span className="text-base pl-1">x</span>
+                      </span>
+                    )
+                  )}
                 </div>
                 <textarea
                   required
