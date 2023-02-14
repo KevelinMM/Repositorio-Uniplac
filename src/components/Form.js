@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import sendEmail from "../helpers/sendEmail";
 
 export default function Form(req) {
-  const [correctCode, setCorrectCode] = useState("11111");
-  const [allowed, setAllowed] = useState(true); //default false
+  const [correctCode, setCorrectCode] = useState();
+  const [allowed, setAllowed] = useState(false); //default false
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -23,11 +24,10 @@ export default function Form(req) {
 
   async function sendCode() {
     document.getElementById("infoSendEmail").hidden = false;
-    const send = await axios.post(process.env.API_EMAIL, {
-      destino: "thiagosartorel@uniplac.net",
-      assunto: "Codigo para envido de documento",
-      conteudo: "codigo 5154",
-    });
+    const randomNumber = Math.floor(Math.random() * 1000) + 9999;
+    setCorrectCode(randomNumber);
+
+    await sendEmail("thiagosartorel@uniplac.net", "titulo", randomNumber);
   }
 
   function validateCodde(code) {
