@@ -13,19 +13,19 @@ export default function Detail(props) {
   const [types, setTypes] = useState(props.types);
   const [origins, setOrigin] = useState(props.origins);
 
-console.log(props.document)
-  const title = props.document[0].title
-  const subTitle = props.document[0].subtitle
-  const content = props.document[0].content
-  const autor = props.document[0].autor
-  const typeId = props.document[0].type_id.type
-  const origemId = props.document[0].origin_id.origin
-  const date = new Date(props.document[0].created_at)
+  const title = props.document[0].title;
+  const subTitle = props.document[0].subtitle;
+  const content = props.document[0].content;
+  const autor = props.document[0].autor;
+  const curator = props.document[0].curator;
+  const typeId = props.document[0].type_id.type;
+  const origemId = props.document[0].origin_id.origin;
+  const date = new Date(props.document[0].created_at);
 
   const [tagsId, setTagsId] = useState([]);
 
   const [fileLink, setFileLink] = useState(
-    "http://172.16.248.88:1465/showFile/1011"
+    process.env.FILESRV + "showFile/" + props.document[0].file
   );
 
   return (
@@ -108,7 +108,7 @@ console.log(props.document)
               >
                 <path d="M366.4 18.3L310.7 74.1 435.9 199.3l55.7-55.7c21.9-21.9 21.9-57.3 0-79.2L445.6 18.3c-21.9-21.9-57.3-21.9-79.2 0zM286 94.6l-9.2 2.8L132.7 140.6c-19.9 6-35.7 21.2-42.3 41L1.8 445.8c-3.8 11.3-1 23.9 7.3 32.4L162.7 324.7c-3-6.3-4.7-13.3-4.7-20.7c0-26.5 21.5-48 48-48s48 21.5 48 48s-21.5 48-48 48c-7.4 0-14.4-1.7-20.7-4.7L31.7 500.9c8.6 8.3 21.1 11.2 32.4 7.3l264.3-88.6c19.7-6.6 35-22.4 41-42.3l43.2-144.1 2.8-9.2L286 94.6z" />
               </svg>
-              Curador: {autor}
+              Curador: {curator}
             </p>
             <p className="flex">
               <svg
@@ -123,10 +123,10 @@ console.log(props.document)
             <p className="flex">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 384 512"
+                viewBox="0 0 576 512"
                 className="w-3 mr-2"
               >
-                <path d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128z" />
+                <path d="M64 32C64 14.3 49.7 0 32 0S0 14.3 0 32v96V384c0 35.3 28.7 64 64 64H256V384H64V160H256V96H64V32zM288 192c0 17.7 14.3 32 32 32H544c17.7 0 32-14.3 32-32V64c0-17.7-14.3-32-32-32H445.3c-8.5 0-16.6-3.4-22.6-9.4L409.4 9.4c-6-6-14.1-9.4-22.6-9.4H320c-17.7 0-32 14.3-32 32V192zm0 288c0 17.7 14.3 32 32 32H544c17.7 0 32-14.3 32-32V352c0-17.7-14.3-32-32-32H445.3c-8.5 0-16.6-3.4-22.6-9.4l-13.3-13.3c-6-6-14.1-9.4-22.6-9.4H320c-17.7 0-32 14.3-32 32V480z" />
               </svg>
               Origem: {origemId}
             </p>
@@ -151,7 +151,7 @@ console.log(props.document)
 }
 
 export async function getServerSideProps(context) {
-  const id = context.params.id
+  const id = context.params.id;
   const getDoc = await axios.get(process.env.BACKEND + "documents/" + id);
   const getTags = await axios.get(process.env.BACKEND + "tagsNum");
   const getAllTags = await axios.get(process.env.BACKEND + "tags");
@@ -164,5 +164,5 @@ export async function getServerSideProps(context) {
   const allTags = getAllTags.data;
   const origins = getOrigins.data;
 
-  return { props: {document, tags, allTags, types, origins } };
+  return { props: { document, tags, allTags, types, origins } };
 }
