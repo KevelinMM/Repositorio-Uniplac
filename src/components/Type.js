@@ -29,7 +29,7 @@ export default function Type(req) {
             className="py-2 md:my-0 hover:bg-blue-100 lg:hover:bg-transparent border-b"
           >
             <a
-              href="#"
+              href={"/filtro/type-" + e.id}
               className="block pl-1 align-middle text-gray-700 no-underline hover:text-blue-500 border-l-4 border-transparent lg:hover:border-gray-400"
             >
               <span className=" text-sm cursor-pointer">{e.type}</span>

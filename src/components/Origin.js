@@ -10,7 +10,7 @@ export default function Origin(req) {
       <p className="text-base font-bold lg:py-2 lg:pb-6 text-gray-700 mt-4 lg:mt-0">
         Origem
       </p>
-      
+
       <div className="lg:hidden h-[60px] flex items-center text-gray-700 ">
         {origin.map((e, index) => (
           <div
@@ -21,7 +21,7 @@ export default function Origin(req) {
           </div>
         ))}
       </div>
-      
+
       <ul className=" cursor-pointer hidden lg:flex lg:flex-col max-h-[650px] overflow-auto">
         {origin.map((e, index) => (
           <li
@@ -29,7 +29,7 @@ export default function Origin(req) {
             className="py-2 md:my-0 hover:bg-blue-100 lg:hover:bg-transparent border-b"
           >
             <a
-              href="#"
+              href={"/filtro/origin-" + e.id}
               className="block pl-1 align-middle text-gray-700 no-underline hover:text-blue-500 border-l-4 border-transparent lg:hover:border-gray-400"
             >
               <span className=" text-sm cursor-pointer">{e.origin}</span>

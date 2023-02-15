@@ -7,6 +7,7 @@ const base = db.documents
 
 export default function Header() {
   const [result, setResult] = useState(base);
+  const [valueSearch, setValueSearch] = useState();
   return (
     <header>
       <nav
@@ -65,6 +66,7 @@ export default function Header() {
                 </div>
                 <input
                   type="search"
+                  id="search"
                   placeholder="Pesquise por autor ou titulo do documento"
                   className=" w-full bg-gray-100 text-sm text-gray-800 transition border focus:outline-none focus:border-blue-500 rounded py-1 px-2 pl-10 appearance-none leading-normal"
                   onChange={(e) => {
@@ -83,7 +85,8 @@ export default function Header() {
                             .includes(e.target.value.toLowerCase())
                             : ''
                       )
-                    );
+                    )
+                    setValueSearch(e.target.value);
                     e.target.value != "" ? document.getElementById("result").hidden = false : document.getElementById("result").hidden = true
                   }}
                 />
@@ -99,7 +102,7 @@ export default function Header() {
                       );
                     })}
                     <div className="hover:bg-gray-200 px-2 w-full">
-                      <a href="/filtro/12" >
+                      <a href={"/filtro/search-" + valueSearch} >
                         {result.length >= 1 ? "Ver todos..." : "Nenhum resultado"}
                       </a>
                     </div>
