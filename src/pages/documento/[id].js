@@ -37,10 +37,10 @@ export default function Detail(props) {
           <Type type={types} />
         </div>
         <div className="w-full lg:w-4/5 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
-          <div className="flex flex-row-reverse gap-2">
+          <div className="flex flex-wrap md:flex md:flex-row-reverse gap-2 ">
             {tagsId.map((e, index) => (
               <div key={index}>
-                <p className="bg-blue-200 rounded-full px-2 text-sm">{e}</p>
+                <p className="bg-blue-200 rounded-full px-2 text-sm ">{e}</p>
               </div>
             ))}
           </div>
@@ -55,7 +55,7 @@ export default function Detail(props) {
           <p className="py-6">{content}</p>
 
           <div className="flex flex-row items-center">
-            <p className="mr-1 font-semibold">Prévia</p>
+            <a href={fileLink} target="_blank" rel="noopner" className="mr-1 font-semibold">Prévia</a>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 576 512"
@@ -65,7 +65,7 @@ export default function Detail(props) {
             </svg>
           </div>
           <div className="flex">
-            <iframe src={fileLink} width="50%" height="700px"></iframe>
+            <iframe className="hidden md:flex" src={fileLink} width="50%" height="700px"></iframe>
             <blockquote className=" italic p-4 ">
               <p className="flex ml-6 border-l-2 border-blue-500 pl-2">
                 <svg

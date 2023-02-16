@@ -26,7 +26,7 @@ export default function Home(props) {
           <Type type={types} />
        </div>
 
-       <div className="text-lg w-full lg:w-4/5 p-3 lg:p-6 mt-6 lg:mt-0 text-gray-900 leading-normal bg-gray-50 border border-gray-300 border-rounded">
+       <div className="text-lg w-full lg:w-4/5 p-3 lg:p-6 text-gray-900 leading-normal bg-gray-50 border border-gray-300 border-rounded">
           <h2 className="page-title">Sobre o RI Uniplac</h2>
           <div className="text-gray-600 text-justify text-base px-4">
             O Repositório Institucional da Universidade do Planalto Catarinense
