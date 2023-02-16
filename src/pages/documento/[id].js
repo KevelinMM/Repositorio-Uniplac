@@ -37,7 +37,7 @@ export default function Detail(props) {
           <Type type={types} />
         </div>
         <div className="w-full lg:w-4/5 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
-          <div className="flex flex-wrap md:flex md:flex-row-reverse gap-2 ">
+          <div className="hidden md:flex md:flex-row-reverse gap-2 ">
             {tagsId.map((e, index) => (
               <div key={index}>
                 <p className="bg-blue-200 rounded-full px-2 text-sm ">{e}</p>

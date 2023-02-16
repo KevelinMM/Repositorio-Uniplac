@@ -20,7 +20,7 @@ export default function Home(props) {
     <section>
       <Header />
       <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-16 mt-16 lg:min-h-screen">
-       <div className="lg:w-1/5 overflow-auto">
+       <div className=" lg:w-1/5 overflow-auto">
           <Tags tags={tags} />
           <Origin origin={origins} />
           <Type type={types} />

@@ -5,7 +5,7 @@ export default function Origin(req) {
 
   return (
     <div className="lg:mt-6 px-4 w-full lg:px-6 lg:text-xl text-gray-800 leading-normal">
-     <div className="lg:hidden h-[60px] flex items-center text-gray-700 ">
+     <div className="lg:hidden h-[60px] flex items-center text-gray-700">
         <select
           defaultValue={0}
           className="bg-orange-200 rounded-full text-xs p-2 mx-1 pr-6"
