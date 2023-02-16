@@ -155,8 +155,8 @@ export async function getServerSideProps(context) {
   const getDoc = await axios.get(process.env.BACKEND + "documents/" + id);
   const getTags = await axios.get(process.env.BACKEND + "tagsNum");
   const getAllTags = await axios.get(process.env.BACKEND + "tags");
-  const getTypes = await axios.get(process.env.BACKEND + "types");
-  const getOrigins = await axios.get(process.env.BACKEND + "origins");
+  const getTypes = await axios.get(process.env.BACKEND + "typesNum");
+  const getOrigins = await axios.get(process.env.BACKEND + "originsNum");
 
   const document = getDoc.data;
   const types = getTypes.data;

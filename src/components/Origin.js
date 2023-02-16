@@ -14,27 +14,35 @@ export default function Origin(req) {
       <div className="lg:hidden h-[60px] flex items-center text-gray-700 ">
         {origin.map((e, index) => (
           <div
-            key={index}
-            className="bg-blue-200 rounded-full text-sm p-2 mx-1 text-center whitespace-nowrap"
-          >
-            {e.origin}
+          key={index}
+          className="bg-blue-200 rounded-full text-xs p-2 mx-1 "
+        >
+          <div className="text-sm flex items-center text-center whitespace-nowrap">
+            {e.origin}{" "}
+            <span className="text-xs bg-blue-100 rounded-full ml-1 p-0.5 ">
+              {e.num < 10 ? "0" + e.num : e.num}
+            </span>
           </div>
+        </div>
         ))}
       </div>
 
       <ul className=" cursor-pointer hidden lg:flex lg:flex-col max-h-[650px] overflow-auto">
         {origin.map((e, index) => (
           <li
-            key={index}
-            className="py-2 md:my-0 hover:bg-blue-100 lg:hover:bg-transparent border-b"
+          key={index}
+          className="py-2 md:my-0 hover:bg-blue-100 lg:hover:bg-transparent border-b"
+        >
+          <a
+            href={"/filtro/origin-"+ e.id}
+            className="block pl-1 align-middle text-gray-700 no-underline hover:text-blue-500 border-l-4 border-transparent lg:hover:border-gray-400"
           >
-            <a
-              href={"/filtro/origin-" + e.id}
-              className="block pl-1 align-middle text-gray-700 no-underline hover:text-blue-500 border-l-4 border-transparent lg:hover:border-gray-400"
-            >
-              <span className=" text-sm cursor-pointer">{e.origin}</span>
-            </a>
-          </li>
+            <span className=" text-sm cursor-pointer">{e.origin}</span>
+            <span className="bg-blue-200 rounded-full text-xs p-1 ml-2 ">
+              {e.num < 10 ? "0" + e.num : e.num}
+            </span>
+          </a>
+        </li>
         ))}
       </ul>
     </div>

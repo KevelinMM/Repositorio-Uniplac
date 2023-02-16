@@ -20,6 +20,21 @@ export default function Home(props) {
   const [allPageTypes, setAllPageTypes] = useState([]);
   const [teste, setTeste] = useState();
 
+  function tagFilter(tag) {
+    const secondArray = [];
+    const auxArray = currentItens;
+    const newTags = [];
+
+    for (let i = 0; i < auxArray.length; i++) {
+      if ((auxArray[i].tag.indexOf(tag) != -1) == false) {
+        secondArray.push(auxArray[i]);
+      }
+    }
+    setAux(secondArray);
+    secondArray.map((e) => e.tag.map((y) => newTags.push(y)));
+    setAllPageTags(newTags);
+  }
+
   useEffect((e) => {
     if (filter) {
       const findType = filter.split("-")[0];
@@ -80,7 +95,10 @@ export default function Home(props) {
               <span
                 key={index}
                 className="bg-orange-200 hover:bg-orange-100 cursor-pointer rounded-full text-xs px-3 py-1 ml-2"
-                onClick={(event) => setAux(currentItens.filter((z) => z.origin_id.origin != e)) + setAllPageOrigins(allPageOrigins.filter((z) => z != e))}
+                onClick={(event) =>
+                  setAux(currentItens.filter((z) => z.origin_id.origin != e)) +
+                  setAllPageOrigins(allPageOrigins.filter((z) => z != e))
+                }
               >
                 {e} x
               </span>
@@ -89,7 +107,10 @@ export default function Home(props) {
               <span
                 key={index}
                 className="bg-green-200 hover:bg-green-100 cursor-pointer rounded-full text-xs px-3 py-1 ml-2"
-                onClick={(event) => setAux(currentItens.filter((z) => z.type_id.type != e)) + setAllPageTypes(allPageTypes.filter((z) => z != e))}
+                onClick={(event) =>
+                  setAux(currentItens.filter((z) => z.type_id.type != e)) +
+                  setAllPageTypes(allPageTypes.filter((z) => z != e))
+                }
               >
                 {e} x
               </span>
@@ -98,7 +119,7 @@ export default function Home(props) {
               <span
                 key={index}
                 className="bg-blue-200 rounded-full text-xs px-3 py-1 ml-2"
-                onClick={(event) => setAux(currentItens.filter((z) => console.log(z))) + setAllPageTags(allPageTags.filter((z) => z != e))}
+                onClick={(event) => tagFilter(e)}
               >
                 {e} x
               </span>
@@ -128,7 +149,7 @@ export default function Home(props) {
             allPageTypes.indexOf(e.type_id.type) === -1
               ? allPageTypes.push(e.type_id.type)
               : null;
-            return <Card key={index} content={e} />;
+            return <Card key={e.id} content={e} />;
           })}
         </div>
 
@@ -144,8 +165,8 @@ export async function getServerSideProps(context) {
     process.env.BACKEND + "documentsApproved"
   );
   const getTags = await axios.get(process.env.BACKEND + "tagsNum");
-  const getTypes = await axios.get(process.env.BACKEND + "types");
-  const getOrigins = await axios.get(process.env.BACKEND + "origins");
+  const getTypes = await axios.get(process.env.BACKEND + "typesNum");
+  const getOrigins = await axios.get(process.env.BACKEND + "originsNum");
 
   const documents = getApprovedDocs.data;
   const types = getTypes.data;
