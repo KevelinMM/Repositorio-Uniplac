@@ -22,7 +22,7 @@ export default function Home(props) {
 
   function tagFilter(tag) {
     const secondArray = [];
-    const auxArray = currentItens;
+    const auxArray = aux;
     const newTags = [];
 
     for (let i = 0; i < auxArray.length; i++) {
@@ -52,22 +52,44 @@ export default function Home(props) {
           )
         );
       } else if (findType == "tag") {
-        console.log("tag");
         setAux(
           publis.filter((element) => element.tag.indexOf(findContent) >= 0)
         );
       } else if (findType == "origin") {
-        console.log("origin");
         setAux(publis.filter((element) => element.origin_id.id == findContent));
       } else if (findType == "type") {
-        console.log("type");
         setAux(publis.filter((element) => element.type_id.id == findContent));
       }
     }
+    setAllPageTags(
+      allPageTags.filter((este, i) => allPageTags.indexOf(este) === i)
+    );
+    setAllPageTypes(
+      allPageTypes.filter((este, i) => allPageTypes.indexOf(este) === i)
+    );
+    setAllPageOrigins(
+      allPageOrigins.filter((este, i) => allPageOrigins.indexOf(este) === i)
+    );
   }, []);
 
+  aux.map((e) =>
+    e.tag.map((y) =>
+      allPageTags.indexOf(y) == -1 ? allPageTags.push(y) : null
+    )
+  );
+  aux.map((e) =>
+    allPageOrigins.indexOf(e.origin_id.origin) == -1
+      ? allPageOrigins.push(e.origin_id.origin)
+      : null
+  );
+  aux.map((e) =>
+    allPageTypes.indexOf(e.type_id.type) == -1
+      ? allPageTypes.push(e.type_id.type)
+      : null
+  );
+
   //pagination
-  const [itensPerPage, setItensPerPage] = useState(10);
+  const [itensPerPage, setItensPerPage] = useState(2);
   const [currentPage, setCurrentPage] = useState(0);
 
   const pages = Math.ceil(aux.length / itensPerPage);
@@ -90,11 +112,11 @@ export default function Home(props) {
         </div>
         <div className="w-full lg:w-4/5 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
           <h1 className="page-title">Resultado da Pesquisa</h1>{" "}
-          <div className="flex flex-row flex-wrap gap-2 mb-2">
+          <div className="flex flex-row flex-wrap gap-1 mb-2">
             {allPageOrigins.map((e, index) => (
               <span
                 key={index}
-                className="bg-orange-200 hover:bg-orange-100 cursor-pointer rounded-full text-xs px-3 py-1 ml-2"
+                className="bg-orange-200 hover:bg-orange-100 cursor-pointer rounded-full text-xs px-2 py-1"
                 onClick={(event) =>
                   setAux(currentItens.filter((z) => z.origin_id.origin != e)) +
                   setAllPageOrigins(allPageOrigins.filter((z) => z != e))
@@ -106,7 +128,7 @@ export default function Home(props) {
             {allPageTypes.map((e, index) => (
               <span
                 key={index}
-                className="bg-green-200 hover:bg-green-100 cursor-pointer rounded-full text-xs px-3 py-1 ml-2"
+                className="bg-orange-200 hover:bg-orange-100 cursor-pointer rounded-full text-xs px-2 py-1"
                 onClick={(event) =>
                   setAux(currentItens.filter((z) => z.type_id.type != e)) +
                   setAllPageTypes(allPageTypes.filter((z) => z != e))
@@ -118,21 +140,21 @@ export default function Home(props) {
             {allPageTags.map((e, index) => (
               <span
                 key={index}
-                className="bg-blue-200 rounded-full text-xs px-3 py-1 ml-2"
+                className="bg-blue-200 hover:bg-blue-100 cursor-pointer rounded-full text-xs px-2 py-1"
                 onClick={(event) => tagFilter(e)}
               >
                 {e} x
               </span>
             ))}
           </div>
-          <div className="flex flex-row justify-center gap-2 mb-4">
+          <div className="flex flex-row justify-end gap-2 mb-4">
             {Array.from(Array(pages), (item, index) => {
               return (
                 <button
                   value={index}
                   key={index}
                   onClick={(e) => setCurrentPage(e.target.value)}
-                  className="text-blue-800 hover:underline bg-gray-100 hover:bg-gray-200 p-1 rounded"
+                  className=" text-blue-800 hover:underline bg-gray-100 hover:bg-gray-200 py-1 px-2 rounded"
                 >
                   {index}
                 </button>

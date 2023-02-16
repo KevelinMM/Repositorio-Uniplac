@@ -28,7 +28,7 @@ export default function Form(req) {
     const randomNumber = Math.floor(Math.random() * 1000) + 9999;
     setCorrectCode(randomNumber);
 
-    await sendEmail(email, "Código de ativação para envio de documentos", randomNumber);
+    await sendEmail(email, randomNumber);
   }
 
   function validateCodde(code) {
@@ -46,15 +46,6 @@ export default function Form(req) {
   }
 
   async function sendDocument() {
-    //console.log("autor " , name);
-    //console.log("email " , email);
-    //console.log("title " , title);
-    //console.log("subTitle " , subTitle);
-    //console.log("content " , content);
-    //console.log("origin " , origin);
-    //console.log("type " , type);
-    //console.log("tags " , lista);
-    //console.log(file);
     createDoc(name, email, title, subTitle, content, origin, type, lista, file)
   }
 
