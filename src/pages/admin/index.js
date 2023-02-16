@@ -12,7 +12,7 @@ export default function superAdm() {
   const [request, setrequest] = useState("Solicitação");
 
   return (
-    <section className="bg-gradient-to-t from-blue-100 min-h-screen p-3 lg:p-24">
+    <div className="bg-gradient-to-t from-blue-100 min-h-screen p-3 lg:p-24">
       <div className="flex justify-between mb-2 md:mb-10">
         <p className="text-gray-700 text-lg md:text-3xl font-bold">Painel</p>
         <p className="text-gray-700 text-lg md:text-3xl font-bold pl-2">
@@ -168,6 +168,6 @@ export default function superAdm() {
           </li>
         </ul>
       </div>
-    </section>
+    </div>
   );
 }

@@ -3,7 +3,7 @@ import Back from "../components/Back";
 
 export default function login() {
   return (
-    <section className=" bg-gradient-to-t from-blue-100 min-h-screen">
+    <div className=" bg-gradient-to-t from-blue-100 min-h-screen">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen ">
         <h1 className="text-2xl lg:text-3xl text-slate-700 mb-4 font-bold">
           Administradores do Repositório
@@ -79,6 +79,6 @@ export default function login() {
         </div>
         <Back />
       </div>
-    </section>
+    </div>
   );
 }

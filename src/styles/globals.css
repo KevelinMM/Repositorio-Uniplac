@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+section {
+  @apply bg-gray-100 tracking-normal
+}
+
 html {
   @apply bg-slate-200 font-[rubik] text-gray-700;
 }

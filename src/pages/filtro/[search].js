@@ -102,7 +102,7 @@ export default function Home(props) {
   const [origins, setOrigin] = useState(props.origins);
 
   return (
-    <section className="bg-gray-100 tracking-normal">
+    <section>
       <Header />
       <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-16 mt-16 min-h-screen">
         <div className="lg:w-1/5 overflow-auto">

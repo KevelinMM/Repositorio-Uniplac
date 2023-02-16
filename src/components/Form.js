@@ -5,7 +5,7 @@ import createDoc from "../helpers/createDoc";
 
 export default function Form(req) {
   const [correctCode, setCorrectCode] = useState();
-  const [allowed, setAllowed] = useState(true); //default false
+  const [allowed, setAllowed] = useState(false); //default false
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
