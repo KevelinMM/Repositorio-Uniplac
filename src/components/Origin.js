@@ -21,7 +21,7 @@ export default function Origin(req) {
       return 0;
     });
 
-    setOrigin(aux) 
+    setOrigin(aux);
   }
 
   function orderOriginByNum() {
@@ -29,22 +29,35 @@ export default function Origin(req) {
 
     aux = origin.sort((a, b) => b.num - a.num);
 
-    setOrigin(aux) 
+    setOrigin(aux);
   }
 
+  useEffect(
+    (e) => {
+      allOrigins == true
+        ? (document.getElementById("allOrigins").innerHTML = "Ocultar")
+        : (document.getElementById("allOrigins").innerHTML = "Ver todos");
+    },
+    [allOrigins]
+  );
+
   useEffect((e) => {
-    allOrigins == true ?
-    document.getElementById("allOrigins").innerHTML = "Ocultar"
-    :
-    document.getElementById("allOrigins").innerHTML = "Ver todos"
-  },[allOrigins])
+    if (
+      navigator.userAgentData != undefined &&
+      navigator.userAgentData.mobile
+    ) {
+      orderOriginByAlphabet()
+    }
+  }, []);
 
   return (
     <div className="lg:mt-6 px-4 w-full lg:px-6 lg:text-xl text-gray-800 leading-normal">
-     <div className="lg:hidden h-[60px] flex items-center text-gray-700">
+      <div className="lg:hidden h-[60px] flex items-center text-gray-700">
         <select
           defaultValue={0}
-          onChange={(e) => window.location.href = "/filtro/origin-" + e.target.value}
+          onChange={(e) =>
+            (window.location.href = "/filtro/origin-" + e.target.value)
+          }
           className="bg-orange-200 rounded-full text-xs p-2 mx-1 pr-6"
         >
           <option
@@ -71,28 +84,36 @@ export default function Origin(req) {
           Origem
         </p>
         <ul className=" cursor-pointer  max-h-[650px] overflow-auto">
-          {origin.map((e, index) => index < 6 || allOrigins == true ?(
-            <li
-              key={index}
-              className="py-2 md:my-0 hover:bg-orange-100 lg:hover:bg-transparent border-b"
-            >
-              <a
-                href={"/filtro/origin-" + e.id}
-                className="block pl-1 align-middle text-gray-700 no-underline hover:text-orange-500 border-l-4 border-transparent lg:hover:border-gray-400"
+          {origin.map((e, index) =>
+            index < 6 || allOrigins == true ? (
+              <li
+                key={index}
+                className="py-2 md:my-0 hover:bg-orange-100 lg:hover:bg-transparent border-b"
               >
-                <span className=" text-sm cursor-pointer">{e.origin}</span>
-                <span className="bg-orange-200 rounded-full text-xs p-1 ml-2 ">
-                  {e.num < 10 ? "0" + e.num : e.num}
-                </span>
-              </a>
-            </li>
-          ): null )}
+                <a
+                  href={"/filtro/origin-" + e.id}
+                  className="block pl-1 align-middle text-gray-700 no-underline hover:text-orange-500 border-l-4 border-transparent lg:hover:border-gray-400"
+                >
+                  <span className=" text-sm cursor-pointer">{e.origin}</span>
+                  <span className="bg-orange-200 rounded-full text-xs p-1 ml-2 ">
+                    {e.num < 10 ? "0" + e.num : e.num}
+                  </span>
+                </a>
+              </li>
+            ) : null
+          )}
         </ul>
         <a
           className="block pl-1 align-middle text-gray-700 hover:text-blue-500 border-l-4 border-transparent lg:hover:border-gray-400"
-          onClick={(e) => setAllOrigins(!allOrigins) + (allOrigins == true ? orderOriginByNum() : orderOriginByAlphabet())}
+          onClick={(e) =>
+            setAllOrigins(!allOrigins) +
+            (allOrigins == true ? orderOriginByNum() : orderOriginByAlphabet())
+          }
         >
-          <span id="allOrigins" className=" text-sm cursor-pointer underline"></span>
+          <span
+            id="allOrigins"
+            className=" text-sm cursor-pointer underline"
+          ></span>
         </a>
       </div>
     </div>
