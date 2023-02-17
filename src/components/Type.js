@@ -8,6 +8,7 @@ export default function Type(req) {
       <div className="lg:hidden h-[60px] flex items-center text-gray-700 ">
         <select
           defaultValue={0}
+          onChange={(e) => window.location.href = "/filtro/type-" + e.target.value}
           className="bg-orange-200 rounded-full text-xs p-2 mx-1 pr-6"
         >
           <option
@@ -20,6 +21,7 @@ export default function Type(req) {
           {type.map((e, index) => (
             <option
               key={index}
+              value={e.id}
               className="text-sm flex items-center text-center "
             >
               {e.type}

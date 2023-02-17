@@ -89,7 +89,7 @@ export default function Home(props) {
   );
 
   //pagination
-  const [itensPerPage, setItensPerPage] = useState(2);
+  const [itensPerPage, setItensPerPage] = useState(8);
   const [currentPage, setCurrentPage] = useState(0);
 
   const pages = Math.ceil(aux.length / itensPerPage);
@@ -111,7 +111,7 @@ export default function Home(props) {
           <Type type={types} />
         </div>
         <div className="w-full lg:w-4/5 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
-          <h1 className="page-title">Resultado da Pesquisa</h1>{" "}
+          <h1 className="page-title">Resultado da Pesquisa</h1>
           <div className="flex flex-row flex-wrap gap-1 mb-2">
             {allPageOrigins.map((e, index) => (
               <span
@@ -147,6 +147,18 @@ export default function Home(props) {
               </span>
             ))}
           </div>
+          {currentItens.map((e, index) => {
+            e.tag.map((z) =>
+              allPageTags.indexOf(z) === -1 ? allPageTags.push(z) : null
+            );
+            allPageOrigins.indexOf(e.origin_id.origin) === -1
+              ? allPageOrigins.push(e.origin_id.origin)
+              : null;
+            allPageTypes.indexOf(e.type_id.type) === -1
+              ? allPageTypes.push(e.type_id.type)
+              : null;
+            return <Card key={e.id} content={e} />;
+          })}
           <div className="flex flex-row justify-end gap-2 mb-4">
             {Array.from(Array(pages), (item, index) => {
               return (
@@ -161,18 +173,6 @@ export default function Home(props) {
               );
             })}
           </div>
-          {currentItens.map((e, index) => {
-            e.tag.map((z) =>
-              allPageTags.indexOf(z) === -1 ? allPageTags.push(z) : null
-            );
-            allPageOrigins.indexOf(e.origin_id.origin) === -1
-              ? allPageOrigins.push(e.origin_id.origin)
-              : null;
-            allPageTypes.indexOf(e.type_id.type) === -1
-              ? allPageTypes.push(e.type_id.type)
-              : null;
-            return <Card key={e.id} content={e} />;
-          })}
         </div>
 
         <Back />
