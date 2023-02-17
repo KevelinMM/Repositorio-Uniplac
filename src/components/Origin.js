@@ -52,13 +52,13 @@ export default function Origin(req) {
 
   return (
     <div className="lg:mt-6 px-4 w-full lg:px-6 lg:text-xl text-gray-800 leading-normal">
-      <div className="lg:hidden h-[60px] flex items-center text-gray-700">
+      <div className="lg:hidden h-[60px] flex items-center text-gray-700 ">
         <select
           defaultValue={0}
           onChange={(e) =>
             (window.location.href = "/filtro/origin-" + e.target.value)
           }
-          className="bg-orange-200 rounded-full text-xs p-2 mx-1 pr-6"
+          className="rounded-full text-xs p-2 border-none shadow-md mx-auto w-28 "
         >
           <option
             value={0}

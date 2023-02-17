@@ -10,7 +10,6 @@ export default function Card(req) {
   const content = publi.content;
   const type = publi.type_id.type;
   const origin = publi.origin_id.origin;
-
   const [tags, setTags] = useState(publi.tag);
 
   return (
@@ -52,8 +51,3 @@ export default function Card(req) {
   );
 }
 
-//{tagsId.map((e, index) => (
-//  <span key={index} className="bg-blue-200 rounded-full text-xs px-3 py-1 ml-2">
-//    {e}
-//  </span>
-//))}

@@ -20,13 +20,13 @@ export default function Home(props) {
     <section>
       <Header />
       <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-16 mt-16 lg:min-h-screen">
-       <div className=" lg:w-1/5 overflow-auto">
-          <Tags tags={tags} />
+       <div className=" lg:w-1/5 lg:overflow-auto flex lg:flex-col ">
+          <Tags tags={tags} />        
           <Origin origin={origins} />
           <Type type={types} />
        </div>
 
-       <div className="text-lg w-full lg:w-4/5 p-3 lg:p-6 text-gray-900 leading-normal bg-gray-50 border border-gray-300 border-rounded">
+       <div className=" w-full lg:w-4/5 p-3 lg:p-6 text-gray-900 bg-gray-50 border-opacity-50 border border-gray-300 border-rounded">
           <h2 className="page-title">Sobre o RI Uniplac</h2>
           <div className="text-gray-600 text-justify text-base px-4">
             O Repositório Institucional da Universidade do Planalto Catarinense
