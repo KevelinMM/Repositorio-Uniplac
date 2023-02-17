@@ -58,7 +58,7 @@ export default function Type(req) {
           onChange={(e) =>
             (window.location.href = "/filtro/type-" + e.target.value)
           }
-          className="bg-orange-s200 rounded-full text-xs p-2 mx-1 pr-6"
+          className="rounded-full text-xs p-2 border-none shadow-md mx-auto w-28  "
         >
           <option
             value={0}

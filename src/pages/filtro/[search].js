@@ -3,7 +3,6 @@ import Back from "../../components/Back";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Card from "../../components/Card";
-import publi from "../../db/db";
 import Tags from "../../components/Tags";
 import Origin from "../../components/Origin";
 import Type from "../../components/Type";
@@ -18,7 +17,7 @@ export default function Home(props) {
   const [allPageTags, setAllPageTags] = useState([]);
   const [allPageOrigins, setAllPageOrigins] = useState([]);
   const [allPageTypes, setAllPageTypes] = useState([]);
-  const [teste, setTeste] = useState();
+  const [allTags, setAllTags] = useState(false);
 
   function tagFilter(tag) {
     const secondArray = [];
@@ -88,6 +87,17 @@ export default function Home(props) {
       : null
   );
 
+  useEffect(
+    (e) => {
+      allTags == true
+        ? (document.getElementById("allTagsSearch").innerHTML = "Ocultar")
+        : (document.getElementById("allTagsSearch").innerHTML = "Ver todos");
+    },
+    [allTags]
+  );
+
+  
+
   //pagination
   const [itensPerPage, setItensPerPage] = useState(8);
   const [currentPage, setCurrentPage] = useState(0);
@@ -104,19 +114,19 @@ export default function Home(props) {
   return (
     <section>
       <Header />
-      <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-16 mt-16 min-h-screen">
-        <div className="lg:w-1/5 overflow-auto">
+      <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-16 mt-16 ">
+        <div className="lg:w-1/5 overflow-auto flex lg:flex-col">
           <Tags tags={tags} />
           <Origin origin={origins} />
           <Type type={types} />
         </div>
-        <div className="w-full lg:w-4/5 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
+        <div className="w-full lg:w-4/5 p-2 lg:p-8 mt-2 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-opacity-50 border-rounded">
           <h1 className="page-title">Resultado da Pesquisa</h1>
-          <div className="flex flex-row flex-wrap gap-1 mb-2">
+          <div className="flex flex-row flex-wrap gap-2 mb-6">
             {allPageOrigins.map((e, index) => (
               <span
                 key={index}
-                className="bg-orange-200 hover:bg-orange-100 cursor-pointer rounded-full text-xs px-2 py-1"
+                className="bg-gray-200 hover:bg-orange-100 cursor-pointer  rounded-full text-xs px-2 py-1"
                 onClick={(event) =>
                   setAux(currentItens.filter((z) => z.origin_id.origin != e)) +
                   setAllPageOrigins(allPageOrigins.filter((z) => z != e))
@@ -128,7 +138,7 @@ export default function Home(props) {
             {allPageTypes.map((e, index) => (
               <span
                 key={index}
-                className="bg-orange-200 hover:bg-orange-100 cursor-pointer rounded-full text-xs px-2 py-1"
+                className="bg-gray-200 hover:bg-orange-100 cursor-pointer rounded-full text-xs px-2 py-1"
                 onClick={(event) =>
                   setAux(currentItens.filter((z) => z.type_id.type != e)) +
                   setAllPageTypes(allPageTypes.filter((z) => z != e))
@@ -137,16 +147,26 @@ export default function Home(props) {
                 {e} <span className="font-medium">x</span>
               </span>
             ))}
-            {allPageTags.map((e, index) => (
-              <span
-                key={index}
-                className="bg-blue-200 hover:bg-blue-100 cursor-pointer rounded-full text-xs px-2 py-1"
-                onClick={(event) => tagFilter(e)}
-              >
-                {e} <span className="font-medium">x</span>
-              </span>
-            ))}
+
+            {allPageTags.map((e, index) =>
+              index < 3 || allTags == true ? (
+                <span
+                  key={index}
+                  className="bg-gray-200 hover:bg-blue-100 cursor-pointer rounded-full text-xs px-2 py-1"
+                  onClick={(event) => tagFilter(e)}
+                >
+                  {e} <span className="font-medium">x</span>
+                </span>
+              ) : null
+            )}
+
+            <a
+              className="block pl-1 text-center text-gray-700 hover:text-blue-500 border-l-2 border-transparent lg:hover:border-gray-400 cursor-pointer text-sm mt-1"
+              id="allTagsSearch"
+              onClick={(e) => tagFilter(e) + setAllTags(!allTags)}
+            ></a>
           </div>
+
           {currentItens.map((e, index) => {
             e.tag.map((z) =>
               allPageTags.indexOf(z) === -1 ? allPageTags.push(z) : null

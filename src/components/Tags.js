@@ -16,24 +16,18 @@ export default function Tags(req) {
       if (nameA > nameB) {
         return 1;
       }
-
       // names must be equal
       return 0;
     });
 
     setTags(aux) 
-    console.log(tags)
-    console.log("num")
   }
 
   function orderTagsByNum() {
     var aux;
 
     aux = tags.sort((a, b) => b.num - a.num);
-
     setTags(aux) 
-    console.log(tags)
-    console.log("num")
   }
 
   useEffect(

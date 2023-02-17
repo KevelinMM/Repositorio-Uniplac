@@ -30,13 +30,13 @@ export default function Detail(props) {
   return (
     <section>
       <Header />
-      <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-16 mt-16 min-h-screen">
-        <div className="lg:w-1/5 overflow-auto">
+      <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-16 mt-16 lg:min-h-screen">
+        <div className="llg:w-1/5 lg:overflow-auto flex lg:flex-col">
           <Tags tags={tags} />
           <Origin origin={origins} />
           <Type type={types} />
         </div>
-        <div className="w-full lg:w-4/5 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
+        <div className="w-full lg:w-4/5 p-8  mt-2 text-gray-900 leading-normal border-opacity-50 bg-white border border-gray-400 border-rounded">
           <div className="hidden md:flex md:flex-row-reverse gap-2 ">
             {tagsId.map((e, index) => (
               <div key={index}>

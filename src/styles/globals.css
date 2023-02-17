@@ -18,11 +18,12 @@ select {
 }
 
 .soft-transition {
-  @apply transition ease-in-out duration-150 hover:scale-110;
+  @apply transition ease-in-out duration-150 hover:scale-110 ;
 }
 
 .page-title {
   @apply font-semibold text-2xl py-6 text-gray-600 pl-2 text-center lg:text-start;
 }
+
 
 

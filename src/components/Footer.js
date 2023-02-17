@@ -26,7 +26,7 @@ export default function Footer() {
                     {" <NIU/>"}
                   </p>
                 </li>
-                <li>
+                <li className="hidden lg:flex">
                   <Image
                     src={`/logoUniplac.png`}
                     alt="Logo Uniplac"
