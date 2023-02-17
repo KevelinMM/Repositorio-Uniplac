@@ -1,7 +1,32 @@
+import axios from "axios";
 import Image from "next/image";
+import { useState } from "react";
 import Back from "../components/Back";
+import createCookie from "../helpers/createCookie";
+import { deleteCookie } from 'cookies-next';
+
 
 export default function login() {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  deleteCookie('auth');
+
+  async function login(e) {
+    console.log(email, password);
+    e.preventDefault();
+    try {
+      const login = await axios.post(process.env.BACKEND + "login", {
+        email: email,
+        password: password,
+      });
+      createCookie(login.data.token)
+      window.location.href = "/admin"
+      document.getElementById("error").hidden = true
+    } catch (e) {
+      document.getElementById("error").hidden = false
+    }
+  }
+
   return (
     <div className=" bg-gradient-to-t from-blue-100 min-h-screen">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen ">
@@ -22,7 +47,10 @@ export default function login() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
               Login
             </h1>
-            <form className="space-y-4 md:space-y-6" action="#">
+            <form
+              className="space-y-4 md:space-y-3"
+              onSubmit={(e) =>  login(e)}
+            >
               <div>
                 <label
                   htmlFor="email"
@@ -34,9 +62,11 @@ export default function login() {
                   type="email"
                   name="email"
                   id="email"
+                  value={email}
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  "
                   placeholder="name@company.com"
-                  required=""
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
               </div>
               <div>
@@ -50,10 +80,15 @@ export default function login() {
                   type="password"
                   name="password"
                   id="password"
+                  value={password}
                   placeholder="••••••••"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                  required=""
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
                 />
+              </div>
+              <div>
+                <span className="text-red-500" id="error" hidden>Usuário ou senha invalido !</span>
               </div>
               <div className="flex items-center justify-between">
                 <button
@@ -63,13 +98,12 @@ export default function login() {
                   Entrar
                 </button>
                 <a
-                  href="admin"
+                  href="#"
                   className="text-sm font-medium text-primary-600 hover:underline"
                 >
                   * Esqueci minha senha
                 </a>
               </div>
-
               <p className="text-sm font-light text-gray-500 ">
                 Página destinada à responsáveis das publicações do Repositório
                 Institucional da Uniplac
