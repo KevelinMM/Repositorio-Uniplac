@@ -122,7 +122,7 @@ export default function Home(props) {
                   setAllPageOrigins(allPageOrigins.filter((z) => z != e))
                 }
               >
-                {e} x
+                {e} <span className="font-medium">x</span>
               </span>
             ))}
             {allPageTypes.map((e, index) => (
@@ -134,7 +134,7 @@ export default function Home(props) {
                   setAllPageTypes(allPageTypes.filter((z) => z != e))
                 }
               >
-                {e} x
+                {e} <span className="font-medium">x</span>
               </span>
             ))}
             {allPageTags.map((e, index) => (
@@ -143,7 +143,7 @@ export default function Home(props) {
                 className="bg-blue-200 hover:bg-blue-100 cursor-pointer rounded-full text-xs px-2 py-1"
                 onClick={(event) => tagFilter(e)}
               >
-                {e} x
+                {e} <span className="font-medium">x</span>
               </span>
             ))}
           </div>
