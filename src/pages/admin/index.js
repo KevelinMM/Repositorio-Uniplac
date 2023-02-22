@@ -21,6 +21,8 @@ export default function superAdm(props) {
   const [tag, setTag] = useState("Exemplos Tag");
   const [request, setrequest] = useState("Solicitação");
   const [documents, setDocuments] = useState(props.documents);
+  const [allTags, setAllTags] = useState(props.allTags);
+  const [tagsSearch, setTagsSearch] = useState(allTags);
 
   return (
     <div className="bg-gradient-to-t from-blue-100 min-h-screen p-3 lg:pt-24 lg:px-24">
@@ -119,39 +121,24 @@ export default function superAdm(props) {
         <div className="bg-slate-300 p-4 rounded-md">
           <div className="flex justify-between mb-4">
             <p className="font-semibold">Tags</p>
-            <Modal
-              title={"Adicionar Categoria"}
-              onConfirm={() => console.log("Button confirm")}
-              onDiscard={() => console.log("Button discard")}
-              buttons={[
-                {
-                  role: "discard",
-                  toClose: true,
-                  classes:
-                    "bg-zinc-500/20 px-4 py-2 rounded-lg hover:bg-zinc-500/30 transition-all duration-200",
-                  label: "Cancelar",
-                },
-                {
-                  role: "confirm",
-                  toClose: false,
-                  classes:
-                    "bg-green-500 px-4 py-2 rounded-lg hover:bg-green-600 transition-all duration-200",
-                  label: "Confirmar",
-                },
-              ]}
-            >
-              <button className="rounded-full px-1 py-1 text-xl bg-green-500 bg-opacity-80">
-                <MdOutlineAdd />
-              </button>
-            </Modal>
           </div>
-          <ul className="pl-2 rounded">
-            <li className="rounded-md p-2 bg-slate-50 mb-2 flex justify-between shadow-md">
-              {tag}
-              <button>
-                <BiTrashAlt />
-              </button>
-            </li>
+          <input
+            required
+            className="w-full rounded-lg border-gray-200 p-3 text-sm"
+            placeholder="Digite a tag"
+            type="text"
+            id="tag"
+            onChange={(e) => console.log(e.target.value)}
+          />
+          <ul className="mx-2 rounded">
+            {tagsSearch.map((e, index) => (
+              <li key={index} className="rounded-md p-2 bg-slate-50 flex justify-between shadow-md">
+                {e.tag}
+                <button>
+                  <BiTrashAlt />
+                </button>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
@@ -212,7 +199,11 @@ export async function getServerSideProps(context) {
       documents = doc.data;
     }
 
-    return { props: { infoUser, documents } };
+    const getAllTags = await axios.get(process.env.BACKEND + "tags");
+
+    const allTags = getAllTags.data;
+
+    return { props: { infoUser, documents, allTags } };
   } catch (e) {
     return {
       redirect: {

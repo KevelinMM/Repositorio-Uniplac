@@ -50,7 +50,7 @@ module.exports = ({ title = "", buttons = [], onConfirm = "", children }) => {
                 htmlFor="email"
                 className="block mb-2 text-sm font-medium text-gray-900 "
               >
-                Nome
+                Nomes
               </label>
               <input
                 type="name"
