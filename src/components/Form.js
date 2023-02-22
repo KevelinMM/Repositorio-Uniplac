@@ -232,7 +232,7 @@ export default function Form(req) {
                             "resultTags"
                           ).hidden = false) +
                           (document.getElementById("newTag").hidden = false)
-                        : (document.getElementById("result").hidden = true) +
+                        : (document.getElementById("resultTags").hidden = true) +
                           (document.getElementById("newTag").hidden = true);
                     }}
                   />
