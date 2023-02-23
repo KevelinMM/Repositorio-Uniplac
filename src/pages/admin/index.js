@@ -3,6 +3,7 @@ import { useState } from "react";
 import { MdOutlineAdd, MdClose } from "react-icons/md";
 import { BiTrashAlt } from "react-icons/bi";
 import { FaCheck } from "react-icons/fa";
+import { FiAlertCircle } from "react-icons/fi";
 import Modal from "./component/Modal";
 import axios from "axios";
 
@@ -28,12 +29,26 @@ export default function superAdm(props) {
 
   async function createTag() {
     const tagName = document.getElementById("tag").value;
-    await axios.post(process.env.BACKEND + "tags", {
-      tag: [{ tag: tagName, approved: 1 }],
-    });
-    allTags.push({ tag: tagName, approved: true });
-    setTagsSearch([{ tag: tagName, approved: true }]);
-    document.getElementById("check").hidden = false;
+    var truncadeTag = false;
+    tagsSearch.map((e) => (e.tag == tagName ? (truncadeTag = true) : null));
+    if (truncadeTag) {
+      document.getElementById("check").hidden = true;
+      document.getElementById("alert").hidden = false;
+      document.getElementById("delete").hidden = true;
+
+    } else {
+      const tagDelete = await axios.post(process.env.BACKEND + "tags", {
+        tag: [{ tag: tagName, approved: 1 }],
+      });
+      allTags.push({ id: tagDelete.data[0].id, tag: tagName, approved: true });
+      setTagsSearch([
+        { id: tagDelete.data[0].id, tag: tagName, approved: true },
+      ]);
+      document.getElementById("check").hidden = false;
+      document.getElementById("alert").hidden = true;
+      document.getElementById("delete").hidden = true;
+
+    }
   }
 
   async function deleteTag(tagId) {
@@ -43,6 +58,8 @@ export default function superAdm(props) {
     setAllTags(allTags.filter((e) => e.id != tagId));
     setTagsSearch(tagsSearch.filter((e) => e.id != tagId));
 
+    document.getElementById("check").hidden = true;
+    document.getElementById("alert").hidden = true;
     document.getElementById("delete").hidden = false;
   }
 
@@ -154,6 +171,9 @@ export default function superAdm(props) {
             <div hidden id="delete" className="absolute">
               <MdClose className="m-4 w-4 text-red-500" />
             </div>
+            <div hidden id="alert" className="absolute">
+              <FiAlertCircle className="m-4 w-4 font-bold text-yellow-500" />
+            </div>
             <input
               required
               className="w-full rounded-lg border-gray-200 p-3 text-sm"
@@ -171,7 +191,8 @@ export default function superAdm(props) {
                     )
                   : setTagsSearch([]) +
                     (document.getElementById("check").hidden = true) +
-                    (document.getElementById("delete").hidden = true)
+                    (document.getElementById("delete").hidden = true) +
+                    (document.getElementById("alert").hidden = true) 
               }
             />
           </div>
