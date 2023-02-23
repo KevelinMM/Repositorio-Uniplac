@@ -40,7 +40,7 @@ export default function Detail(props) {
           <div className="hidden md:flex md:flex-row-reverse gap-2 ">
             {tagsId.map((e, index) => (
               <div key={index}>
-                <p className="bg-blue-200 rounded-full px-2 text-sm ">{e}</p>
+                <p className="bg-blue-200 rounded-full px-2 text-sm ">{e.tag}</p>
               </div>
             ))}
           </div>

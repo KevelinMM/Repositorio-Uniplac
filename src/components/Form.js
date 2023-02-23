@@ -5,7 +5,7 @@ import createDoc from "../helpers/createDoc";
 
 export default function Form(req) {
   const [correctCode, setCorrectCode] = useState();
-  const [allowed, setAllowed] = useState(false); //default false
+  const [allowed, setAllowed] = useState(true); //default false
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -28,7 +28,7 @@ export default function Form(req) {
     const randomNumber = Math.floor(Math.random() * 1000) + 9999;
     setCorrectCode(randomNumber);
 
-    await sendEmail(email, randomNumber);
+    await sendEmail(email, "Seu código de ativação para envio de documento é " + randomNumber);
   }
 
   function validateCodde(code) {
@@ -46,7 +46,10 @@ export default function Form(req) {
   }
 
   async function sendDocument() {
+  
     createDoc(name, email, title, subTitle, content, origin, type, lista, file)
+    sendEmail(allOrigins.filter((e) => e[0].origin_id == origin)[0][0].email, "Um novo documento de " + name + " foi enviado para validação e publicação no Repositório Institucional Uniplac! <br/> acesse: http://localhost:3000/login")
+    window.location.reload()
   }
 
   return (
@@ -180,9 +183,9 @@ export default function Form(req) {
                         Selecione a origem *
                       </option>
                       {allOrigins.map((e) =>
-                        e.origin == "Outros" ? null : (
-                          <option key={e.id} value={e.id}>
-                            {e.origin}
+                        e[0].origin_name == "Outros" ? null : (
+                          <option key={e[0].origin_id} value={e[0].origin_id}>
+                            {e[0].origin_name}
                           </option>
                         )
                       )}
@@ -317,6 +320,7 @@ export default function Form(req) {
                   placeholder="Escreva um breve resumo sobre seu trabalho."
                   rows="8"
                   id="resume"
+                  maxLength={255}
                   onChange={(e) => setContent(e.target.value)}
                 ></textarea>
 

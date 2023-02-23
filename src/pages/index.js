@@ -14,7 +14,9 @@ export default function Home(props) {
   const [tags, setTags] = useState(props.tags);
   const [allTags, setAllTags] = useState(props.allTags);
   const [types, setTypes] = useState(props.types);
+  const [allTypes, setAllTypes] = useState(props.allTypes);
   const [origins, setOrigin] = useState(props.origins);
+  const [allOrigins, setAllOrigin] = useState(props.allOrigins);
 
   return (
     <section>
@@ -43,7 +45,7 @@ export default function Home(props) {
             index <= 4 ? <Card key={index} content={e} /> : ""
           )}
 
-          <Form types={types} origins={origins} tags={allTags} />
+          <Form types={allTypes} origins={allOrigins} tags={allTags} />
         </div>
 
         
@@ -62,13 +64,17 @@ export async function getServerSideProps() {
   const getTags = await axios.get(process.env.BACKEND + "tagsNum");
   const getAllTags = await axios.get(process.env.BACKEND + "tags");
   const getTypes = await axios.get(process.env.BACKEND + "typesNum");
+  const getAllTypes = await axios.get(process.env.BACKEND + "types");
   const getOrigins = await axios.get(process.env.BACKEND + "originsNum");
+  const getAllOrigins = await axios.get(process.env.BACKEND + "originWuser");
 
   const documents = getLatestDocuments.data;
   const types = getTypes.data;
+  const allTypes = getAllTypes.data;
   const tags = getTags.data;
   const allTags = getAllTags.data;
   const origins = getOrigins.data;
+  const allOrigins = getAllOrigins.data;
 
-  return { props: { documents, tags, allTags, types, origins } };
+  return { props: { documents, tags, allTags, types, allTypes, origins, allOrigins } };
 }

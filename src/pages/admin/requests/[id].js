@@ -2,6 +2,7 @@ import axios from "axios";
 import Image from "next/image";
 import Router from "next/router";
 import { useState } from "react";
+import sendEmail from "../../../helpers/sendEmail";
 
 export default function request(props) {
   const token = props.token;
@@ -20,9 +21,9 @@ export default function request(props) {
   const [fileLink, setLink] = useState(
     process.env.FILESRV + "showFile/" + props.document[0].file
   );
+  const [reason, setReason] = useState();
 
   const [lista, setLista] = useState(props.document[0].tag.slice(1));
-  console.log(user)
   const date = new Date(props.document[0].created_at);
 
   async function approveDoc() {
@@ -30,12 +31,26 @@ export default function request(props) {
     await axios.get(process.env.BACKEND + "documentApprove/" + id, {
       headers: { Authorization: `bearer ${token}` },
     });
+    sendEmail(
+      email,
+      "Seu documento " +
+        title +
+        " foi publicado! <br/>Acesse em: http://localhost:3000/documento/" +
+        id
+    );
   }
 
   async function deleteDoc() {
     await axios.delete(process.env.BACKEND + "documents/" + id, {
       headers: { Authorization: `bearer ${token}` },
     });
+    sendEmail(
+      email,
+      "Seu documento " +
+        title +
+        " não foi aprovado! <br/>Motivo: " +
+        reason
+    );
   }
 
   async function approveTags() {
@@ -181,20 +196,27 @@ export default function request(props) {
             </p>
           </blockquote>
         </div>
-        {approved == false || user.permission_id.id != 1 ? null : (
-          <div className="flex justify-between mt-4 text-xl">
-            <button
-              className="bg-green-500 hover:bg-green-400 py-1 px-2 rounded"
-              onClick={(e) => approveDoc() + Router.push("/admin")}
-            >
-              Aprovar
-            </button>
-            <button
-              className="bg-red-500 hover:bg-red-400 py-1 px-2 rounded"
-              onClick={(e) => deleteDoc() + Router.push("/admin")}
-            >
-              Negar
-            </button>
+
+        {approved == true && user.permission_id.id != 1 ? null : (
+          <div className="flex">
+            <div className="flex justify-between mt-4 text-xl">
+              <button
+                className="bg-green-500 hover:bg-green-400 py-1 px-2 rounded"
+                onClick={(e) => approveDoc() + Router.push("/admin")}
+              >
+                Aprovar
+              </button>
+              <form onSubmit={(e) => e.preventDefault() + deleteDoc() + Router.push("/admin")}>
+                <button
+                  className="bg-red-500 hover:bg-red-400 py-1 px-2 rounded"
+                >
+                  Negar
+                </button>
+                <textarea required
+                  onChange={(e) => setReason(e.target.value)}
+                ></textarea>
+              </form>
+            </div>
           </div>
         )}
       </div>

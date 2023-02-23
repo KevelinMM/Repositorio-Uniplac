@@ -41,9 +41,12 @@ export default function superAdm(props) {
   const [userOrigin, setUserOrigin] = useState(0);
 
   async function createTag() {
-    const tagName = document.getElementById("tag").value;
+    var tagName = document.getElementById("tag").value;
+    tagName = tagName[0].toUpperCase() + tagName.slice(1);
     var truncadeTag = false;
-    tagsSearch.map((e) => (e.tag == tagName ? (truncadeTag = true) : null));
+    tagsSearch.map((e) =>
+      e.tag.toLowerCase() == tagName.toLowerCase() ? (truncadeTag = true) : null
+    );
     if (truncadeTag) {
       document.getElementById("tagCheck").hidden = true;
       document.getElementById("tagAlert").hidden = false;
@@ -63,10 +66,14 @@ export default function superAdm(props) {
   }
 
   async function createOrigin() {
-    const originName = document.getElementById("origin").value;
+    var originName = document.getElementById("origin").value;
+    originName = originName[0].toUpperCase() + originName.slice(1);
+
     var truncadeOrigin = false;
     originsSearch.map((e) =>
-      e.origin == originName ? (truncadeOrigin = true) : null
+      e.origin.toLowerCase() == originName.toLowerCase()
+        ? (truncadeOrigin = true)
+        : null
     );
     if (truncadeOrigin) {
       document.getElementById("originCheck").hidden = true;
@@ -86,9 +93,15 @@ export default function superAdm(props) {
   }
 
   async function createType() {
-    const typeName = document.getElementById("type").value;
+    var typeName = document.getElementById("type").value;
+    typeName = typeName[0].toUpperCase() + typeName.slice(1);
+
     var truncadeType = false;
-    typesSearch.map((e) => (e.type == typeName ? (truncadeType = true) : null));
+    typesSearch.map((e) =>
+      e.type.toLowerCase() == typeName.toLowerCase()
+        ? (truncadeType = true)
+        : null
+    );
     if (truncadeType) {
       document.getElementById("typeCheck").hidden = true;
       document.getElementById("typeAlert").hidden = false;
@@ -190,123 +203,129 @@ export default function superAdm(props) {
       </div>
       <p className="text-gray-700 text-lg pb-4">{name}</p>
       <div className="grid lg:grid-cols-3 gap-4 md:gap-10 mb-4 md:mb-16 ">
-        <form
-          className="bg-slate-300 p-4 rounded-md"
-          onSubmit={(e) => e.preventDefault() + createType()}
-        >
-          <div className="flex justify-between mb-4">
-            <p className="font-semibold">Categorias</p>
-          </div>
-          <div className="flex flex-row-reverse">
-            <div hidden id="typeCheck" className="absolute">
-              <FaCheck className="m-4 w-4 text-green-500" />
-            </div>
-            <div hidden id="typeDelete" className="absolute">
-              <MdClose className="m-4 w-4 text-red-500" />
-            </div>
-            <div hidden id="typeAlert" className="absolute">
-              <FiAlertCircle className="m-4 w-4 font-bold text-yellow-500" />
-            </div>
-            <input
-              required
-              className="w-full rounded-lg border-gray-200 p-3 text-sm"
-              placeholder="Digite a categoria"
-              type="text"
-              id="type"
-              onChange={(e) =>
-                e.target.value.length > 1
-                  ? setTypesSearch(
-                      allTypes.filter((y) =>
-                        y.type
-                          .toLowerCase()
-                          .includes(e.target.value.toLowerCase())
-                      )
-                    )
-                  : setTypesSearch([]) +
-                    (document.getElementById("typeCheck").hidden = true) +
-                    (document.getElementById("typeDelete").hidden = true) +
-                    (document.getElementById("typeAlert").hidden = true)
-              }
-            />
-          </div>
-          <ul className="mx-2 rounded">
-            {typesSearch.map((e, index) => (
-              <li
-                key={index}
-                className="rounded-md p-2 bg-slate-50 flex justify-between shadow-md"
-              >
-                {e.type}
-                {userInfo[0].permission_id.id == 1 ? (
-                  <a
-                    onClick={(z) => deleteType(e.id)}
-                    className="cursor-pointer"
+        {userInfo[0].permission_id.id == 1 ? (
+          <>
+            <form
+              className="bg-slate-300 p-4 rounded-md"
+              onSubmit={(e) => e.preventDefault() + createType()}
+            >
+              <div className="flex justify-between mb-4">
+                <p className="font-semibold">Categorias</p>
+              </div>
+              <div className="flex flex-row-reverse">
+                <div hidden id="typeCheck" className="absolute">
+                  <FaCheck className="m-4 w-4 text-green-500" />
+                </div>
+                <div hidden id="typeDelete" className="absolute">
+                  <MdClose className="m-4 w-4 text-red-500" />
+                </div>
+                <div hidden id="typeAlert" className="absolute">
+                  <FiAlertCircle className="m-4 w-4 font-bold text-yellow-500" />
+                </div>
+                <input
+                  required
+                  className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                  placeholder="Digite a categoria"
+                  type="text"
+                  id="type"
+                  onChange={(e) =>
+                    e.target.value.length > 1
+                      ? setTypesSearch(
+                          allTypes.filter((y) =>
+                            y.type
+                              .toLowerCase()
+                              .includes(e.target.value.toLowerCase())
+                          )
+                        )
+                      : setTypesSearch([]) +
+                        (document.getElementById("typeCheck").hidden = true) +
+                        (document.getElementById("typeDelete").hidden = true) +
+                        (document.getElementById("typeAlert").hidden = true)
+                  }
+                />
+              </div>
+              <ul className="mx-2 rounded">
+                {typesSearch.map((e, index) => (
+                  <li
+                    key={index}
+                    className="rounded-md p-2 bg-slate-50 flex justify-between shadow-md"
                   >
-                    <BiTrashAlt />
-                  </a>
-                ) : null}
-              </li>
-            ))}
-          </ul>
-        </form>
+                    {e.type}
+                    {userInfo[0].permission_id.id == 1 ? (
+                      <a
+                        onClick={(z) => deleteType(e.id)}
+                        className="cursor-pointer"
+                      >
+                        <BiTrashAlt />
+                      </a>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            </form>
 
-        <form
-          className="bg-slate-300 p-4 rounded-md"
-          onSubmit={(e) => e.preventDefault() + createOrigin()}
-        >
-          <div className="flex justify-between mb-4">
-            <p className="font-semibold">Origens</p>
-          </div>
-          <div className="flex flex-row-reverse">
-            <div hidden id="originCheck" className="absolute">
-              <FaCheck className="m-4 w-4 text-green-500" />
-            </div>
-            <div hidden id="originDelete" className="absolute">
-              <MdClose className="m-4 w-4 text-red-500" />
-            </div>
-            <div hidden id="originAlert" className="absolute">
-              <FiAlertCircle className="m-4 w-4 font-bold text-yellow-500" />
-            </div>
-            <input
-              required
-              className="w-full rounded-lg border-gray-200 p-3 text-sm"
-              placeholder="Digite a origin"
-              type="text"
-              id="origin"
-              onChange={(e) =>
-                e.target.value.length > 1
-                  ? setOriginsSearch(
-                      allOrigins.filter((y) =>
-                        y.origin
-                          .toLowerCase()
-                          .includes(e.target.value.toLowerCase())
-                      )
-                    )
-                  : setOriginsSearch([]) +
-                    (document.getElementById("originCheck").hidden = true) +
-                    (document.getElementById("originDelete").hidden = true) +
-                    (document.getElementById("originAlert").hidden = true)
-              }
-            />
-          </div>
-          <ul className="mx-2 rounded">
-            {originsSearch.map((e, index) => (
-              <li
-                key={index}
-                className="rounded-md p-2 bg-slate-50 flex justify-between shadow-md"
-              >
-                {e.origin}
-                {userInfo[0].permission_id.id == 1 ? (
-                  <a
-                    onClick={(z) => deleteOrigin(e.id)}
-                    className="cursor-pointer"
+            <form
+              className="bg-slate-300 p-4 rounded-md"
+              onSubmit={(e) => e.preventDefault() + createOrigin()}
+            >
+              <div className="flex justify-between mb-4">
+                <p className="font-semibold">Origens</p>
+              </div>
+              <div className="flex flex-row-reverse">
+                <div hidden id="originCheck" className="absolute">
+                  <FaCheck className="m-4 w-4 text-green-500" />
+                </div>
+                <div hidden id="originDelete" className="absolute">
+                  <MdClose className="m-4 w-4 text-red-500" />
+                </div>
+                <div hidden id="originAlert" className="absolute">
+                  <FiAlertCircle className="m-4 w-4 font-bold text-yellow-500" />
+                </div>
+                <input
+                  required
+                  className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                  placeholder="Digite a origin"
+                  type="text"
+                  id="origin"
+                  onChange={(e) =>
+                    e.target.value.length > 1
+                      ? setOriginsSearch(
+                          allOrigins.filter((y) =>
+                            y.origin
+                              .toLowerCase()
+                              .includes(e.target.value.toLowerCase())
+                          )
+                        )
+                      : setOriginsSearch([]) +
+                        (document.getElementById("originCheck").hidden = true) +
+                        (document.getElementById(
+                          "originDelete"
+                        ).hidden = true) +
+                        (document.getElementById("originAlert").hidden = true)
+                  }
+                />
+              </div>
+              <ul className="mx-2 rounded">
+                {originsSearch.map((e, index) => (
+                  <li
+                    key={index}
+                    className="rounded-md p-2 bg-slate-50 flex justify-between shadow-md"
                   >
-                    <BiTrashAlt />
-                  </a>
-                ) : null}
-              </li>
-            ))}
-          </ul>
-        </form>
+                    {e.origin}
+                    {userInfo[0].permission_id.id == 1 ? (
+                      <a
+                        onClick={(z) => deleteOrigin(e.id)}
+                        className="cursor-pointer"
+                      >
+                        <BiTrashAlt />
+                      </a>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            </form>
+          </>
+        ) : null}
 
         <form
           className="bg-slate-300 p-4 rounded-md"
