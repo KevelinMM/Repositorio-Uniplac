@@ -48,7 +48,6 @@ export default function request(props) {
   }
 
   async function deleteTag(tagId) {
-    console.log(tagId);
     await axios.delete(process.env.BACKEND + "tags/" + tagId, {
       headers: { Authorization: `bearer ${token}` },
     });

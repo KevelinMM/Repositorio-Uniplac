@@ -1,12 +1,14 @@
 import Image from "next/image";
 import { useState } from "react";
-import { MdOutlineAdd } from "react-icons/md";
+import { MdOutlineAdd, MdClose } from "react-icons/md";
 import { BiTrashAlt } from "react-icons/bi";
+import { FaCheck } from "react-icons/fa";
 import Modal from "./component/Modal";
 import axios from "axios";
 
 export default function superAdm(props) {
   const userInfo = useState(props.infoUser);
+  const token = props.token;
 
   const [origin, setOrigin] = useState(
     userInfo[0].origin_id
@@ -22,7 +24,27 @@ export default function superAdm(props) {
   const [request, setrequest] = useState("Solicitação");
   const [documents, setDocuments] = useState(props.documents);
   const [allTags, setAllTags] = useState(props.allTags);
-  const [tagsSearch, setTagsSearch] = useState(allTags);
+  const [tagsSearch, setTagsSearch] = useState([]);
+
+  async function createTag() {
+    const tagName = document.getElementById("tag").value;
+    await axios.post(process.env.BACKEND + "tags", {
+      tag: [{ tag: tagName, approved: 1 }],
+    });
+    allTags.push({ tag: tagName, approved: true });
+    setTagsSearch([{ tag: tagName, approved: true }]);
+    document.getElementById("check").hidden = false;
+  }
+
+  async function deleteTag(tagId) {
+    await axios.delete(process.env.BACKEND + "tags/" + tagId, {
+      headers: { Authorization: `bearer ${token}` },
+    });
+    setAllTags(allTags.filter((e) => e.id != tagId));
+    setTagsSearch(tagsSearch.filter((e) => e.id != tagId));
+
+    document.getElementById("delete").hidden = false;
+  }
 
   return (
     <div className="bg-gradient-to-t from-blue-100 min-h-screen p-3 lg:pt-24 lg:px-24">
@@ -118,29 +140,60 @@ export default function superAdm(props) {
           </ul>
         </div>
 
-        <div className="bg-slate-300 p-4 rounded-md">
+        <form
+          className="bg-slate-300 p-4 rounded-md"
+          onSubmit={(e) => e.preventDefault() + createTag()}
+        >
           <div className="flex justify-between mb-4">
             <p className="font-semibold">Tags</p>
           </div>
-          <input
-            required
-            className="w-full rounded-lg border-gray-200 p-3 text-sm"
-            placeholder="Digite a tag"
-            type="text"
-            id="tag"
-            onChange={(e) => console.log(e.target.value)}
-          />
+          <div className="flex flex-row-reverse">
+            <div hidden id="check" className="absolute">
+              <FaCheck className="m-4 w-4 text-green-500" />
+            </div>
+            <div hidden id="delete" className="absolute">
+              <MdClose className="m-4 w-4 text-red-500" />
+            </div>
+            <input
+              required
+              className="w-full rounded-lg border-gray-200 p-3 text-sm"
+              placeholder="Digite a tag"
+              type="text"
+              id="tag"
+              onChange={(e) =>
+                e.target.value.length > 1
+                  ? setTagsSearch(
+                      allTags.filter((y) =>
+                        y.tag
+                          .toLowerCase()
+                          .includes(e.target.value.toLowerCase())
+                      )
+                    )
+                  : setTagsSearch([]) +
+                    (document.getElementById("check").hidden = true) +
+                    (document.getElementById("delete").hidden = true)
+              }
+            />
+          </div>
           <ul className="mx-2 rounded">
             {tagsSearch.map((e, index) => (
-              <li key={index} className="rounded-md p-2 bg-slate-50 flex justify-between shadow-md">
+              <li
+                key={index}
+                className="rounded-md p-2 bg-slate-50 flex justify-between shadow-md"
+              >
                 {e.tag}
-                <button>
-                  <BiTrashAlt />
-                </button>
+                {userInfo[0].permission_id.id == 1 ? (
+                  <a
+                    onClick={(z) => deleteTag(e.id)}
+                    className="cursor-pointer"
+                  >
+                    <BiTrashAlt />
+                  </a>
+                ) : null}
               </li>
             ))}
           </ul>
-        </div>
+        </form>
       </div>
 
       <div className="grid col-1 bg-slate-300 p-4 rounded-md w-full">
@@ -203,7 +256,7 @@ export async function getServerSideProps(context) {
 
     const allTags = getAllTags.data;
 
-    return { props: { infoUser, documents, allTags } };
+    return { props: { infoUser, documents, allTags, token } };
   } catch (e) {
     return {
       redirect: {
