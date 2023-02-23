@@ -16,7 +16,7 @@ export default function superAdm(props) {
       : userInfo[0].permission_id.name
   );
 
-  const [documents, setDocuments] = useState(props.documents);
+  const [documents, setDocuments] = useState(props.documents.filter((e) => e.approved == 0));
   const [allTags, setAllTags] = useState(props.allTags);
   const [tagsSearch, setTagsSearch] = useState([]);
 
@@ -183,8 +183,8 @@ export default function superAdm(props) {
   }
 
   return (
-    <div className="bg-gradient-to-t from-blue-100 min-h-screen p-3 lg:pt-24 lg:px-24">
-      <div className="flex justify-between mb-2 md:mb-10">
+    <div className="bg-gradient-to-t from-blue-100 min-h-screen px-6 md:px-20 xl:px-52 py-12">
+      <div className="flex justify-between pb-6 xl:pb-12 items-center">
         <p className="text-gray-700 text-lg md:text-3xl font-bold">Painel</p>
         <p className="text-gray-700 text-lg md:text-3xl font-bold pl-2">
           {origin}
@@ -192,16 +192,16 @@ export default function superAdm(props) {
         <Image
           src={`/logoUniplac.png`}
           alt="Logo Uniplac"
-          width={80}
-          height={80}
+          width={70}
+          height={70}
         />
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-4 md:gap-10 mb-4">
+      <div className="grid lg:grid-cols-2 gap-4 md:gap-10">
         {userInfo[0].permission_id.id == 1 ? (
           <>
             <form
-              className="bg-slate-300 p-4 rounded-md"
+              className="adminCards"
               onSubmit={(e) => e.preventDefault() + createType()}
             >
               <div className="flex justify-between mb-4">
@@ -258,7 +258,7 @@ export default function superAdm(props) {
             </form>
 
             <form
-              className="bg-slate-300 p-4 rounded-md"
+              className="adminCards"
               onSubmit={(e) => e.preventDefault() + createOrigin()}
             >
               <div className="flex justify-between mb-4">
@@ -320,7 +320,7 @@ export default function superAdm(props) {
       </div>
 
       <form
-        className="bg-slate-300 p-4 rounded-md mb-2"
+        className="adminCards"
         onSubmit={(e) => e.preventDefault() + createTag()}
       >
         <div className="mb-4 ">
@@ -377,13 +377,12 @@ export default function superAdm(props) {
         </ul>
       </form>
 
-
-      <div className="grid col-1 bg-slate-300 p-4 rounded-md w-full">
+      <div className=" adminCards">
         <p className="font-semibold mb-4">Solicitações</p>
         <select
-          defaultValue={"all"}
+          defaultValue={0}
           id="countries"
-          className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+          className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 "
           onChange={(e) =>
             setDocuments(
               e.target.value == "all"
@@ -398,19 +397,19 @@ export default function superAdm(props) {
           <option value={0}>Pendêntes</option>
           <option value={1}>Aprovados</option>
         </select>
-        <ul className="mt-4 text-sm bg-slate-200 rounded-md">
+        <ul className="mt-2 text-sm rounded-md space-y-1">
           {documents.map((e) => (
             <li
               key={e.id}
-              className="cursor-pointer mx-5 my-3 p-2  flex justify-between shadow-md"
+              className="cursor-pointer p-2 flex justify-between hover:underline "
             >
               <a href={"admin/requests/" + e.id}>{e.title}</a>
             </li>
           ))}
         </ul>
       </div>
-      
-      <div className="mt-2 bg-slate-300 p-4 rounded-md w-full">
+
+      <div className="adminCards">
         <p className="text-sm font-semibold">
           * Você só tem permissão para cadastrar Tags. Para adicionar
           categorias, solicite: niu.atendimento@uniplaclages.edu.br
@@ -418,13 +417,13 @@ export default function superAdm(props) {
         <Type type={allTypes} />
       </div>
       {userInfo[0].permission_id.id == 1 ? (
-        <form className="grid col-1 bg-slate-300 p-4 rounded-md w-full mt-4">
+        <form className="adminCards">
+          <p className="font-semibold mb-4">Criar usuário</p>
           <div className="flex flex-row-reverse">
-            
             <input
               required
               className="w-full rounded-lg border-gray-200 p-2 mb-2 text-sm"
-              placeholder="Procure o usuário, espaço para ver todos"
+              placeholder="Procure o usuário, digite espaço para ver todos"
               type="text"
               id="user"
               onChange={(e) =>
@@ -436,8 +435,7 @@ export default function superAdm(props) {
                           .includes(e.target.value.toLowerCase())
                       )
                     )
-                  : setUsersSearch([]) 
-               
+                  : setUsersSearch([])
               }
             />
           </div>
@@ -460,65 +458,75 @@ export default function superAdm(props) {
               </li>
             ))}
           </ul>
-          <p className="font-semibold mb-4">Criar usuário</p>
-          <label htmlFor="userName">Nome</label>
-          <input
-            required
-            className="w-full rounded-lg border-gray-200 p-3 text-sm"
-            placeholder="Digite o nome"
-            type="text"
-            id="userName"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-          />
-          <label htmlFor="userEmail">Email</label>
-          <input
-            required
-            className="w-full rounded-lg border-gray-200 p-3 text-sm"
-            placeholder="Digite o email"
-            type="email"
-            id="userEmail"
-            value={userEmail}
-            onChange={(e) => setUserEmail(e.target.value)}
-          />
-          <label htmlFor="userPermission">Permição</label>
-          <select
-            defaultValue={userPermission}
-            id="userPermission"
-            onChange={(e) => setUserPermission(e.target.value)}
-          >
-            <option value="0" disabled>
-              {userPermission == "0" ? "Selecione" : userPermission}
-            </option>
-            {allPermissions.map((e) => (
-              <option key={e.id} value={e.id}>
-                {e.name}
-              </option>
-            ))}
-          </select>
-          <label htmlFor="userOrigin">Origin</label>
-          <select
-            defaultValue={userOrigin}
-            id="userOrigin"
-            onChange={(e) => setUserOrigin(e.target.value)}
-          >
-            <option value="0" disabled>
-              {userOrigin == "0" ? "Selecione" : userOrigin}
-            </option>
-            {allOrigins.map((e) => (
-              <option key={e.id} value={e.id}>
-                {e.origin}
-              </option>
-            ))}
-          </select>
-          <div className="mt-2 flex justify-between">
-            <a
-              className="bg-green-400 hover:bg-green-300 rounded px-2 py-1 cursor-pointer"
-              onClick={(e) => createUser()}
-            >
-              Criar
-            </a>
+
+          <div>
+            <label htmlFor="userName">Nome</label>
+            <input
+              required
+              className="w-full rounded-lg border-gray-200 p-3 text-sm"
+              placeholder="Digite o nome"
+              type="text"
+              id="userName"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+            />
+            <label htmlFor="userEmail">Email</label>
+            <input
+              required
+              className="w-full rounded-lg border-gray-200 p-3 text-sm"
+              placeholder="Digite o email"
+              type="email"
+              id="userEmail"
+              value={userEmail}
+              onChange={(e) => setUserEmail(e.target.value)}
+            />
           </div>
+
+          <div className="flex my-4 items-center">
+            <div className="">
+              <label htmlFor="userPermission" className="pr-2">
+                Permição
+              </label>
+              <select
+                className="px-6"
+                defaultValue={userPermission}
+                id="userPermission"
+                onChange={(e) => setUserPermission(e.target.value)}
+              >
+                <option value="0" disabled>
+                  {userPermission == "0" ? "Selecione" : userPermission}
+                </option>
+                {allPermissions.map((e) => (
+                  <option key={e.id} value={e.id}>
+                    {e.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label htmlFor="userOrigin" className="px-2">
+                Origem
+              </label>
+              <select
+                defaultValue={userOrigin}
+                id="userOrigin"
+                onChange={(e) => setUserOrigin(e.target.value)}
+              >
+                <option value="0" disabled>
+                  {userOrigin == "0" ? "Selecione" : userOrigin}
+                </option>
+                {allOrigins.map((e) => (
+                  <option key={e.id} value={e.id}>
+                    {e.origin}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <a className="btn" onClick={(e) => createUser()}>
+            Criar
+          </a>
         </form>
       ) : null}
     </div>

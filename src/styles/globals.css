@@ -25,5 +25,11 @@ select {
   @apply font-semibold text-2xl py-6 text-gray-600 pl-2 text-center lg:text-start;
 }
 
+.btn {
+  @apply cursor-pointer shadow-md bg-[#5698c8] soft-transition text-white px-3 py-1 rounded hover:bg-gray-700 ;
+}
 
+.adminCards{
+  @apply bg-slate-300 p-6 rounded-md my-4 shadow-lg
+}
 
