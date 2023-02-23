@@ -5,7 +5,7 @@ import createDoc from "../helpers/createDoc";
 
 export default function Form(req) {
   const [correctCode, setCorrectCode] = useState();
-  const [allowed, setAllowed] = useState(false); //default false
+  const [allowed, setAllowed] = useState(true); //default false
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -48,7 +48,7 @@ export default function Form(req) {
   async function sendDocument() {
   
     createDoc(name, email, title, subTitle, content, origin, type, lista, file)
-    sendEmail(allOrigins.filter((e) => e[0].origin_id == origin)[0][0].email, "Um novo documento de " + name + " foi enviado para validação e publicação no Repositório Institucional Uniplac! <br/> acesse: http://localhost:3000/login")
+    await sendEmail(allOrigins.filter((e) => e[0].origin_id == origin)[0][0].email, "Um novo documento de " + name + " foi enviado para validação e publicação no Repositório Institucional Uniplac! <br/> acesse: http://localhost:3000/login")
     window.location.reload()
   }
 
