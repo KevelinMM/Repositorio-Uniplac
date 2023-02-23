@@ -3,13 +3,16 @@ import Image from "next/image";
 import { useState } from "react";
 import Back from "../components/Back";
 import createCookie from "../helpers/createCookie";
-import { deleteCookie } from 'cookies-next';
-
+import { deleteCookie } from "cookies-next";
+import sendEmail from "../helpers/sendEmail";
 
 export default function login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  deleteCookie('auth');
+  const [newPassword, setNewPassword] = useState(false);
+  const [code, setCode] = useState();
+  const [correctCode, setCorrectCode] = useState();
+  deleteCookie("auth");
 
   async function login(e) {
     console.log(email, password);
@@ -19,11 +22,35 @@ export default function login() {
         email: email,
         password: password,
       });
-      createCookie(login.data.token)
-      window.location.href = "/admin"
-      document.getElementById("error").hidden = true
+      createCookie(login.data.token);
+      window.location.href = "/admin";
+      document.getElementById("error").hidden = true;
     } catch (e) {
-      document.getElementById("error").hidden = false
+      document.getElementById("error").hidden = false;
+    }
+  }
+
+  function sendCode() {
+    setNewPassword(true);
+    const randomNumber = Math.floor(Math.random() * 1000) + 9999;
+    setCorrectCode(randomNumber);
+    sendEmail(
+      email,
+      "Seu codigo para redefinir sua senha é " +
+        randomNumber +
+        "<br/>Caso não tenha sido você que solicitou a alteração apenas ignore este email."
+    );
+  }
+
+  async function resetPassword() {
+    if (correctCode == code) {
+      console.log("Reset Password");
+      await axios.put(process.env.BACKEND + "resetPassword/" + email, {
+        password: password,
+      });
+      window.location.reload();
+    } else {
+      document.getElementById("wrongCode").hidden = false
     }
   }
 
@@ -47,10 +74,7 @@ export default function login() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
               Login
             </h1>
-            <form
-              className="space-y-4 md:space-y-3"
-              onSubmit={(e) =>  login(e)}
-            >
+            <form className="space-y-4 md:space-y-3" onSubmit={(e) => login(e)}>
               <div>
                 <label
                   htmlFor="email"
@@ -69,12 +93,39 @@ export default function login() {
                   required
                 />
               </div>
+              {newPassword == true ? (
+                <div>
+                  <span className="text-sm">
+                    Foi enviado um codigo para seu email.
+                  </span>
+                  <label
+                    htmlFor="code"
+                    className="block mb-2 text-sm font-medium text-gray-900 "
+                  >
+                    Código
+                  </label>
+                  <input
+                    type="code"
+                    name="code"
+                    id="code"
+                    value={code}
+                    placeholder="Código"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                    onChange={(e) => setCode(e.target.value)}
+                    required
+                  />
+                  <span id="wrongCode" hidden className="text-sm text-red-500">
+                    Código incorreto.
+                  </span>
+                </div>
+              ) : null}
               <div>
                 <label
+                  id="labelPassword"
                   htmlFor="password"
                   className="block mb-2 text-sm font-medium text-gray-900 "
                 >
-                  Senha
+                  {newPassword == true ? "Nova senha" : "Senha"}
                 </label>
                 <input
                   type="password"
@@ -88,21 +139,35 @@ export default function login() {
                 />
               </div>
               <div>
-                <span className="text-red-500" id="error" hidden>Usuário ou senha invalido !</span>
+                <span className="text-red-500" id="error" hidden>
+                  Usuário ou senha invalido !
+                </span>
               </div>
               <div className="flex items-center justify-between">
-                <button
-                  type="submit"
-                  className=" font-medium rounded-md bg-blue-800 bg-opacity-80 px-2 py-1 text-white hover:bg-blue-500 soft-transition"
-                >
-                  Entrar
-                </button>
-                <a
-                  href="#"
-                  className="text-sm font-medium text-primary-600 hover:underline"
-                >
-                  * Esqueci minha senha
-                </a>
+                {newPassword == true ? (
+                  <a
+                    onClick={(e) => resetPassword()}
+                    className="cursor-pointer font-medium rounded-md bg-blue-800 bg-opacity-80 px-2 py-1 text-white hover:bg-blue-500 soft-transition"
+                  >
+                    Cadastrar nova senha
+                  </a>
+                ) : (
+                  <>
+                    <button
+                      id="loginButton"
+                      type="submit"
+                      className=" font-medium rounded-md bg-blue-800 bg-opacity-80 px-2 py-1 text-white hover:bg-blue-500 soft-transition"
+                    >
+                      Entrar
+                    </button>
+                    <a
+                      onClick={(e) => sendCode()}
+                      className="cursor-pointer text-sm font-medium text-primary-600 hover:underline"
+                    >
+                      * Esqueci minha senha
+                    </a>
+                  </>
+                )}
               </div>
               <p className="text-sm font-light text-gray-500 ">
                 Página destinada à responsáveis das publicações do Repositório
