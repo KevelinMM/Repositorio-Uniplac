@@ -21,33 +21,84 @@ export default function superAdm(props) {
     userInfo[0].origin_id ? userInfo[0].origin_id.id : 0
   );
   const [category, setCategory] = useState("Graduação");
-  const [tag, setTag] = useState("Exemplos Tag");
-  const [request, setrequest] = useState("Solicitação");
   const [documents, setDocuments] = useState(props.documents);
   const [allTags, setAllTags] = useState(props.allTags);
   const [tagsSearch, setTagsSearch] = useState([]);
+
+  const [allOrigins, setAllOrigins] = useState(props.allOrigins);
+  const [originsSearch, setOriginsSearch] = useState([]);
+
+  const [allTypes, setAllTypes] = useState(props.allTypes);
+  const [typesSearch, setTypesSearch] = useState([]);
 
   async function createTag() {
     const tagName = document.getElementById("tag").value;
     var truncadeTag = false;
     tagsSearch.map((e) => (e.tag == tagName ? (truncadeTag = true) : null));
     if (truncadeTag) {
-      document.getElementById("check").hidden = true;
-      document.getElementById("alert").hidden = false;
-      document.getElementById("delete").hidden = true;
-
+      document.getElementById("tagCheck").hidden = true;
+      document.getElementById("tagAlert").hidden = false;
+      document.getElementById("tagDelete").hidden = true;
     } else {
-      const tagDelete = await axios.post(process.env.BACKEND + "tags", {
+      const tagCreate = await axios.post(process.env.BACKEND + "tags", {
         tag: [{ tag: tagName, approved: 1 }],
       });
-      allTags.push({ id: tagDelete.data[0].id, tag: tagName, approved: true });
+      allTags.push({ id: tagCreate.data[0].id, tag: tagName, approved: true });
       setTagsSearch([
-        { id: tagDelete.data[0].id, tag: tagName, approved: true },
+        { id: tagCreate.data[0].id, tag: tagName, approved: true },
       ]);
-      document.getElementById("check").hidden = false;
-      document.getElementById("alert").hidden = true;
-      document.getElementById("delete").hidden = true;
+      document.getElementById("tagCheck").hidden = false;
+      document.getElementById("tagAlert").hidden = true;
+      document.getElementById("tagDelete").hidden = true;
+    }
+  }
 
+  async function createOrigin() {
+    const originName = document.getElementById("origin").value;
+    var truncadeOrigin = false;
+    originsSearch.map((e) =>
+      e.origin == originName ? (truncadeOrigin = true) : null
+    );
+    if (truncadeOrigin) {
+      document.getElementById("originCheck").hidden = true;
+      document.getElementById("originAlert").hidden = false;
+      document.getElementById("originDelete").hidden = true;
+    } else {
+      const originDelete = await axios.post(process.env.BACKEND + "origins", {
+        origin: originName,
+      });
+      console.log(originDelete);
+      allOrigins.push({ id: originDelete.data.id, origin: originName });
+      setOriginsSearch([{ id: originDelete.data.id, origin: originName }]);
+      document.getElementById("originCheck").hidden = false;
+      document.getElementById("originAlert").hidden = true;
+      document.getElementById("originDelete").hidden = true;
+    }
+  }
+
+  async function createType() {
+    const typeName = document.getElementById("type").value;
+    var truncadeType = false;
+    typesSearch.map((e) => (e.type == typeName ? (truncadeType = true) : null));
+    if (truncadeType) {
+      document.getElementById("typeCheck").hidden = true;
+      document.getElementById("typeAlert").hidden = false;
+      document.getElementById("typeDelete").hidden = true;
+    } else {
+      const typeCreate = await axios.post(
+        process.env.BACKEND + "types",
+        {
+          type: typeName,
+        },
+        {
+          headers: { Authorization: `bearer ${token}` },
+        }
+      );
+      allTypes.push({ id: typeCreate.data.id, type: typeName });
+      setTypesSearch([{ id: typeCreate.data.id, type: typeName }]);
+      document.getElementById("typeCheck").hidden = false;
+      document.getElementById("typeAlert").hidden = true;
+      document.getElementById("typeDelete").hidden = true;
     }
   }
 
@@ -58,9 +109,33 @@ export default function superAdm(props) {
     setAllTags(allTags.filter((e) => e.id != tagId));
     setTagsSearch(tagsSearch.filter((e) => e.id != tagId));
 
-    document.getElementById("check").hidden = true;
-    document.getElementById("alert").hidden = true;
-    document.getElementById("delete").hidden = false;
+    document.getElementById("tagCheck").hidden = true;
+    document.getElementById("tagAlert").hidden = true;
+    document.getElementById("tagDelete").hidden = false;
+  }
+
+  async function deleteOrigin(originId) {
+    await axios.delete(process.env.BACKEND + "origins/" + originId, {
+      headers: { Authorization: `bearer ${token}` },
+    });
+    setAllOrigins(allOrigins.filter((e) => e.id != originId));
+    setOriginsSearch(originsSearch.filter((e) => e.id != originId));
+
+    document.getElementById("originCheck").hidden = true;
+    document.getElementById("originAlert").hidden = true;
+    document.getElementById("originDelete").hidden = false;
+  }
+
+  async function deleteType(typeId) {
+    await axios.delete(process.env.BACKEND + "types/" + typeId, {
+      headers: { Authorization: `bearer ${token}` },
+    });
+    setAllTypes(allTypes.filter((e) => e.id != typeId));
+    setTypesSearch(typesSearch.filter((e) => e.id != typeId));
+
+    document.getElementById("typeCheck").hidden = true;
+    document.getElementById("typeAlert").hidden = true;
+    document.getElementById("typeDelete").hidden = false;
   }
 
   return (
@@ -79,83 +154,123 @@ export default function superAdm(props) {
       </div>
       <p className="text-gray-700 text-lg pb-4">{name}</p>
       <div className="grid lg:grid-cols-3 gap-4 md:gap-10 mb-4 md:mb-16 ">
-        <div className="bg-slate-300 p-4 rounded-md">
+        <form
+          className="bg-slate-300 p-4 rounded-md"
+          onSubmit={(e) => e.preventDefault() + createType()}
+        >
           <div className="flex justify-between mb-4">
             <p className="font-semibold">Categorias</p>
-            <Modal
-              title={"Adicionar Categoria"}
-              onConfirm={() => console.log("Button confirm")}
-              onDiscard={() => console.log("Button discard")}
-              buttons={[
-                {
-                  role: "discard",
-                  toClose: true,
-                  classes:
-                    "bg-zinc-500/20 px-4 py-2 rounded-lg hover:bg-zinc-500/30 transition-all duration-200",
-                  label: "Cancelar",
-                },
-                {
-                  role: "confirm",
-                  toClose: false,
-                  classes:
-                    "bg-green-500 px-4 py-2 rounded-lg hover:bg-green-600 transition-all duration-200",
-                  label: "Confirmar",
-                },
-              ]}
-            >
-              <button className="rounded-full px-1 py-1 text-xl bg-green-500 bg-opacity-80">
-                <MdOutlineAdd />
-              </button>
-            </Modal>
           </div>
-          <ul className="pl-2 rounded">
-            <li className="rounded-md p-2 bg-slate-50 mb-2 flex justify-between shadow-md">
-              {category}
-              <button>
-                <BiTrashAlt />
-              </button>
-            </li>
+          <div className="flex flex-row-reverse">
+            <div hidden id="typeCheck" className="absolute">
+              <FaCheck className="m-4 w-4 text-green-500" />
+            </div>
+            <div hidden id="typeDelete" className="absolute">
+              <MdClose className="m-4 w-4 text-red-500" />
+            </div>
+            <div hidden id="typeAlert" className="absolute">
+              <FiAlertCircle className="m-4 w-4 font-bold text-yellow-500" />
+            </div>
+            <input
+              required
+              className="w-full rounded-lg border-gray-200 p-3 text-sm"
+              placeholder="Digite a categoria"
+              type="text"
+              id="type"
+              onChange={(e) =>
+                e.target.value.length > 1
+                  ? setTypesSearch(
+                      allTypes.filter((y) =>
+                        y.type
+                          .toLowerCase()
+                          .includes(e.target.value.toLowerCase())
+                      )
+                    )
+                  : setTypesSearch([]) +
+                    (document.getElementById("typeCheck").hidden = true) +
+                    (document.getElementById("typeDelete").hidden = true) +
+                    (document.getElementById("typeAlert").hidden = true)
+              }
+            />
+          </div>
+          <ul className="mx-2 rounded">
+            {typesSearch.map((e, index) => (
+              <li
+                key={index}
+                className="rounded-md p-2 bg-slate-50 flex justify-between shadow-md"
+              >
+                {e.type}
+                {userInfo[0].permission_id.id == 1 ? (
+                  <a
+                    onClick={(z) => deleteType(e.id)}
+                    className="cursor-pointer"
+                  >
+                    <BiTrashAlt />
+                  </a>
+                ) : null}
+              </li>
+            ))}
           </ul>
-        </div>
+        </form>
 
-        <div className="bg-slate-300 p-4 rounded-md">
+        <form
+          className="bg-slate-300 p-4 rounded-md"
+          onSubmit={(e) => e.preventDefault() + createOrigin()}
+        >
           <div className="flex justify-between mb-4">
-            <p className="font-semibold">Origem</p>
-            <Modal
-              title={"Adicionar Categoria"}
-              onConfirm={() => console.log("Button confirm")}
-              onDiscard={() => console.log("Button discard")}
-              buttons={[
-                {
-                  role: "discard",
-                  toClose: true,
-                  classes:
-                    "bg-zinc-500/20 px-4 py-2 rounded-lg hover:bg-zinc-500/30 transition-all duration-200",
-                  label: "Cancelar",
-                },
-                {
-                  role: "confirm",
-                  toClose: false,
-                  classes:
-                    "bg-green-500 px-4 py-2 rounded-lg hover:bg-green-600 transition-all duration-200",
-                  label: "Confirmar",
-                },
-              ]}
-            >
-              <button className="rounded-full px-1 py-1 text-xl bg-green-500 bg-opacity-80">
-                <MdOutlineAdd />
-              </button>
-            </Modal>
+            <p className="font-semibold">Origens</p>
           </div>
-          <ul className="pl-2 rounded">
-            <li className="rounded-md p-2 bg-slate-50 mb-2 flex justify-between shadow-md">
-              {origin}
-              <button>
-                <BiTrashAlt />
-              </button>
-            </li>
+          <div className="flex flex-row-reverse">
+            <div hidden id="originCheck" className="absolute">
+              <FaCheck className="m-4 w-4 text-green-500" />
+            </div>
+            <div hidden id="originDelete" className="absolute">
+              <MdClose className="m-4 w-4 text-red-500" />
+            </div>
+            <div hidden id="originAlert" className="absolute">
+              <FiAlertCircle className="m-4 w-4 font-bold text-yellow-500" />
+            </div>
+            <input
+              required
+              className="w-full rounded-lg border-gray-200 p-3 text-sm"
+              placeholder="Digite a origin"
+              type="text"
+              id="origin"
+              onChange={(e) =>
+                e.target.value.length > 1
+                  ? setOriginsSearch(
+                      allOrigins.filter((y) =>
+                        y.origin
+                          .toLowerCase()
+                          .includes(e.target.value.toLowerCase())
+                      )
+                    )
+                  : setOriginsSearch([]) +
+                    (document.getElementById("originCheck").hidden = true) +
+                    (document.getElementById("originDelete").hidden = true) +
+                    (document.getElementById("originAlert").hidden = true)
+              }
+            />
+          </div>
+          <ul className="mx-2 rounded">
+            {originsSearch.map((e, index) => (
+              <li
+                key={index}
+                className="rounded-md p-2 bg-slate-50 flex justify-between shadow-md"
+              >
+                {e.origin}
+                {userInfo[0].permission_id.id == 1 ? (
+                  <a
+                    onClick={(z) => deleteOrigin(e.id)}
+                    className="cursor-pointer"
+                  >
+                    <BiTrashAlt />
+                  </a>
+                ) : null}
+              </li>
+            ))}
           </ul>
-        </div>
+        </form>
 
         <form
           className="bg-slate-300 p-4 rounded-md"
@@ -165,13 +280,13 @@ export default function superAdm(props) {
             <p className="font-semibold">Tags</p>
           </div>
           <div className="flex flex-row-reverse">
-            <div hidden id="check" className="absolute">
+            <div hidden id="tagCheck" className="absolute">
               <FaCheck className="m-4 w-4 text-green-500" />
             </div>
-            <div hidden id="delete" className="absolute">
+            <div hidden id="tagDelete" className="absolute">
               <MdClose className="m-4 w-4 text-red-500" />
             </div>
-            <div hidden id="alert" className="absolute">
+            <div hidden id="tagAlert" className="absolute">
               <FiAlertCircle className="m-4 w-4 font-bold text-yellow-500" />
             </div>
             <input
@@ -190,9 +305,9 @@ export default function superAdm(props) {
                       )
                     )
                   : setTagsSearch([]) +
-                    (document.getElementById("check").hidden = true) +
-                    (document.getElementById("delete").hidden = true) +
-                    (document.getElementById("alert").hidden = true) 
+                    (document.getElementById("tagCheck").hidden = true) +
+                    (document.getElementById("tagDelete").hidden = true) +
+                    (document.getElementById("tagAlert").hidden = true)
               }
             />
           </div>
@@ -275,11 +390,15 @@ export async function getServerSideProps(context) {
 
     const getAllTags = await axios.get(process.env.BACKEND + "tags");
     const getAllOrigins = await axios.get(process.env.BACKEND + "origins");
+    const getAllTypes = await axios.get(process.env.BACKEND + "types");
 
     const allTags = getAllTags.data;
     const allOrigins = getAllOrigins.data;
+    const allTypes = getAllTypes.data;
 
-    return { props: { infoUser, documents, allTags, allOrigins, token } };
+    return {
+      props: { infoUser, documents, allTags, allOrigins, allTypes, token },
+    };
   } catch (e) {
     return {
       redirect: {
