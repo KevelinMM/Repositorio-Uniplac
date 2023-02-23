@@ -4,7 +4,6 @@ import { MdOutlineAdd, MdClose } from "react-icons/md";
 import { BiTrashAlt } from "react-icons/bi";
 import { FaCheck } from "react-icons/fa";
 import { FiAlertCircle } from "react-icons/fi";
-import Modal from "./component/Modal";
 import axios from "axios";
 
 export default function superAdm(props) {
@@ -30,6 +29,16 @@ export default function superAdm(props) {
 
   const [allTypes, setAllTypes] = useState(props.allTypes);
   const [typesSearch, setTypesSearch] = useState([]);
+
+  const [allPermissions, setAllPermissions] = useState(props.allPermissions);
+  const [userId, setUserId] = useState();
+  const [allUsers, setAllUsers] = useState(props.allUsers);
+  const [usersSearch, setUsersSearch] = useState([]);
+
+  const [userName, setUserName] = useState();
+  const [userEmail, setUserEmail] = useState();
+  const [userPermission, setUserPermission] = useState(0);
+  const [userOrigin, setUserOrigin] = useState(0);
 
   async function createTag() {
     const tagName = document.getElementById("tag").value;
@@ -136,6 +145,33 @@ export default function superAdm(props) {
     document.getElementById("typeCheck").hidden = true;
     document.getElementById("typeAlert").hidden = true;
     document.getElementById("typeDelete").hidden = false;
+  }
+
+  async function createUser() {
+    const createUser = await axios.post(
+      process.env.BACKEND + "users",
+      {
+        name: userName,
+        email: userEmail,
+        password: "Uniplac_2023",
+        permission_id: userPermission,
+        origin_id: userOrigin == 0 ? null : userOrigin,
+      },
+      {
+        headers: { Authorization: `bearer ${token}` },
+      }
+    );
+    window.location.reload();
+  }
+
+  async function deleteUser(userId) {
+    const deleteUser = await axios.delete(
+      process.env.BACKEND + "users/" + userId,
+      {
+        headers: { Authorization: `bearer ${token}` },
+      }
+    );
+    window.location.reload();
   }
 
   return (
@@ -363,6 +399,120 @@ export default function superAdm(props) {
           ))}
         </ul>
       </div>
+      {userInfo[0].permission_id.id == 1 ? (
+        <form className="grid col-1 bg-slate-300 p-4 rounded-md w-full mt-4">
+          <div className="flex flex-row-reverse">
+            <div hidden id="userCheck" className="absolute">
+              <FaCheck className="m-4 w-4 text-green-500" />
+            </div>
+            <div hidden id="userDelete" className="absolute">
+              <MdClose className="m-4 w-4 text-red-500" />
+            </div>
+            <div hidden id="userAlert" className="absolute">
+              <FiAlertCircle className="m-4 w-4 font-bold text-yellow-500" />
+            </div>
+            <input
+              required
+              className="w-full rounded-lg border-gray-200 p-3 text-sm"
+              placeholder="Digite o user"
+              type="text"
+              id="user"
+              onChange={(e) =>
+                e.target.value.length > 0
+                  ? setUsersSearch(
+                      allUsers.filter((y) =>
+                        y.name
+                          .toLowerCase()
+                          .includes(e.target.value.toLowerCase())
+                      )
+                    )
+                  : setUsersSearch([]) +
+                    (document.getElementById("userCheck").hidden = true) +
+                    (document.getElementById("userDelete").hidden = true) +
+                    (document.getElementById("userAlert").hidden = true)
+              }
+            />
+          </div>
+          <ul className="mx-2 rounded">
+            {usersSearch.map((e, index) => (
+              <li
+                key={index}
+                className="rounded-md p-2 bg-slate-50 flex justify-between shadow-md cursor-pointer"
+                onClick={(z) =>
+                  setUserName(e.name) +
+                  setUserEmail(e.email) +
+                  setUserPermission(e.permission_id.name) +
+                  setUserOrigin(e.origin_id ? e.origin_id.origin : "Sem origin")
+                }
+              >
+                {e.name}
+                <a onClick={(z) => deleteUser(e.id)} className="cursor-pointer">
+                  <BiTrashAlt />
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p className="font-semibold mb-4">Criar usuário</p>
+          <label htmlFor="userName">Nome</label>
+          <input
+            required
+            className="w-full rounded-lg border-gray-200 p-3 text-sm"
+            placeholder="Digite o nome"
+            type="text"
+            id="userName"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+          />
+          <label htmlFor="userEmail">Email</label>
+          <input
+            required
+            className="w-full rounded-lg border-gray-200 p-3 text-sm"
+            placeholder="Digite o email"
+            type="email"
+            id="userEmail"
+            value={userEmail}
+            onChange={(e) => setUserEmail(e.target.value)}
+          />
+          <label htmlFor="userPermission">Permição</label>
+          <select
+            defaultValue={userPermission}
+            id="userPermission"
+            onChange={(e) => setUserPermission(e.target.value)}
+          >
+            <option value="0" disabled>
+              {userPermission == "0" ? "Selecione" : userPermission}
+            </option>
+            {allPermissions.map((e) => (
+              <option key={e.id} value={e.id}>
+                {e.name}
+              </option>
+            ))}
+          </select>
+          <label htmlFor="userOrigin">Origin</label>
+          <select
+            defaultValue={userOrigin}
+            id="userOrigin"
+            onChange={(e) => setUserOrigin(e.target.value)}
+          >
+            <option value="0" disabled>
+              {userOrigin == "0" ? "Selecione" : userOrigin}
+            </option>
+            {allOrigins.map((e) => (
+              <option key={e.id} value={e.id}>
+                {e.origin}
+              </option>
+            ))}
+          </select>
+          <div className="mt-2 flex justify-between">
+            <a
+              className="bg-green-400 hover:bg-green-300 rounded px-2 py-1 cursor-pointer"
+              onClick={(e) => createUser()}
+            >
+              Criar
+            </a>
+          </div>
+        </form>
+      ) : null}
     </div>
   );
 }
@@ -391,13 +541,33 @@ export async function getServerSideProps(context) {
     const getAllTags = await axios.get(process.env.BACKEND + "tags");
     const getAllOrigins = await axios.get(process.env.BACKEND + "origins");
     const getAllTypes = await axios.get(process.env.BACKEND + "types");
+    const getAllPermissions = await axios.get(
+      process.env.BACKEND + "permissions",
+      {
+        headers: { Authorization: `bearer ${token}` },
+      }
+    );
+    const getAllUsers = await axios.get(process.env.BACKEND + "users", {
+      headers: { Authorization: `bearer ${token}` },
+    });
 
     const allTags = getAllTags.data;
     const allOrigins = getAllOrigins.data;
     const allTypes = getAllTypes.data;
+    const allPermissions = getAllPermissions.data;
+    const allUsers = getAllUsers.data;
 
     return {
-      props: { infoUser, documents, allTags, allOrigins, allTypes, token },
+      props: {
+        infoUser,
+        documents,
+        allTags,
+        allOrigins,
+        allTypes,
+        allPermissions,
+        allUsers,
+        token,
+      },
     };
   } catch (e) {
     return {
