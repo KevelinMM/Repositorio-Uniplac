@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { useState } from "react";
-import { MdOutlineAdd, MdClose } from "react-icons/md";
-import { BiTrashAlt } from "react-icons/bi";
-import { FaCheck } from "react-icons/fa";
+import { MdClose } from "react-icons/md";
+import { FaCheck, FaTrash } from "react-icons/fa";
 import { FiAlertCircle } from "react-icons/fi";
+import Type from "../../components/Type";
 import axios from "axios";
 
 export default function superAdm(props) {
@@ -15,11 +15,7 @@ export default function superAdm(props) {
       ? userInfo[0].origin_id.origin
       : userInfo[0].permission_id.name
   );
-  const [name, setName] = useState(userInfo[0].name);
-  const [originId, setOriginId] = useState(
-    userInfo[0].origin_id ? userInfo[0].origin_id.id : 0
-  );
-  const [category, setCategory] = useState("Graduação");
+
   const [documents, setDocuments] = useState(props.documents);
   const [allTags, setAllTags] = useState(props.allTags);
   const [tagsSearch, setTagsSearch] = useState([]);
@@ -31,7 +27,6 @@ export default function superAdm(props) {
   const [typesSearch, setTypesSearch] = useState([]);
 
   const [allPermissions, setAllPermissions] = useState(props.allPermissions);
-  const [userId, setUserId] = useState();
   const [allUsers, setAllUsers] = useState(props.allUsers);
   const [usersSearch, setUsersSearch] = useState([]);
 
@@ -201,8 +196,8 @@ export default function superAdm(props) {
           height={80}
         />
       </div>
-      <p className="text-gray-700 text-lg pb-4">{name}</p>
-      <div className="grid lg:grid-cols-3 gap-4 md:gap-10 mb-4 md:mb-16 ">
+
+      <div className="grid lg:grid-cols-2 gap-4 md:gap-10 mb-4">
         {userInfo[0].permission_id.id == 1 ? (
           <>
             <form
@@ -248,17 +243,15 @@ export default function superAdm(props) {
                 {typesSearch.map((e, index) => (
                   <li
                     key={index}
-                    className="rounded-md p-2 bg-slate-50 flex justify-between shadow-md"
+                    className="mb-2 p-2 bg-slate-50 flex justify-between shadow-md cursor-pointer items-center"
                   >
                     {e.type}
-                    {userInfo[0].permission_id.id == 1 ? (
-                      <a
-                        onClick={(z) => deleteType(e.id)}
-                        className="cursor-pointer"
-                      >
-                        <BiTrashAlt />
-                      </a>
-                    ) : null}
+                    <a
+                      onClick={(z) => deleteType(e.id)}
+                      className="cursor-pointer"
+                    >
+                      <FaTrash />
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -309,83 +302,81 @@ export default function superAdm(props) {
                 {originsSearch.map((e, index) => (
                   <li
                     key={index}
-                    className="rounded-md p-2 bg-slate-50 flex justify-between shadow-md"
+                    className="mb-2 p-2 bg-slate-50 flex justify-between shadow-md cursor-pointer items-center"
                   >
                     {e.origin}
-                    {userInfo[0].permission_id.id == 1 ? (
-                      <a
-                        onClick={(z) => deleteOrigin(e.id)}
-                        className="cursor-pointer"
-                      >
-                        <BiTrashAlt />
-                      </a>
-                    ) : null}
+                    <a
+                      onClick={(z) => deleteOrigin(e.id)}
+                      className="cursor-pointer"
+                    >
+                      <FaTrash />
+                    </a>
                   </li>
                 ))}
               </ul>
             </form>
           </>
         ) : null}
-
-        <form
-          className="bg-slate-300 p-4 rounded-md"
-          onSubmit={(e) => e.preventDefault() + createTag()}
-        >
-          <div className="flex justify-between mb-4">
-            <p className="font-semibold">Tags</p>
-          </div>
-          <div className="flex flex-row-reverse">
-            <div hidden id="tagCheck" className="absolute">
-              <FaCheck className="m-4 w-4 text-green-500" />
-            </div>
-            <div hidden id="tagDelete" className="absolute">
-              <MdClose className="m-4 w-4 text-red-500" />
-            </div>
-            <div hidden id="tagAlert" className="absolute">
-              <FiAlertCircle className="m-4 w-4 font-bold text-yellow-500" />
-            </div>
-            <input
-              required
-              className="w-full rounded-lg border-gray-200 p-3 text-sm"
-              placeholder="Digite a tag"
-              type="text"
-              id="tag"
-              onChange={(e) =>
-                e.target.value.length > 1
-                  ? setTagsSearch(
-                      allTags.filter((y) =>
-                        y.tag
-                          .toLowerCase()
-                          .includes(e.target.value.toLowerCase())
-                      )
-                    )
-                  : setTagsSearch([]) +
-                    (document.getElementById("tagCheck").hidden = true) +
-                    (document.getElementById("tagDelete").hidden = true) +
-                    (document.getElementById("tagAlert").hidden = true)
-              }
-            />
-          </div>
-          <ul className="mx-2 rounded">
-            {tagsSearch.map((e, index) => (
-              <li
-                key={index}
-                className="rounded-md p-2 bg-slate-50 flex justify-between shadow-md"
-              >
-                {e.tag}
-                {userInfo[0].permission_id.id == 1 ? (
-                  <a
-                    onClick={(z) => deleteTag(e.id)}
-                    className="cursor-pointer"
-                  >
-                    <BiTrashAlt />
-                  </a>
-                ) : null}
-              </li>
-            ))}
-          </ul>
-        </form>
       </div>
+
+      <form
+        className="bg-slate-300 p-4 rounded-md mb-2"
+        onSubmit={(e) => e.preventDefault() + createTag()}
+      >
+        <div className="mb-4 ">
+          <p className="font-semibold">Cadastrar Tag</p>
+          <p className="text-sm pt-1">* Aperte "enter" para cadastrar.</p>
+          <p className="text-sm pt-1">
+            * Tags que já existem não poderão ser criadas novamente.
+          </p>
+        </div>
+        <div className="flex flex-row-reverse">
+          <div hidden id="tagCheck" className="absolute">
+            <FaCheck className="m-4 w-4 text-green-500" />
+          </div>
+          <div hidden id="tagDelete" className="absolute">
+            <MdClose className="m-4 w-4 text-red-500" />
+          </div>
+          <div hidden id="tagAlert" className="absolute">
+            <FiAlertCircle className="m-4 w-4 font-bold text-yellow-500" />
+          </div>
+          <input
+            required
+            className="w-full rounded-lg border-gray-200 p-3 text-sm"
+            placeholder="Digite o nome da Tag"
+            type="text"
+            id="tag"
+            onChange={(e) =>
+              e.target.value.length > 1
+                ? setTagsSearch(
+                    allTags.filter((y) =>
+                      y.tag.toLowerCase().includes(e.target.value.toLowerCase())
+                    )
+                  )
+                : setTagsSearch([]) +
+                  (document.getElementById("tagCheck").hidden = true) +
+                  (document.getElementById("tagDelete").hidden = true) +
+                  (document.getElementById("tagAlert").hidden = true)
+            }
+          />
+        </div>
+        <ul className="mx-2 rounded">
+          {tagsSearch.map((e, index) => (
+            <li
+              key={index}
+              className="rounded-md p-2 bg-slate-50 flex justify-between shadow-md"
+            >
+              {e.tag}
+              {userInfo[0].permission_id.id == 1 ? (
+                <a onClick={(z) => deleteTag(e.id)} className="cursor-pointer">
+                  <FaTrash />
+                </a>
+              ) : null}
+            </li>
+          ))}
+        </ul>
+      </form>
+
 
       <div className="grid col-1 bg-slate-300 p-4 rounded-md w-full">
         <p className="font-semibold mb-4">Solicitações</p>
@@ -418,22 +409,22 @@ export default function superAdm(props) {
           ))}
         </ul>
       </div>
+      
+      <div className="mt-2 bg-slate-300 p-4 rounded-md w-full">
+        <p className="text-sm font-semibold">
+          * Você só tem permissão para cadastrar Tags. Para adicionar
+          categorias, solicite: niu.atendimento@uniplaclages.edu.br
+        </p>
+        <Type type={allTypes} />
+      </div>
       {userInfo[0].permission_id.id == 1 ? (
         <form className="grid col-1 bg-slate-300 p-4 rounded-md w-full mt-4">
           <div className="flex flex-row-reverse">
-            <div hidden id="userCheck" className="absolute">
-              <FaCheck className="m-4 w-4 text-green-500" />
-            </div>
-            <div hidden id="userDelete" className="absolute">
-              <MdClose className="m-4 w-4 text-red-500" />
-            </div>
-            <div hidden id="userAlert" className="absolute">
-              <FiAlertCircle className="m-4 w-4 font-bold text-yellow-500" />
-            </div>
+            
             <input
               required
-              className="w-full rounded-lg border-gray-200 p-3 text-sm"
-              placeholder="Digite o user"
+              className="w-full rounded-lg border-gray-200 p-2 mb-2 text-sm"
+              placeholder="Procure o usuário, espaço para ver todos"
               type="text"
               id="user"
               onChange={(e) =>
@@ -445,10 +436,8 @@ export default function superAdm(props) {
                           .includes(e.target.value.toLowerCase())
                       )
                     )
-                  : setUsersSearch([]) +
-                    (document.getElementById("userCheck").hidden = true) +
-                    (document.getElementById("userDelete").hidden = true) +
-                    (document.getElementById("userAlert").hidden = true)
+                  : setUsersSearch([]) 
+               
               }
             />
           </div>
@@ -456,7 +445,7 @@ export default function superAdm(props) {
             {usersSearch.map((e, index) => (
               <li
                 key={index}
-                className="rounded-md p-2 bg-slate-50 flex justify-between shadow-md cursor-pointer"
+                className="mb-2 p-2 bg-slate-50 flex justify-between shadow-md cursor-pointer items-center"
                 onClick={(z) =>
                   setUserName(e.name) +
                   setUserEmail(e.email) +
@@ -466,7 +455,7 @@ export default function superAdm(props) {
               >
                 {e.name}
                 <a onClick={(z) => deleteUser(e.id)} className="cursor-pointer">
-                  <BiTrashAlt />
+                  <FaTrash />
                 </a>
               </li>
             ))}

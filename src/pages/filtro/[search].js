@@ -114,7 +114,7 @@ export default function Home(props) {
   return (
     <section>
       <Header />
-      <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-16 mt-16 ">
+      <div className="min-h-screen container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-16 mt-16 ">
         <div className="lg:w-1/5 overflow-auto flex lg:flex-col">
           <Tags tags={tags} />
           <Origin origin={origins} />

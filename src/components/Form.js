@@ -5,7 +5,7 @@ import createDoc from "../helpers/createDoc";
 
 export default function Form(req) {
   const [correctCode, setCorrectCode] = useState();
-  const [allowed, setAllowed] = useState(true); //default false
+  const [allowed, setAllowed] = useState(false); //default false
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -144,7 +144,7 @@ export default function Form(req) {
             <p className="text-sm pl-2 pb-2 lg:pb-6">Após validação, siga com o formulário.</p>
 
             {allowed == true ? (
-              <section className="space-y-4">
+              <div className="space-y-4">
                 <input
                   className="w-full rounded-lg border-gray-200 p-3 text-sm"
                   placeholder="Nome completo do autor *"
@@ -384,7 +384,7 @@ export default function Form(req) {
                     />
                   </svg>
                 </button>
-              </section>
+              </div>
             ) : (
               ""
             )}

@@ -15,7 +15,6 @@ export default function login() {
   deleteCookie("auth");
 
   async function login(e) {
-    console.log(email, password);
     e.preventDefault();
     try {
       const login = await axios.post(process.env.BACKEND + "login", {
@@ -88,7 +87,7 @@ export default function login() {
                   id="email"
                   value={email}
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  "
-                  placeholder="name@company.com"
+                  placeholder="exemplo@uniplac.net"
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
