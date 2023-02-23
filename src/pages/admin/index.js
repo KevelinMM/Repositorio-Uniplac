@@ -274,10 +274,12 @@ export async function getServerSideProps(context) {
     }
 
     const getAllTags = await axios.get(process.env.BACKEND + "tags");
+    const getAllOrigins = await axios.get(process.env.BACKEND + "origins");
 
     const allTags = getAllTags.data;
+    const allOrigins = getAllOrigins.data;
 
-    return { props: { infoUser, documents, allTags, token } };
+    return { props: { infoUser, documents, allTags, allOrigins, token } };
   } catch (e) {
     return {
       redirect: {
