@@ -52,7 +52,7 @@ export default function Form(req) {
 
   async function sendDocument() {
     try {
-      setAlertMensage("Enviado com sucesso! Verifique seu email.");
+      setAlertMensage("Solicitação enviada com sucesso! Verifique seu email.");
       createDoc(
         name,
         email,
@@ -72,9 +72,9 @@ export default function Form(req) {
       );
       await sendEmail(
         email,
-        "Sua solicitação para publicar o documento:" +
+        "Sua solicitação para publicar o documento" +
           title +
-          "no Repositório Institucional Uniplac foi enviada para analise, você será informado pelo email sobre o andamento da publicação! <br/> acesse: http://localhost:3000/login"
+          " no Repositório Institucional Uniplac foi enviada para analise, você será informado sobre o andamento da publicação pelo email! <br/> acesse: http://localhost:3000/login"
       );
       window.location.reload();
     } catch {
