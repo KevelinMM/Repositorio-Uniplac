@@ -7,6 +7,8 @@ import Type from "../../components/Type";
 import axios from "axios";
 import Solicitations from "./components/Solicitations";
 import Category from "./components/Category";
+import Origin from "./components/Origin";
+import Tag from "./components/Tag";
 
 export default function superAdm(props) {
   const userInfo = useState(props.infoUser);
@@ -16,15 +18,13 @@ export default function superAdm(props) {
     userInfo[0].origin_id
       ? userInfo[0].origin_id.origin
       : userInfo[0].permission_id.name
-  );  
+  );
   const [allTags, setAllTags] = useState(props.allTags);
   const [tagsSearch, setTagsSearch] = useState([]);
 
   const [allOrigins, setAllOrigins] = useState(props.allOrigins);
-  const [originsSearch, setOriginsSearch] = useState([]);
 
   const [allTypes, setAllTypes] = useState(props.allTypes);
-  const [typesSearch, setTypesSearch] = useState([]);
 
   const [allPermissions, setAllPermissions] = useState(props.allPermissions);
   const [allUsers, setAllUsers] = useState(props.allUsers);
@@ -60,65 +60,6 @@ export default function superAdm(props) {
     }
   }
 
-  async function createOrigin() {
-    var originName = document.getElementById("origin").value;
-    originName = originName[0].toUpperCase() + originName.slice(1);
-
-    var truncadeOrigin = false;
-    originsSearch.map((e) =>
-      e.origin.toLowerCase() == originName.toLowerCase()
-        ? (truncadeOrigin = true)
-        : null
-    );
-    if (truncadeOrigin) {
-      document.getElementById("originCheck").hidden = true;
-      document.getElementById("originAlert").hidden = false;
-      document.getElementById("originDelete").hidden = true;
-    } else {
-      const originDelete = await axios.post(process.env.BACKEND + "origins", {
-        origin: originName,
-      });
-      console.log(originDelete);
-      allOrigins.push({ id: originDelete.data.id, origin: originName });
-      setOriginsSearch([{ id: originDelete.data.id, origin: originName }]);
-      document.getElementById("originCheck").hidden = false;
-      document.getElementById("originAlert").hidden = true;
-      document.getElementById("originDelete").hidden = true;
-    }
-  }
-
-  async function createType() {
-    var typeName = document.getElementById("type").value;
-    typeName = typeName[0].toUpperCase() + typeName.slice(1);
-
-    var truncadeType = false;
-    typesSearch.map((e) =>
-      e.type.toLowerCase() == typeName.toLowerCase()
-        ? (truncadeType = true)
-        : null
-    );
-    if (truncadeType) {
-      document.getElementById("typeCheck").hidden = true;
-      document.getElementById("typeAlert").hidden = false;
-      document.getElementById("typeDelete").hidden = true;
-    } else {
-      const typeCreate = await axios.post(
-        process.env.BACKEND + "types",
-        {
-          type: typeName,
-        },
-        {
-          headers: { Authorization: `bearer ${token}` },
-        }
-      );
-      allTypes.push({ id: typeCreate.data.id, type: typeName });
-      setTypesSearch([{ id: typeCreate.data.id, type: typeName }]);
-      document.getElementById("typeCheck").hidden = false;
-      document.getElementById("typeAlert").hidden = true;
-      document.getElementById("typeDelete").hidden = true;
-    }
-  }
-
   async function deleteTag(tagId) {
     await axios.delete(process.env.BACKEND + "tags/" + tagId, {
       headers: { Authorization: `bearer ${token}` },
@@ -129,30 +70,6 @@ export default function superAdm(props) {
     document.getElementById("tagCheck").hidden = true;
     document.getElementById("tagAlert").hidden = true;
     document.getElementById("tagDelete").hidden = false;
-  }
-
-  async function deleteOrigin(originId) {
-    await axios.delete(process.env.BACKEND + "origins/" + originId, {
-      headers: { Authorization: `bearer ${token}` },
-    });
-    setAllOrigins(allOrigins.filter((e) => e.id != originId));
-    setOriginsSearch(originsSearch.filter((e) => e.id != originId));
-
-    document.getElementById("originCheck").hidden = true;
-    document.getElementById("originAlert").hidden = true;
-    document.getElementById("originDelete").hidden = false;
-  }
-
-  async function deleteType(typeId) {
-    await axios.delete(process.env.BACKEND + "types/" + typeId, {
-      headers: { Authorization: `bearer ${token}` },
-    });
-    setAllTypes(allTypes.filter((e) => e.id != typeId));
-    setTypesSearch(typesSearch.filter((e) => e.id != typeId));
-
-    document.getElementById("typeCheck").hidden = true;
-    document.getElementById("typeAlert").hidden = true;
-    document.getElementById("typeDelete").hidden = false;
   }
 
   async function createUser() {
@@ -200,127 +117,13 @@ export default function superAdm(props) {
       <div className="grid lg:grid-cols-2 gap-4 md:gap-10">
         {userInfo[0].permission_id.id == 1 ? (
           <>
-            <Category allTypes={allTypes} token={token}/>
-
-            <form
-              className="adminCards"
-              onSubmit={(e) => e.preventDefault() + createOrigin()}
-            >
-              <div className="flex justify-between mb-4">
-                <p className="font-semibold">Origens</p>
-              </div>
-              <div className="flex flex-row-reverse">
-                <div hidden id="originCheck" className="absolute">
-                  <FaCheck className="m-4 w-4 text-green-500" />
-                </div>
-                <div hidden id="originDelete" className="absolute">
-                  <MdClose className="m-4 w-4 text-red-500" />
-                </div>
-                <div hidden id="originAlert" className="absolute">
-                  <FiAlertCircle className="m-4 w-4 font-bold text-yellow-500" />
-                </div>
-                <input
-                  required
-                  className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                  placeholder="Digite a origin"
-                  type="text"
-                  id="origin"
-                  onChange={(e) =>
-                    e.target.value.length > 1
-                      ? setOriginsSearch(
-                          allOrigins.filter((y) =>
-                            y.origin
-                              .toLowerCase()
-                              .includes(e.target.value.toLowerCase())
-                          )
-                        )
-                      : setOriginsSearch([]) +
-                        (document.getElementById("originCheck").hidden = true) +
-                        (document.getElementById(
-                          "originDelete"
-                        ).hidden = true) +
-                        (document.getElementById("originAlert").hidden = true)
-                  }
-                />
-              </div>
-              <ul className="mx-2 rounded">
-                {originsSearch.map((e, index) => (
-                  <li
-                    key={index}
-                    className="mb-2 p-2 bg-slate-50 flex justify-between shadow-md cursor-pointer items-center"
-                  >
-                    {e.origin}
-                    <a
-                      onClick={(z) => deleteOrigin(e.id)}
-                      className="cursor-pointer"
-                    >
-                      <FaTrash />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </form>
+            <Category allTypes={allTypes} token={token} />
+            <Origin allOrigins={allOrigins} token={token} />
           </>
         ) : null}
       </div>
 
-      <form
-        className="adminCards"
-        onSubmit={(e) => e.preventDefault() + createTag()}
-      >
-        <div className="mb-4 ">
-          <p className="font-semibold">Cadastrar Tag</p>
-          <p className="text-sm pt-1">* Aperte "enter" para cadastrar.</p>
-          <p className="text-sm pt-1">
-            * Tags que já existem não poderão ser criadas novamente.
-          </p>
-        </div>
-        <div className="flex flex-row-reverse">
-          <div hidden id="tagCheck" className="absolute">
-            <FaCheck className="m-4 w-4 text-green-500" />
-          </div>
-          <div hidden id="tagDelete" className="absolute">
-            <MdClose className="m-4 w-4 text-red-500" />
-          </div>
-          <div hidden id="tagAlert" className="absolute">
-            <FiAlertCircle className="m-4 w-4 font-bold text-yellow-500" />
-          </div>
-          <input
-            required
-            className="w-full rounded-lg border-gray-200 p-3 text-sm"
-            placeholder="Digite o nome da Tag"
-            type="text"
-            id="tag"
-            onChange={(e) =>
-              e.target.value.length > 1
-                ? setTagsSearch(
-                    allTags.filter((y) =>
-                      y.tag.toLowerCase().includes(e.target.value.toLowerCase())
-                    )
-                  )
-                : setTagsSearch([]) +
-                  (document.getElementById("tagCheck").hidden = true) +
-                  (document.getElementById("tagDelete").hidden = true) +
-                  (document.getElementById("tagAlert").hidden = true)
-            }
-          />
-        </div>
-        <ul className="mx-2 rounded">
-          {tagsSearch.map((e, index) => (
-            <li
-              key={index}
-              className="rounded-md p-2 bg-slate-50 flex justify-between shadow-md"
-            >
-              {e.tag}
-              {userInfo[0].permission_id.id == 1 ? (
-                <a onClick={(z) => deleteTag(e.id)} className="cursor-pointer">
-                  <FaTrash />
-                </a>
-              ) : null}
-            </li>
-          ))}
-        </ul>
-      </form>
+      <Tag allTags={allTags} token={token} infoUser={userInfo} />
 
       <Solicitations documents={props.documents} />
 
