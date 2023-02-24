@@ -72,7 +72,7 @@ export default function Form(req) {
       );
       await sendEmail(
         email,
-        "Sua solicitação para publicar o documento" +
+        "Sua solicitação para publicar o documento " +
           title +
           " no Repositório Institucional Uniplac foi enviada para analise, você será informado sobre o andamento da publicação pelo email! <br/> Segundo a Lei Geral de Proteção de Dados Pessoais, ao enviar a solicitação, você autorizou que seus dados fossem coletados pela instituição Uniplac."
       );
