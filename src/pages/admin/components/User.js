@@ -14,10 +14,8 @@ export default function User(req) {
   const [allPermissions, setAllPermissions] = useState(req.allPermissions);
   const [allOrigins, setAllOrigins] = useState(req.allOrigns);
 
+  const token = req.token;
 
-  const token = req.token
-
-  
   async function createUser() {
     const createUser = await axios.post(
       process.env.BACKEND + "users",
@@ -47,115 +45,123 @@ export default function User(req) {
 
   return (
     <form className="adminCards">
-          <p className="font-semibold mb-4">Criar usuário</p>
-          <div className="flex flex-row-reverse">
-            <input
-              required
-              className="w-full rounded-lg border-gray-200 p-2 mb-2 text-sm"
-              placeholder="Procure o usuário, digite espaço para ver todos"
-              type="text"
-              id="user"
-              onChange={(e) =>
-                e.target.value.length > 0
-                  ? setUsersSearch(
-                      allUsers.filter((y) =>
-                        y.name
-                          .toLowerCase()
-                          .includes(e.target.value.toLowerCase())
-                      )
-                    )
-                  : setUsersSearch([])
-              }
-            />
-          </div>
-          <ul className="mx-2 rounded">
-            {usersSearch.map((e, index) => (
-              <li
-                key={index}
-                className="mb-2 p-2 bg-slate-50 flex justify-between shadow-md cursor-pointer items-center"
-                onClick={(z) =>
-                  setUserName(e.name) +
-                  setUserEmail(e.email) +
-                  setUserPermission(e.permission_id.name) +
-                  setUserOrigin(e.origin_id ? e.origin_id.origin : "Sem origin")
-                }
-              >
+      <div className="flex justify-between">
+        <p className="font-semibold mb-4">Usuários</p>
+        <span
+          onClick={() => setUsersSearch(usersSearch.length > 0 ? [] : allUsers)}
+          className="text-blue-500 underline cursor-pointer mr-2 mb-1"
+        >
+          Ver todos
+        </span>
+      </div>
+
+      <div className="flex flex-row-reverse">
+        <input
+          required
+          className="w-full rounded-lg border-gray-200 p-2 mb-2 text-sm"
+          placeholder="Procure o usuário, digite espaço para ver todos"
+          type="text"
+          id="user"
+          onChange={(e) =>
+            e.target.value.length > 0
+              ? setUsersSearch(
+                  allUsers.filter((y) =>
+                    y.name.toLowerCase().includes(e.target.value.toLowerCase())
+                  )
+                )
+              : setUsersSearch([])
+          }
+        />
+      </div>
+      <ul className="mx-2 rounded">
+        {usersSearch.map((e, index) => (
+          <li
+            key={index}
+            className="mb-2 p-2 bg-slate-50 flex justify-between shadow-md cursor-pointer items-center"
+            onClick={(z) =>
+              setUserName(e.name) +
+              setUserEmail(e.email) +
+              setUserPermission(e.permission_id.name) +
+              setUserOrigin(e.origin_id ? e.origin_id.origin : "Sem origin")
+            }
+          >
+            {e.name}
+            <a onClick={(z) => deleteUser(e.id)} className="cursor-pointer">
+              <FaTrash />
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p className="font-semibold mb-4">Cadastrar usuário</p>
+
+      <div>
+        <label htmlFor="userName">Nome</label>
+        <input
+          required
+          className="w-full rounded-lg border-gray-200 p-3 text-sm"
+          placeholder="Digite o nome"
+          type="text"
+          id="userName"
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+        />
+        <label htmlFor="userEmail">Email</label>
+        <input
+          required
+          className="w-full rounded-lg border-gray-200 p-3 text-sm"
+          placeholder="Digite o email"
+          type="email"
+          id="userEmail"
+          value={userEmail}
+          onChange={(e) => setUserEmail(e.target.value)}
+        />
+      </div>
+
+      <div className="flex my-4 items-center">
+        <div className="">
+          <label htmlFor="userPermission" className="pr-2">
+            Permição
+          </label>
+          <select
+            className="px-6"
+            defaultValue={userPermission}
+            id="userPermission"
+            onChange={(e) => setUserPermission(e.target.value)}
+          >
+            <option value="0" disabled>
+              {userPermission == "0" ? "Selecione" : userPermission}
+            </option>
+            {allPermissions.map((e) => (
+              <option key={e.id} value={e.id}>
                 {e.name}
-                <a onClick={(z) => deleteUser(e.id)} className="cursor-pointer">
-                  <FaTrash />
-                </a>
-              </li>
+              </option>
             ))}
-          </ul>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="userOrigin" className="px-2">
+            Origem
+          </label>
+          <select
+            defaultValue={userOrigin}
+            id="userOrigin"
+            onChange={(e) => setUserOrigin(e.target.value)}
+          >
+            <option value="0" disabled>
+              {userOrigin == "0" ? "Selecione" : userOrigin}
+            </option>
+            {allOrigins.map((e) => (
+              <option key={e.id} value={e.id}>
+                {e.origin}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
 
-          <div>
-            <label htmlFor="userName">Nome</label>
-            <input
-              required
-              className="w-full rounded-lg border-gray-200 p-3 text-sm"
-              placeholder="Digite o nome"
-              type="text"
-              id="userName"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-            />
-            <label htmlFor="userEmail">Email</label>
-            <input
-              required
-              className="w-full rounded-lg border-gray-200 p-3 text-sm"
-              placeholder="Digite o email"
-              type="email"
-              id="userEmail"
-              value={userEmail}
-              onChange={(e) => setUserEmail(e.target.value)}
-            />
-          </div>
-
-          <div className="flex my-4 items-center">
-            <div className="">
-              <label htmlFor="userPermission" className="pr-2">
-                Permição
-              </label>
-              <select
-                className="px-6"
-                defaultValue={userPermission}
-                id="userPermission"
-                onChange={(e) => setUserPermission(e.target.value)}
-              >
-                <option value="0" disabled>
-                  {userPermission == "0" ? "Selecione" : userPermission}
-                </option>
-                {allPermissions.map((e) => (
-                  <option key={e.id} value={e.id}>
-                    {e.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label htmlFor="userOrigin" className="px-2">
-                Origem
-              </label>
-              <select
-                defaultValue={userOrigin}
-                id="userOrigin"
-                onChange={(e) => setUserOrigin(e.target.value)}
-              >
-                <option value="0" disabled>
-                  {userOrigin == "0" ? "Selecione" : userOrigin}
-                </option>
-                {allOrigins.map((e) => (
-                  <option key={e.id} value={e.id}>
-                    {e.origin}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          <a className="btn" onClick={(e) => createUser()}>
-            Criar
-          </a>
-        </form>
+      <a className="btn" onClick={(e) => createUser()}>
+        Criar
+      </a>
+    </form>
   );
 }

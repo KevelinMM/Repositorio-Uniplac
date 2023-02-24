@@ -7,6 +7,7 @@ import Category from "./components/Category";
 import Origin from "./components/Origin";
 import Tag from "./components/Tag";
 import User from "./components/User";
+import Router from "next/router";
 
 export default function superAdm(props) {
   const userInfo = useState(props.infoUser);
@@ -17,6 +18,7 @@ export default function superAdm(props) {
       ? userInfo[0].origin_id.origin
       : userInfo[0].permission_id.name
   );
+
   const [allTags, setAllTags] = useState(props.allTags);
 
   const [allOrigins, setAllOrigins] = useState(props.allOrigins);
@@ -26,10 +28,20 @@ export default function superAdm(props) {
   const [allPermissions, setAllPermissions] = useState(props.allPermissions);
   const [allUsers, setAllUsers] = useState(props.allUsers);
 
+  const [documents, setDocuments] = useState(props.documents);
+
   return (
     <div className="bg-gradient-to-t from-blue-100 min-h-screen px-6 md:px-20 xl:px-52 py-12">
       <div className="flex justify-between pb-6 xl:pb-12 items-center">
-        <p className="text-gray-700 text-lg md:text-3xl font-bold">Painel</p>
+        <div>
+          <p className="text-gray-700 text-lg md:text-3xl font-bold">Painel</p>
+          <p
+            onClick={() => Router.push("/login")}
+            className="rounded text-center bg-red-300 hover:bg-red-400 text-red-700 hover:text-red-100 cursor-pointer"
+          >
+            Logout
+          </p>
+        </div>
         <p className="text-gray-700 text-lg md:text-3xl font-bold pl-2">
           {origin}
         </p>
@@ -52,7 +64,29 @@ export default function superAdm(props) {
 
       <Tag allTags={allTags} token={token} infoUser={userInfo} />
 
-      <Solicitations documents={props.documents} />
+      {userInfo[0].permission_id.id == 1 || userInfo[0].origin_id.id == 1 ? (
+        <select
+          defaultValue={0}
+          id="countries"
+          className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 "
+          onChange={(e) =>
+            setDocuments(
+              e.target.value == 1
+                ? props.documents
+                : props.documents.filter(
+                    (z) => e.target.value * 1 == z.origin_id.id
+                  )
+            )
+          }
+        >
+          <option value="all">Todos</option>
+          {allOrigins.map((e) => (
+            <option value={e.id}>{e.origin}</option>
+          ))}
+        </select>
+      ) : null}
+
+      <Solicitations documents={documents} allOrigins={allOrigins} />
 
       <div className="adminCards">
         <p className="text-sm font-semibold">
@@ -81,7 +115,6 @@ export async function getServerSideProps(context) {
 
     const infoUser = user.data.shift();
     var documents;
-
     if (infoUser.origin_id) {
       const doc = await axios.get(
         process.env.BACKEND + "documentsByOrigin/" + infoUser.origin_id.id
@@ -89,7 +122,7 @@ export async function getServerSideProps(context) {
       documents = doc.data;
     } else {
       const doc = await axios.get(
-        process.env.BACKEND + "documentsByOrigin/" + 0
+        process.env.BACKEND + "documentsByOrigin/" + 1
       );
       documents = doc.data;
     }

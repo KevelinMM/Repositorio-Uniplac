@@ -1,10 +1,14 @@
 import { useState } from "react";
-
+import { GrDocumentTime, GrDocumentVerified } from "react-icons/gr";
 
 export default function Solicitations(req) {
-  const [documents, setDocuments] = useState(req.documents.filter((e) => e.approved == 0))
+  const [documents, setDocuments] = useState(
+    req.documents.filter((e) => e.approved == 0)
+  );
+  const [allOrigins, setAllOrigins] = useState(req.allOrigins);
   return (
     <div className="adminCards">
+
       <p className="font-semibold mb-4">Solicitações</p>
       <select
         defaultValue={0}
@@ -26,9 +30,9 @@ export default function Solicitations(req) {
         {documents.map((e) => (
           <li
             key={e.id}
-            className="cursor-pointer p-2 flex justify-between hover:underline "
+            className="cursor-pointer p-2 flex items-center space-x-2 hover:underline "
           >
-            <a href={"admin/requests/" + e.id}>{e.title}</a>
+            {e.approved == true ?  <div className="text-lg rounded bg-green-100"><GrDocumentVerified/></div> : <div className="text-lg rounded bg-yellow-100"><GrDocumentTime/></div>}<a href={"admin/requests/" + e.id}>{e.title}</a>
           </li>
         ))}
       </ul>
