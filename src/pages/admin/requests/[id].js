@@ -13,7 +13,7 @@ export default function request(props) {
   const [category, setCategory] = useState(props.document[0].type_id.type);
   const [tagsId, setTag] = useState();
   const [autor, setAutor] = useState(props.document[0].autor);
-  const [curator, setCurator] = useState(props.document[0].curator);
+  const [curator, setCurator] = useState("");
   const [email, setEmail] = useState(props.document[0].autor_email);
   const [title, setTitle] = useState(props.document[0].title);
   const [subTitle, setSubTitle] = useState(props.document[0].subtitle);
@@ -28,9 +28,16 @@ export default function request(props) {
 
   async function approveDoc() {
     approveTags();
-    await axios.get(process.env.BACKEND + "documentApprove/" + id, {
-      headers: { Authorization: `bearer ${token}` },
-    });
+    await axios.post(
+      process.env.BACKEND + "documentApprove/" + id,
+
+      {
+        user_id: user.id,
+      },
+      {
+        headers: { Authorization: `bearer ${token}` },
+      }
+    );
     sendEmail(
       email,
       "Seu documento " +

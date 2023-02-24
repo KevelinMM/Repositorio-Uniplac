@@ -5,6 +5,8 @@ import { FaCheck, FaTrash } from "react-icons/fa";
 import { FiAlertCircle } from "react-icons/fi";
 import Type from "../../components/Type";
 import axios from "axios";
+import Solicitations from "./components/Solicitations";
+import Category from "./components/Category";
 
 export default function superAdm(props) {
   const userInfo = useState(props.infoUser);
@@ -14,9 +16,7 @@ export default function superAdm(props) {
     userInfo[0].origin_id
       ? userInfo[0].origin_id.origin
       : userInfo[0].permission_id.name
-  );
-
-  const [documents, setDocuments] = useState(props.documents.filter((e) => e.approved == 0));
+  );  
   const [allTags, setAllTags] = useState(props.allTags);
   const [tagsSearch, setTagsSearch] = useState([]);
 
@@ -200,62 +200,7 @@ export default function superAdm(props) {
       <div className="grid lg:grid-cols-2 gap-4 md:gap-10">
         {userInfo[0].permission_id.id == 1 ? (
           <>
-            <form
-              className="adminCards"
-              onSubmit={(e) => e.preventDefault() + createType()}
-            >
-              <div className="flex justify-between mb-4">
-                <p className="font-semibold">Categorias</p>
-              </div>
-              <div className="flex flex-row-reverse">
-                <div hidden id="typeCheck" className="absolute">
-                  <FaCheck className="m-4 w-4 text-green-500" />
-                </div>
-                <div hidden id="typeDelete" className="absolute">
-                  <MdClose className="m-4 w-4 text-red-500" />
-                </div>
-                <div hidden id="typeAlert" className="absolute">
-                  <FiAlertCircle className="m-4 w-4 font-bold text-yellow-500" />
-                </div>
-                <input
-                  required
-                  className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                  placeholder="Digite a categoria"
-                  type="text"
-                  id="type"
-                  onChange={(e) =>
-                    e.target.value.length > 1
-                      ? setTypesSearch(
-                          allTypes.filter((y) =>
-                            y.type
-                              .toLowerCase()
-                              .includes(e.target.value.toLowerCase())
-                          )
-                        )
-                      : setTypesSearch([]) +
-                        (document.getElementById("typeCheck").hidden = true) +
-                        (document.getElementById("typeDelete").hidden = true) +
-                        (document.getElementById("typeAlert").hidden = true)
-                  }
-                />
-              </div>
-              <ul className="mx-2 rounded">
-                {typesSearch.map((e, index) => (
-                  <li
-                    key={index}
-                    className="mb-2 p-2 bg-slate-50 flex justify-between shadow-md cursor-pointer items-center"
-                  >
-                    {e.type}
-                    <a
-                      onClick={(z) => deleteType(e.id)}
-                      className="cursor-pointer"
-                    >
-                      <FaTrash />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </form>
+            <Category allTypes={allTypes} token={token}/>
 
             <form
               className="adminCards"
@@ -377,37 +322,7 @@ export default function superAdm(props) {
         </ul>
       </form>
 
-      <div className=" adminCards">
-        <p className="font-semibold mb-4">Solicitações</p>
-        <select
-          defaultValue={0}
-          id="countries"
-          className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 "
-          onChange={(e) =>
-            setDocuments(
-              e.target.value == "all"
-                ? props.documents
-                : props.documents.filter(
-                    (z) => e.target.value * 1 == z.approved
-                  )
-            )
-          }
-        >
-          <option value="all">Todos</option>
-          <option value={0}>Pendêntes</option>
-          <option value={1}>Aprovados</option>
-        </select>
-        <ul className="mt-2 text-sm rounded-md space-y-1">
-          {documents.map((e) => (
-            <li
-              key={e.id}
-              className="cursor-pointer p-2 flex justify-between hover:underline "
-            >
-              <a href={"admin/requests/" + e.id}>{e.title}</a>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <Solicitations documents={props.documents} />
 
       <div className="adminCards">
         <p className="text-sm font-semibold">
