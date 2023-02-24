@@ -47,9 +47,6 @@ export default function Home(props) {
 
           <Form types={allTypes} origins={allOrigins} tags={allTags} />
         </div>
-
-        
-
         <Back />
       </div>
       <Footer />

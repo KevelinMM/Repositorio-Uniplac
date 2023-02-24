@@ -2,10 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import sendEmail from "../helpers/sendEmail";
 import createDoc from "../helpers/createDoc";
+import AlertBox from "../components/AlertBox";
 
 export default function Form(req) {
   const [correctCode, setCorrectCode] = useState();
-  const [allowed, setAllowed] = useState(true); //default false
+  const [allowed, setAllowed] = useState(false); //default false
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -17,6 +18,7 @@ export default function Form(req) {
   const [file, setFile] = useState();
   const [tagListId, setTagListId] = useState([]);
   const [lista, setLista] = useState([]);
+  const [alertMensage, setAlertMensage] = useState();
 
   const [allTypes, setAllTypes] = useState(req.types);
   const [allOrigins, setAllOrigins] = useState(req.origins);
@@ -28,7 +30,10 @@ export default function Form(req) {
     const randomNumber = Math.floor(Math.random() * 1000) + 9999;
     setCorrectCode(randomNumber);
 
-    await sendEmail(email, "Seu código de ativação para envio de documento é " + randomNumber);
+    await sendEmail(
+      email,
+      "Seu código de ativação para envio de documento é " + randomNumber
+    );
   }
 
   function validateCodde(code) {
@@ -46,10 +51,35 @@ export default function Form(req) {
   }
 
   async function sendDocument() {
-  
-    createDoc(name, email, title, subTitle, content, origin, type, lista, file)
-    await sendEmail(allOrigins.filter((e) => e[0].origin_id == origin)[0][0].email, "Um novo documento de " + name + " foi enviado para validação e publicação no Repositório Institucional Uniplac! <br/> acesse: http://localhost:3000/login")
-    window.location.reload()
+    try {
+      setAlertMensage("Enviado com sucesso! Verifique seu email.");
+      createDoc(
+        name,
+        email,
+        title,
+        subTitle,
+        content,
+        origin,
+        type,
+        lista,
+        file
+      );
+      await sendEmail(
+        allOrigins.filter((e) => e[0].origin_id == origin)[0][0].email,
+        "Uma nova solicitação de " +
+          name +
+          " foi enviada e aguarda sua validação para ser publicado no Repositório Institucional Uniplac! <br/> acesse: http://localhost:3000/login"
+      );
+      await sendEmail(
+        email,
+        "Sua solicitação para publicar o documento:" +
+          title +
+          "no Repositório Institucional Uniplac foi enviada para analise, você será informado pelo email sobre o andamento da publicação! <br/> acesse: http://localhost:3000/login"
+      );
+      window.location.reload();
+    } catch {
+      setAlertMensage("Erro ao enviar documento, tente novamente mais tarde!");
+    }
   }
 
   return (
@@ -141,7 +171,9 @@ export default function Form(req) {
                 <p className="text-red-600 text-xl">x</p>
               </div>
             </div>
-            <p className="text-sm pl-2 pb-2 lg:pb-6">Após validação, siga com o formulário.</p>
+            <p className="text-sm pl-2 pb-2 lg:pb-6">
+              Após validação, siga com o formulário.
+            </p>
 
             {allowed == true ? (
               <div className="space-y-4">
@@ -235,7 +267,9 @@ export default function Form(req) {
                             "resultTags"
                           ).hidden = false) +
                           (document.getElementById("newTag").hidden = false)
-                        : (document.getElementById("resultTags").hidden = true) +
+                        : (document.getElementById(
+                            "resultTags"
+                          ).hidden = true) +
                           (document.getElementById("newTag").hidden = true);
                     }}
                   />
@@ -389,6 +423,7 @@ export default function Form(req) {
               ""
             )}
           </form>
+          <AlertBox msg={alertMensage} />
         </div>
       </div>
     </div>
