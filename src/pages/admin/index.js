@@ -87,38 +87,6 @@ export default function superAdm(props) {
     }
   }
 
-  async function createType() {
-    var typeName = document.getElementById("type").value;
-    typeName = typeName[0].toUpperCase() + typeName.slice(1);
-
-    var truncadeType = false;
-    typesSearch.map((e) =>
-      e.type.toLowerCase() == typeName.toLowerCase()
-        ? (truncadeType = true)
-        : null
-    );
-    if (truncadeType) {
-      document.getElementById("typeCheck").hidden = true;
-      document.getElementById("typeAlert").hidden = false;
-      document.getElementById("typeDelete").hidden = true;
-    } else {
-      const typeCreate = await axios.post(
-        process.env.BACKEND + "types",
-        {
-          type: typeName,
-        },
-        {
-          headers: { Authorization: `bearer ${token}` },
-        }
-      );
-      allTypes.push({ id: typeCreate.data.id, type: typeName });
-      setTypesSearch([{ id: typeCreate.data.id, type: typeName }]);
-      document.getElementById("typeCheck").hidden = false;
-      document.getElementById("typeAlert").hidden = true;
-      document.getElementById("typeDelete").hidden = true;
-    }
-  }
-
   async function deleteTag(tagId) {
     await axios.delete(process.env.BACKEND + "tags/" + tagId, {
       headers: { Authorization: `bearer ${token}` },
@@ -141,18 +109,6 @@ export default function superAdm(props) {
     document.getElementById("originCheck").hidden = true;
     document.getElementById("originAlert").hidden = true;
     document.getElementById("originDelete").hidden = false;
-  }
-
-  async function deleteType(typeId) {
-    await axios.delete(process.env.BACKEND + "types/" + typeId, {
-      headers: { Authorization: `bearer ${token}` },
-    });
-    setAllTypes(allTypes.filter((e) => e.id != typeId));
-    setTypesSearch(typesSearch.filter((e) => e.id != typeId));
-
-    document.getElementById("typeCheck").hidden = true;
-    document.getElementById("typeAlert").hidden = true;
-    document.getElementById("typeDelete").hidden = false;
   }
 
   async function createUser() {
