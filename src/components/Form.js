@@ -74,7 +74,7 @@ export default function Form(req) {
         email,
         "Sua solicitação para publicar o documento" +
           title +
-          " no Repositório Institucional Uniplac foi enviada para analise, você será informado sobre o andamento da publicação pelo email! <br/> acesse: http://localhost:3000/login"
+          " no Repositório Institucional Uniplac foi enviada para analise, você será informado sobre o andamento da publicação pelo email! <br/> Segundo a Lei Geral de Proteção de Dados Pessoais, ao enviar a solicitação, você autorizou que seus dados fossem coletados pela instituição Uniplac."
       );
       window.location.reload();
     } catch {
@@ -393,10 +393,11 @@ export default function Form(req) {
                     htmlFor="default-checkbox"
                     className="ml-1 text-sm font-medium text-gray-600 text-justify p-4"
                   >
-                    Declaro estar ciente que os meus dados pessoais são
-                    coletados e utilizados pela instituição de ensino para
-                    realizar a publicação do documento, controlar o
-                    credenciamento dos participantes e enviar comunicados.
+                    Lei Geral de Proteção de Dados Pessoais (LGPD): Declaro
+                    estar ciente que os dados cadastrados serão coletados e
+                    utilizados pela instituição de ensino Uniplac para realizar
+                    a publicação do documento, controlar o credenciamento dos
+                    participantes e enviar comunicados pelo Email informado.
                   </label>
                 </div>
 
