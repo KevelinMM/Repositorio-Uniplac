@@ -7,6 +7,7 @@ import sendEmail from "../../../helpers/sendEmail";
 export default function request(props) {
   const token = props.token;
   const user = props.infoUser;
+  console.log(user)
   const [origin, setOrigin] = useState(props.document[0].origin_id.origin);
   const [approved, setApproved] = useState(props.document[0].approved);
   const [id, setId] = useState(props.document[0].id);
@@ -53,8 +54,8 @@ export default function request(props) {
     });
     sendEmail(
       email,
-      "Seu documento " + title + " não foi aprovado! <br/>Motivo: " + reason
-    );
+      "Seu documento " + title + " não foi aprovado! <br/>Motivo: " + reason +
+    "<br/> Faça as alterações necessárias e envie novamente sua socilitação em: www.repositorio.uniplaclages.edu.br/#formPubli, ou entre em contato com " + user.email + " .");
   }
 
   async function approveTags() {
