@@ -60,6 +60,65 @@ export default function superAdm(props) {
     }
   }
 
+  async function createOrigin() {
+    var originName = document.getElementById("origin").value;
+    originName = originName[0].toUpperCase() + originName.slice(1);
+
+    var truncadeOrigin = false;
+    originsSearch.map((e) =>
+      e.origin.toLowerCase() == originName.toLowerCase()
+        ? (truncadeOrigin = true)
+        : null
+    );
+    if (truncadeOrigin) {
+      document.getElementById("originCheck").hidden = true;
+      document.getElementById("originAlert").hidden = false;
+      document.getElementById("originDelete").hidden = true;
+    } else {
+      const originDelete = await axios.post(process.env.BACKEND + "origins", {
+        origin: originName,
+      });
+      console.log(originDelete);
+      allOrigins.push({ id: originDelete.data.id, origin: originName });
+      setOriginsSearch([{ id: originDelete.data.id, origin: originName }]);
+      document.getElementById("originCheck").hidden = false;
+      document.getElementById("originAlert").hidden = true;
+      document.getElementById("originDelete").hidden = true;
+    }
+  }
+
+  async function createType() {
+    var typeName = document.getElementById("type").value;
+    typeName = typeName[0].toUpperCase() + typeName.slice(1);
+
+    var truncadeType = false;
+    typesSearch.map((e) =>
+      e.type.toLowerCase() == typeName.toLowerCase()
+        ? (truncadeType = true)
+        : null
+    );
+    if (truncadeType) {
+      document.getElementById("typeCheck").hidden = true;
+      document.getElementById("typeAlert").hidden = false;
+      document.getElementById("typeDelete").hidden = true;
+    } else {
+      const typeCreate = await axios.post(
+        process.env.BACKEND + "types",
+        {
+          type: typeName,
+        },
+        {
+          headers: { Authorization: `bearer ${token}` },
+        }
+      );
+      allTypes.push({ id: typeCreate.data.id, type: typeName });
+      setTypesSearch([{ id: typeCreate.data.id, type: typeName }]);
+      document.getElementById("typeCheck").hidden = false;
+      document.getElementById("typeAlert").hidden = true;
+      document.getElementById("typeDelete").hidden = true;
+    }
+  }
+
   async function deleteTag(tagId) {
     await axios.delete(process.env.BACKEND + "tags/" + tagId, {
       headers: { Authorization: `bearer ${token}` },
@@ -70,6 +129,30 @@ export default function superAdm(props) {
     document.getElementById("tagCheck").hidden = true;
     document.getElementById("tagAlert").hidden = true;
     document.getElementById("tagDelete").hidden = false;
+  }
+
+  async function deleteOrigin(originId) {
+    await axios.delete(process.env.BACKEND + "origins/" + originId, {
+      headers: { Authorization: `bearer ${token}` },
+    });
+    setAllOrigins(allOrigins.filter((e) => e.id != originId));
+    setOriginsSearch(originsSearch.filter((e) => e.id != originId));
+
+    document.getElementById("originCheck").hidden = true;
+    document.getElementById("originAlert").hidden = true;
+    document.getElementById("originDelete").hidden = false;
+  }
+
+  async function deleteType(typeId) {
+    await axios.delete(process.env.BACKEND + "types/" + typeId, {
+      headers: { Authorization: `bearer ${token}` },
+    });
+    setAllTypes(allTypes.filter((e) => e.id != typeId));
+    setTypesSearch(typesSearch.filter((e) => e.id != typeId));
+
+    document.getElementById("typeCheck").hidden = true;
+    document.getElementById("typeAlert").hidden = true;
+    document.getElementById("typeDelete").hidden = false;
   }
 
   async function createUser() {
