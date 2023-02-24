@@ -7,7 +7,7 @@ import axios from "axios";
 export default function Category(req) {
   const [allTypes, setAllTypes] = useState(req.allTypes);
   const [typesSearch, setTypesSearch] = useState([]);
-  const token = req.token
+  const token = req.token;
 
   async function deleteType(typeId) {
     await axios.delete(process.env.BACKEND + "types/" + typeId, {
@@ -60,6 +60,7 @@ export default function Category(req) {
     >
       <div className="flex justify-between mb-4">
         <p className="font-semibold">Categorias</p>
+        <span onClick={()=>setTypesSearch(typesSearch.length > 0 ? [] : allTypes)} className="text-blue-500 underline cursor-pointer mr-2 mb-1">Ver todos</span>
       </div>
       <div className="flex flex-row-reverse">
         <div hidden id="typeCheck" className="absolute">
