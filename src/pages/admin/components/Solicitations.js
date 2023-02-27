@@ -4,8 +4,8 @@ import { GrDocumentTime, GrDocumentVerified } from "react-icons/gr";
 export default function Solicitations(req) {
   const [documents, setDocuments] = useState(
     req.documents.filter((e) => e.approved == 0)
-  );
-  const [allOrigins, setAllOrigins] = useState(req.allOrigins);
+  ); 
+  
   return (
     <div className="adminCards">
 
