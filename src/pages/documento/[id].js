@@ -222,7 +222,7 @@ export async function getServerSidePorps(context) {
   } catch {
     return {
       redirect: {
-        permanent: false,
+        permanent: true,
         destination: "/500",
       },
       props: {},
