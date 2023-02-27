@@ -40,7 +40,7 @@ export default function SuperAdm(props) {
             onClick={() => Router.push("/login")}
             className="rounded text-xl hover:text-red-700 cursor-pointer "
           >
-            <MdOutlineLogout/>
+            <MdOutlineLogout />
           </p>
         </div>
         <p className="text-gray-700 text-lg md:text-3xl font-bold pl-2">
@@ -82,7 +82,9 @@ export default function SuperAdm(props) {
         >
           <option value="all">Todos</option>
           {allOrigins.map((e) => (
-            <option key={e.id} value={e.id}>{e.origin}</option>
+            <option key={e.id} value={e.id}>
+              {e.origin}
+            </option>
           ))}
         </select>
       ) : null}
@@ -108,64 +110,52 @@ export default function SuperAdm(props) {
   );
 }
 export async function getServerSideProps(context) {
-  try {
-    const token = context.req.cookies["auth"];
-    const user = await axios.get(process.env.BACKEND + "userInfo", {
-      headers: { Authorization: `bearer ${token}` },
-    });
+  const token = context.req.cookies["auth"];
+  const user = await axios.get(process.env.BACKEND + "userInfo", {
+    headers: { Authorization: `bearer ${token}` },
+  });
 
-    const infoUser = user.data.shift();
-    var documents;
-    if (infoUser.origin_id) {
-      const doc = await axios.get(
-        process.env.BACKEND + "documentsByOrigin/" + infoUser.origin_id.id
-      );
-      documents = doc.data;
-    } else {
-      const doc = await axios.get(
-        process.env.BACKEND + "documentsByOrigin/" + 1
-      );
-      documents = doc.data;
-    }
-
-    const getAllTags = await axios.get(process.env.BACKEND + "tags");
-    const getAllOrigins = await axios.get(process.env.BACKEND + "origins");
-    const getAllTypes = await axios.get(process.env.BACKEND + "types");
-    const getAllPermissions = await axios.get(
-      process.env.BACKEND + "permissions",
-      {
-        headers: { Authorization: `bearer ${token}` },
-      }
+  const infoUser = user.data.shift();
+  var documents;
+  if (infoUser.origin_id) {
+    const doc = await axios.get(
+      process.env.BACKEND + "documentsByOrigin/" + infoUser.origin_id.id
     );
-    const getAllUsers = await axios.get(process.env.BACKEND + "users", {
-      headers: { Authorization: `bearer ${token}` },
-    });
-
-    const allTags = getAllTags.data;
-    const allOrigins = getAllOrigins.data;
-    const allTypes = getAllTypes.data;
-    const allPermissions = getAllPermissions.data;
-    const allUsers = getAllUsers.data;
-
-    return {
-      props: {
-        infoUser,
-        documents,
-        allTags,
-        allOrigins,
-        allTypes,
-        allPermissions,
-        allUsers,
-        token,
-      },
-    };
-  } catch (e) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/login",
-      },
-      props: {},
-    };
+    documents = doc.data;
+  } else {
+    const doc = await axios.get(process.env.BACKEND + "documentsByOrigin/" + 1);
+    documents = doc.data;
   }
+
+  const getAllTags = await axios.get(process.env.BACKEND + "tags");
+  const getAllOrigins = await axios.get(process.env.BACKEND + "origins");
+  const getAllTypes = await axios.get(process.env.BACKEND + "types");
+  const getAllPermissions = await axios.get(
+    process.env.BACKEND + "permissions",
+    {
+      headers: { Authorization: `bearer ${token}` },
+    }
+  );
+  const getAllUsers = await axios.get(process.env.BACKEND + "users", {
+    headers: { Authorization: `bearer ${token}` },
+  });
+
+  const allTags = getAllTags.data;
+  const allOrigins = getAllOrigins.data;
+  const allTypes = getAllTypes.data;
+  const allPermissions = getAllPermissions.data;
+  const allUsers = getAllUsers.data;
+
+  return {
+    props: {
+      infoUser,
+      documents,
+      allTags,
+      allOrigins,
+      allTypes,
+      allPermissions,
+      allUsers,
+      token,
+    },
+  };
 }
