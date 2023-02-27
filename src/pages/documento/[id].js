@@ -240,6 +240,6 @@ export async function getStaticPaths() {
     ({params: { id: post.id.toString()}}))
 
 
-  return { paths, fallback: false }
+  return { paths, fallback: true }
 
 }
