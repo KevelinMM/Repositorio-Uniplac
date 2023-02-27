@@ -110,6 +110,7 @@ export default function SuperAdm(props) {
   );
 }
 export async function getServerSideProps(context) {
+  try{
   const token = context.req.cookies["auth"];
   const user = await axios.get(process.env.BACKEND + "userInfo", {
     headers: { Authorization: `bearer ${token}` },
@@ -158,4 +159,13 @@ export async function getServerSideProps(context) {
       token,
     },
   };
+}catch (e) {
+  return {
+    redirect: {
+      permanent: false,
+      destination: "/500",
+    },
+    props: {},
+  };
+}
 }
