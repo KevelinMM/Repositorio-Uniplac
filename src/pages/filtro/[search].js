@@ -86,7 +86,7 @@ export default function Home(props) {
       ? allPageTypes.push(e.type_id.type)
       : null
   );
-
+  console.log(aux);
   useEffect(
     (e) => {
       allTags == true
@@ -95,8 +95,6 @@ export default function Home(props) {
     },
     [allTags]
   );
-
-  
 
   //pagination
   const [itensPerPage, setItensPerPage] = useState(8);
@@ -159,7 +157,17 @@ export default function Home(props) {
                 </span>
               ) : null
             )}
-
+            {aux.length > 0 ? (
+              <a
+                className="block pl-1 text-center text-gray-700 hover:text-blue-500 border-l-2 border-transparent lg:hover:border-gray-400 cursor-pointer text-sm mt-1"
+                id="allTagsSearch"
+                onClick={(e) => tagFilter(e) + setAllTags(!allTags)}
+              ></a>
+            ) : (
+              <a hidden
+                id="allTagsSearch"
+              ></a>
+            )}
             <a
               className="block pl-1 text-center text-gray-700 hover:text-blue-500 border-l-2 border-transparent lg:hover:border-gray-400 cursor-pointer text-sm mt-1"
               id="allTagsSearch"
@@ -167,18 +175,22 @@ export default function Home(props) {
             ></a>
           </div>
 
-          {currentItens.map((e, index) => {
-            e.tag.map((z) =>
-              allPageTags.indexOf(z) === -1 ? allPageTags.push(z) : null
-            );
-            allPageOrigins.indexOf(e.origin_id.origin) === -1
-              ? allPageOrigins.push(e.origin_id.origin)
-              : null;
-            allPageTypes.indexOf(e.type_id.type) === -1
-              ? allPageTypes.push(e.type_id.type)
-              : null;
-            return <Card key={e.id} content={e} />;
-          })}
+          {currentItens.length > 0 ? (
+            currentItens.map((e, index) => {
+              e.tag.map((z) =>
+                allPageTags.indexOf(z) === -1 ? allPageTags.push(z) : null
+              );
+              allPageOrigins.indexOf(e.origin_id.origin) === -1
+                ? allPageOrigins.push(e.origin_id.origin)
+                : null;
+              allPageTypes.indexOf(e.type_id.type) === -1
+                ? allPageTypes.push(e.type_id.type)
+                : null;
+              return <Card key={e.id} content={e} />;
+            })
+          ) : (
+            <p className="underline">Nenhum documento encontrado</p>
+          )}
           <div className="flex flex-row justify-end gap-2 mb-4">
             {Array.from(Array(pages), (item, index) => {
               return (
