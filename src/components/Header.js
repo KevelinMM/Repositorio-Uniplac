@@ -111,7 +111,7 @@ export default function Header() {
             <ul className="list-reset lg:flex justify-end items-center">
               <li className="mr-3 py-2 lg:py-0">
                 <a
-                  className=" rounded inline-block py-1 px-3 text-gray-900 font-bold soft-transition md:shadow-xl "
+                  className=" rounded inline-block py-1 px-3 text-gray-900 font-bold soft-transition "
                   href="/#formPubli"
                 >
                   Publicar

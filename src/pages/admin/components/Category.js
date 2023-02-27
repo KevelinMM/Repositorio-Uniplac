@@ -109,7 +109,7 @@ export default function Category(req) {
         {typesSearch.map((e, index) => (
           <li
             key={index}
-            className="mb-2 p-2 bg-slate-50 flex justify-between shadow-md cursor-pointer items-center"
+            className="rounded-md p-2 bg-slate-50 flex justify-between shadow-md mt-1"
           >
             {e.type}
             <a onClick={(z) => deleteType(e.id)} className="cursor-pointer">

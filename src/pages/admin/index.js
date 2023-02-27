@@ -8,6 +8,7 @@ import Origin from "./components/Origin";
 import Tag from "./components/Tag";
 import User from "./components/User";
 import Router from "next/router";
+import { MdOutlineLogout } from "react-icons/md";
 
 export default function superAdm(props) {
   const userInfo = useState(props.infoUser);
@@ -37,9 +38,9 @@ export default function superAdm(props) {
           <p className="text-gray-700 text-lg md:text-3xl font-bold">Painel</p>
           <p
             onClick={() => Router.push("/login")}
-            className="rounded text-center bg-red-300 hover:bg-red-400 text-red-700 hover:text-red-100 cursor-pointer"
+            className="rounded text-xl hover:text-red-700 cursor-pointer "
           >
-            Logout
+            <MdOutlineLogout/>
           </p>
         </div>
         <p className="text-gray-700 text-lg md:text-3xl font-bold pl-2">

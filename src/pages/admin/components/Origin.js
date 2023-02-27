@@ -107,7 +107,7 @@ export default function Origin(req) {
         {originsSearch.map((e, index) => (
           <li
             key={index}
-            className="mb-2 p-2 bg-slate-50 flex justify-between shadow-md cursor-pointer items-center"
+            className="rounded-md p-2 bg-slate-50 flex justify-between shadow-md mt-1"
           >
             {e.origin}
             <a onClick={(z) => deleteOrigin(e.id)} className="cursor-pointer">

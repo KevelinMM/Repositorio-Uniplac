@@ -84,7 +84,7 @@ export default function User(req) {
         {usersSearch.map((e, index) => (
           <li
             key={index}
-            className="mb-2 p-2 bg-slate-50 flex justify-between shadow-md cursor-pointer items-center"
+            className="rounded-md p-2 bg-slate-50 flex justify-between shadow-md mt-1"
             onClick={(z) =>
               setUserName(e.name) +
               setUserEmail(e.email) +
@@ -99,7 +99,7 @@ export default function User(req) {
           </li>
         ))}
       </ul>
-      <p className="font-semibold mb-4">Cadastrar usuário</p>
+      <p className="font-semibold my-4">Cadastrar usuário</p>
 
       <div>
         <label htmlFor="userName">Nome</label>
