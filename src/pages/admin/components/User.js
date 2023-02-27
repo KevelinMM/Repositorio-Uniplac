@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaCheck, FaTrash } from "react-icons/fa";
 import { FiAlertCircle } from "react-icons/fi";
 import { MdClose } from "react-icons/md";
@@ -42,17 +42,24 @@ export default function User(req) {
     );
     window.location.reload();
   }
+  useEffect(
+    (e) => {
+      usersSearch.length > 0
+        ? (document.getElementById("showUser").innerHTML = "Ocultar")
+        : (document.getElementById("showUser").innerHTML = "Ver todos");
+    },
+    [usersSearch]
+  );
 
   return (
     <form className="adminCards">
       <div className="flex justify-between">
         <p className="font-semibold mb-4">Usuários</p>
         <span
+          id="showUser"
           onClick={() => setUsersSearch(usersSearch.length > 0 ? [] : allUsers)}
           className="text-blue-500 underline cursor-pointer mr-2 mb-1"
-        >
-          Ver todos
-        </span>
+        ></span>
       </div>
 
       <div className="flex flex-row-reverse">

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaCheck, FaTrash } from "react-icons/fa";
 import { FiAlertCircle } from "react-icons/fi";
 import { MdClose } from "react-icons/md";
@@ -53,6 +53,15 @@ export default function Category(req) {
     }
   }
 
+  useEffect(
+    (e) => {
+      typesSearch.length > 0
+        ? (document.getElementById("showType").innerHTML = "Ocultar")
+        : (document.getElementById("showType").innerHTML = "Ver todos");
+    },
+    [typesSearch]
+  );
+
   return (
     <form
       className="adminCards"
@@ -60,7 +69,11 @@ export default function Category(req) {
     >
       <div className="flex justify-between mb-4">
         <p className="font-semibold">Categorias</p>
-        <span onClick={()=>setTypesSearch(typesSearch.length > 0 ? [] : allTypes)} className="text-blue-500 underline cursor-pointer mr-2 mb-1">Ver todos</span>
+        <span
+          id="showType"
+          onClick={() => setTypesSearch(typesSearch.length > 0 ? [] : allTypes)}
+          className="text-blue-500 underline cursor-pointer mr-2 mb-1"
+        ></span>
       </div>
       <div className="flex flex-row-reverse">
         <div hidden id="typeCheck" className="absolute">

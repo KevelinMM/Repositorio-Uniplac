@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaCheck, FaTrash } from "react-icons/fa";
 import { FiAlertCircle } from "react-icons/fi";
 import { MdClose } from "react-icons/md";
@@ -35,6 +35,15 @@ export default function Origin(req) {
     }
   }
 
+  useEffect(
+    (e) => {
+      tagsSearch.length > 0
+        ? (document.getElementById("showTag").innerHTML = "Ocultar")
+        : (document.getElementById("showTag").innerHTML = "Ver todos");
+    },
+    [tagsSearch]
+  );
+
   async function deleteTag(tagId) {
     await axios.delete(process.env.BACKEND + "tags/" + tagId, {
       headers: { Authorization: `bearer ${token}` },
@@ -60,7 +69,7 @@ export default function Origin(req) {
             * Tags que já existem não poderão ser criadas novamente.
           </p>
         </div>
-        <span
+        <span id="showTag"
           onClick={() => setTagsSearch(tagsSearch.length > 0 ? [] : allTags)}
           className="text-blue-500 underline cursor-pointer mr-2 mb-1"
         >
@@ -101,7 +110,7 @@ export default function Origin(req) {
         {tagsSearch.map((e, index) => (
           <li
             key={index}
-            className="rounded-md p-2 bg-slate-50 flex justify-between shadow-md"
+            className="rounded-md p-2 bg-slate-50 flex justify-between shadow-md mt-1"
           >
             {e.tag}
             {userInfo[0][0].permission_id.id == 1 ? (

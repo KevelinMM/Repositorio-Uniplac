@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaCheck, FaTrash } from "react-icons/fa";
 import { FiAlertCircle } from "react-icons/fi";
 import { MdClose } from "react-icons/md";
@@ -48,6 +48,15 @@ export default function Origin(req) {
     document.getElementById("originDelete").hidden = false;
   }
 
+  useEffect(
+    (e) => {
+      originsSearch.length > 0
+        ? (document.getElementById("showOrigin").innerHTML = "Ocultar")
+        : (document.getElementById("showOrigin").innerHTML = "Ver todos");
+    },
+    [originsSearch]
+  );
+
   return (
     <form
       className="adminCards"
@@ -56,10 +65,10 @@ export default function Origin(req) {
       <div className="flex justify-between mb-4">
         <p className="font-semibold">Origens</p>
         <span
+        id="showOrigin"
           onClick={() => setOriginsSearch(originsSearch.length > 0 ? [] : allOrigins)}
           className="text-blue-500 underline cursor-pointer mr-2 mb-1"
         >
-          Ver todos
         </span>
       </div>
       <div className="flex flex-row-reverse">
