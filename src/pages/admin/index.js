@@ -67,12 +67,12 @@ export default function SuperAdm(props) {
 
       {userInfo[0].permission_id.id == 1 || userInfo[0].origin_id.id == 1 ? (
         <select
-          defaultValue={0}
+          defaultValue={"all"}
           id="countries"
           className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 "
           onChange={(e) =>
             setDocuments(
-              e.target.value == 1
+              e.target.value == 1 || e.target.value == "all"
                 ? props.documents
                 : props.documents.filter(
                     (z) => e.target.value * 1 == z.origin_id.id
@@ -88,7 +88,7 @@ export default function SuperAdm(props) {
           ))}
         </select>
       ) : null}
-
+      
       <Solicitations documents={documents} allOrigins={allOrigins} />
 
       <div className="adminCards">
