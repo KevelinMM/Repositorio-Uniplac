@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import db from "../db/db";
 
@@ -21,12 +22,9 @@ export default function Header() {
               width={60}
               height={60}
             />
-            <a
-              className="text-normal ml-2 text-gray-900 no-underline hover:no-underline font-bold md:text-xl"
-              href="/"
-            >
-              Repositório Institucional
-            </a>
+            <div className="text-normal ml-2 text-gray-900 no-underline hover:no-underline font-bold md:text-xl">
+              <Link href="/">Repositório Institucional</Link>
+            </div>
           </div>
           <div className="block lg:hidden pr-4">
             <button
@@ -64,8 +62,8 @@ export default function Header() {
                 </div>
                 <form
                   onSubmit={(e) => {
-                    e.preventDefault()
-                    window.location.href = "/filtro/search-" + valueSearch
+                    e.preventDefault();
+                    window.location.href = "/filtro/search-" + valueSearch;
                   }}
                 >
                   <input
@@ -97,11 +95,11 @@ export default function Header() {
                       );
                     })}
                     <div className="hover:bg-gray-200 px-2 w-full">
-                      <a href={"/filtro/search-" + valueSearch}>
+                      <Link href={"/filtro/search-" + valueSearch}>
                         {result.length >= 1
                           ? "Ver todos..."
                           : "Nenhum resultado"}
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -110,20 +108,14 @@ export default function Header() {
 
             <ul className="list-reset lg:flex justify-end items-center">
               <li className="mr-3 py-2 lg:py-0">
-                <a
-                  className=" rounded inline-block py-1 px-3 text-gray-900 font-bold soft-transition "
-                  href="/#formPubli"
-                >
-                  Publicar
-                </a>
+                <div className=" rounded inline-block py-1 px-3 text-gray-900 font-bold soft-transition ">
+                  <Link href="/#formPubli">Publicar</Link>
+                </div>
               </li>
               <li className="mr-3 py-2 lg:py-0">
-                <a
-                  className="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-2 px-4"
-                  href="/login"
-                >
-                  Login
-                </a>
+                <div className="inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-2 px-4">
+                  <Link href="/login">Login</Link>
+                </div>
               </li>
             </ul>
           </div>
