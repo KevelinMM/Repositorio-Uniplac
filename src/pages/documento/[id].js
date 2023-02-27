@@ -79,7 +79,7 @@ export default function Detail(props) {
             <a
               href={fileLink}
               target="_blank"
-              rel="noopner"
+              rel="noreferrer"
               className="mr-1 font-semibold"
             >
               Prévia
