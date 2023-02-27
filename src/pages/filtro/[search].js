@@ -69,7 +69,7 @@ export default function Home(props) {
     setAllPageOrigins(
       allPageOrigins.filter((este, i) => allPageOrigins.indexOf(este) === i)
     );
-  }, []);
+  }, [publis]);
 
   aux.map((e) =>
     e.tag.map((y) =>

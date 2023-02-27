@@ -82,7 +82,7 @@ export default function SuperAdm(props) {
         >
           <option value="all">Todos</option>
           {allOrigins.map((e) => (
-            <option value={e.id}>{e.origin}</option>
+            <option key={e.id} value={e.id}>{e.origin}</option>
           ))}
         </select>
       ) : null}

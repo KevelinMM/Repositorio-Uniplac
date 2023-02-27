@@ -48,7 +48,7 @@ export default function Origin(req) {
     ) {
       OrderOriginByAlphabet()
     }
-  }, []);
+  }, [origin]);
 
   return (
     <div className="lg:mt-6 px-4 w-full lg:px-6 lg:text-xl text-gray-800 leading-normal">
