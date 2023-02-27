@@ -26,7 +26,7 @@ export default function Detail(props) {
     process.env.FILESRV + "showFile/" + props.document[0].file
   );
 
-  console.log(
+  const citation = 
     autor.split(" ")[1].toUpperCase() +
       ", " +
       autor.split(" ")[0] +
@@ -34,7 +34,7 @@ export default function Detail(props) {
       props.document[0].title +
       "; Disponivel em: <http://repositorio.uniplaclages.edu.br/documento/4>. " +
       date.getFullYear()
-  );
+  ;
 
   return (
     <section>
@@ -142,26 +142,39 @@ export default function Detail(props) {
                   Data: {date.toLocaleDateString()}
                 </p>
               </blockquote>
-              <blockquote className="text italic p-4 ">
-                <p className="flex items-center ml-6 space-x-2 border-l-2 border-blue-500 pl-2">
+              <blockquote className="text italic flex flex-col ml-4">
+                <p className="flex items-center space-x-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 448 512"
                     className="w-3 mr-2"
                   >
-                    <path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
+                    <path d="M0 216C0 149.7 53.7 96 120 96h8c17.7 0 32 14.3 32 32s-14.3 32-32 32h-8c-30.9 0-56 25.1-56 56v8h64c35.3 0 64 28.7 64 64v64c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V320 288 216zm256 0c0-66.3 53.7-120 120-120h8c17.7 0 32 14.3 32 32s-14.3 32-32 32h-8c-30.9 0-56 25.1-56 56v8h64c35.3 0 64 28.7 64 64v64c0 35.3-28.7 64-64 64H320c-35.3 0-64-28.7-64-64V320 288 216z" />
                   </svg>
                   Citar:
-                  <span className="text-sm break-all">
+                </p>
+                <div onClick={()=> navigator.clipboard.writeText(citation)} className="shadow text-sm break-all px-1 flex items-end bg-gray-100 hover:bg-gray-200 focus:border-green-500 focus:border cursor-pointer ">
+                  <sapn>
                     {autor.split(" ")[1].toUpperCase() +
                       ", " +
                       autor.split(" ")[0] +
-                      ". " +
-                      props.document[0].title +
-                      ";" + " Disponivel em: <http://repositorio.uniplaclages.edu.br/documento/4>. " +
+                      ". "}{" "}
+                    <bolder className="font-bold">
+                      {props.document[0].title}
+                    </bolder>
+                    {";"}
+                    <br />
+                    {" Disponivel em: <http://repositorio.uniplaclages.edu.br/documento/4>. " +
                       date.getFullYear()}
-                  </span>
-                </p>
+                  </sapn>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                    className="w-4 m-1"
+                  >
+                    <path d="M224 0c-35.3 0-64 28.7-64 64V288c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H224zM64 160c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H288c35.3 0 64-28.7 64-64V384H288v64H64V224h64V160H64z" />
+                  </svg>
+                </div>
               </blockquote>
             </div>
           </div>
