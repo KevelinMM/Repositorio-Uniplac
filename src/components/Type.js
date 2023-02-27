@@ -4,7 +4,7 @@ export default function Type(req) {
   const [type, setType] = useState(req.type);
   const [allTypes, setAllTypes] = useState(false);
 
-  function orderTypeByAlphabet() {
+  function OrderTypeByAlphabet() {
     var aux;
 
     aux = type.sort((a, b) => {
@@ -46,7 +46,7 @@ export default function Type(req) {
       navigator.userAgentData != undefined &&
       navigator.userAgentData.mobile
     ) {
-      orderTypeByAlphabet()
+      OrderTypeByAlphabet()
     }
   }, []);
 
@@ -107,7 +107,7 @@ export default function Type(req) {
           className="block pl-1 align-middle text-gray-700 hover:text-blue-500 border-l-4 border-transparent lg:hover:border-gray-400"
           onClick={(e) =>
             setAllTypes(!allTypes) +
-            (allTypes == true ? orderTypeByNum() : orderTypeByAlphabet())
+            (allTypes == true ? orderTypeByNum() : OrderTypeByAlphabet())
           }
         >
           <span

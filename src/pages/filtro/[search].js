@@ -13,10 +13,10 @@ export default function Home(props) {
 
   //filto
   const [filter, setFilter] = useState(props.search);
-  const [aux, setAux] = useState([]);
-  const [allPageTags, setAllPageTags] = useState([]);
-  const [allPageOrigins, setAllPageOrigins] = useState([]);
-  const [allPageTypes, setAllPageTypes] = useState([]);
+  const [aux, setAux] = useState(Array);
+  const [allPageTags, setAllPageTags] = useState(Array);
+  const [allPageOrigins, setAllPageOrigins] = useState(Array);
+  const [allPageTypes, setAllPageTypes] = useState(Array);
   const [allTags, setAllTags] = useState(false);
 
   function tagFilter(tag) {

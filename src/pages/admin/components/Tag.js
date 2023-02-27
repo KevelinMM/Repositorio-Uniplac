@@ -64,7 +64,7 @@ export default function Origin(req) {
       <div className="mb-4 flex justify-between">
         <div>
           <p className="font-semibold">Cadastrar Tag</p>
-          <p className="text-sm pt-1">* Aperte "enter" para cadastrar.</p>
+          <p className="text-sm pt-1">* Aperte enter para cadastrar.</p>
           <p className="text-sm pt-1">
             * Tags que já existem não poderão ser criadas novamente.
           </p>

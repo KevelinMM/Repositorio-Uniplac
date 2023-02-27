@@ -4,7 +4,7 @@ export default function Origin(req) {
   const [origin, setOrigin] = useState(req.origin);
   const [allOrigins, setAllOrigins] = useState(false);
 
-  function orderOriginByAlphabet() {
+  function OrderOriginByAlphabet() {
     var aux;
 
     aux = origin.sort((a, b) => {
@@ -46,7 +46,7 @@ export default function Origin(req) {
       navigator.userAgentData != undefined &&
       navigator.userAgentData.mobile
     ) {
-      orderOriginByAlphabet()
+      OrderOriginByAlphabet()
     }
   }, []);
 
@@ -107,7 +107,7 @@ export default function Origin(req) {
           className="block pl-1 align-middle text-gray-700 hover:text-blue-500 border-l-4 border-transparent lg:hover:border-gray-400"
           onClick={(e) =>
             setAllOrigins(!allOrigins) +
-            (allOrigins == true ? orderOriginByNum() : orderOriginByAlphabet())
+            (allOrigins == true ? orderOriginByNum() : OrderOriginByAlphabet())
           }
         >
           <span

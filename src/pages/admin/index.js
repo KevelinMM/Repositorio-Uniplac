@@ -10,7 +10,7 @@ import User from "./components/User";
 import Router from "next/router";
 import { MdOutlineLogout } from "react-icons/md";
 
-export default function superAdm(props) {
+export default function SuperAdm(props) {
   const userInfo = useState(props.infoUser);
   const token = props.token;
 

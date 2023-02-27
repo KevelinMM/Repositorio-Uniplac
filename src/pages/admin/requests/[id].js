@@ -4,15 +4,13 @@ import Router from "next/router";
 import { useState } from "react";
 import sendEmail from "../../../helpers/sendEmail";
 
-export default function request(props) {
+export default function Request(props) {
   const token = props.token;
   const user = props.infoUser;
-  console.log(user)
   const [origin, setOrigin] = useState(props.document[0].origin_id.origin);
   const [approved, setApproved] = useState(props.document[0].approved);
   const [id, setId] = useState(props.document[0].id);
   const [category, setCategory] = useState(props.document[0].type_id.type);
-  const [tagsId, setTag] = useState();
   const [autor, setAutor] = useState(props.document[0].autor);
   const [curator, setCurator] = useState("");
   const [email, setEmail] = useState(props.document[0].autor_email);
@@ -128,7 +126,7 @@ export default function request(props) {
           <a
             href={fileLink}
             target="_blank"
-            rel="noopner"
+            rel="noreferrer"
             className="mr-1 font-semibold"
           >
             Prévia

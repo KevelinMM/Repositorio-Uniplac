@@ -7,7 +7,7 @@ import { deleteCookie } from "cookies-next";
 import sendEmail from "../helpers/sendEmail";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
-export default function login() {
+export default function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [newPassword, setNewPassword] = useState(false);
