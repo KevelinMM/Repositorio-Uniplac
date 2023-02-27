@@ -203,7 +203,7 @@ export default function Detail(props) {
 
 
 
-export async function getServerSidePorps(context) {
+export async function getStaticProps(context) {
   try {
     const id = context.params.id;
     const getDoc = await axios.get(process.env.BACKEND + "documents/" + id);
@@ -222,7 +222,7 @@ export async function getServerSidePorps(context) {
   } catch {
     return {
       redirect: {
-        permanent: true,
+        permanent: false,
         destination: "/500",
       },
       props: {},
@@ -230,4 +230,17 @@ export async function getServerSidePorps(context) {
   }
 }
 
+export async function getStaticPaths() {
+  const getDoc = await axios.get(process.env.BACKEND + "documentsApproved");
+
+  const document = getDoc.data;
+
+
+  const paths = document.map((post) => ({
+    params: { id: post.id.toString() },
+  }))
+
+  return { paths, fallback: false }
+
+}
 
