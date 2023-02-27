@@ -189,7 +189,7 @@ export default function Home(props) {
               return <Card key={e.id} content={e} />;
             })
           ) : (
-            <p className="underline">Nenhum documento encontrado</p>
+            <p className="pl-2">Nenhum documento encontrado</p>
           )}
           <div className="flex flex-row justify-end gap-2 mb-4">
             {Array.from(Array(pages), (item, index) => {

@@ -32,7 +32,7 @@ export default function Solicitations(req) {
             key={e.id}
             className="cursor-pointer p-2 flex items-center space-x-2 hover:underline "
           >
-            {e.approved == true ?  <div className="text-lg rounded bg-green-100"><GrDocumentVerified/></div> : <div className="text-lg rounded bg-yellow-100"><GrDocumentTime/></div>}<a href={"admin/requests/" + e.id}>{e.title}</a>
+            {e.approved == true ?  <div className="text-lg rounded bg-green-100"><GrDocumentVerified/></div> : <div className="text-lg rounded bg-yellow-100"><GrDocumentTime/></div>}<a href={"admin/requests/" + e.id}>{e.title +  " - " + e.autor} </a>
           </li>
         ))}
       </ul>

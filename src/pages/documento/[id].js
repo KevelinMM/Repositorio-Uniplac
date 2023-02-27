@@ -204,18 +204,28 @@ export default function Detail(props) {
 }
 
 export async function getServerSideProps(context) {
-  const id = context.params.id;
-  const getDoc = await axios.get(process.env.BACKEND + "documents/" + id);
-  const getTags = await axios.get(process.env.BACKEND + "tagsNum");
-  const getAllTags = await axios.get(process.env.BACKEND + "tags");
-  const getTypes = await axios.get(process.env.BACKEND + "typesNum");
-  const getOrigins = await axios.get(process.env.BACKEND + "originsNum");
+  try {
+    const id = context.params.id;
+    const getDoc = await axios.get(process.env.BACKEND + "documents/" + id);
+    const getTags = await axios.get(process.env.BACKEND + "tagsNum");
+    const getAllTags = await axios.get(process.env.BACKEND + "tags");
+    const getTypes = await axios.get(process.env.BACKEND + "typesNum");
+    const getOrigins = await axios.get(process.env.BACKEND + "originsNum");
 
-  const document = getDoc.data;
-  const types = getTypes.data;
-  const tags = getTags.data;
-  const allTags = getAllTags.data;
-  const origins = getOrigins.data;
+    const document = getDoc.data;
+    const types = getTypes.data;
+    const tags = getTags.data;
+    const allTags = getAllTags.data;
+    const origins = getOrigins.data;
 
-  return { props: { document, tags, allTags, types, origins } };
+    return { props: { document, tags, allTags, types, origins } };
+  } catch {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/500",
+      },
+      props: {},
+    };
+  }
 }

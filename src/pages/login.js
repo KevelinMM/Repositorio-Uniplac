@@ -5,6 +5,7 @@ import Back from "../components/Back";
 import createCookie from "../helpers/createCookie";
 import { deleteCookie } from "cookies-next";
 import sendEmail from "../helpers/sendEmail";
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
 export default function login() {
   const [email, setEmail] = useState();
@@ -49,13 +50,13 @@ export default function login() {
       });
       window.location.reload();
     } else {
-      document.getElementById("wrongCode").hidden = false
+      document.getElementById("wrongCode").hidden = false;
     }
   }
 
   return (
     <div className=" bg-gradient-to-t from-blue-100 min-h-screen">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen ">
+      <div className="flex flex-col items-center mt-20 px-6 py-8 mx-auto md:h-screen ">
         <h1 className="text-2xl lg:text-3xl text-slate-700 mb-4 font-bold">
           Administradores do Repositório
         </h1>
@@ -63,8 +64,8 @@ export default function login() {
           <Image
             src={`/logoUniplac.png`}
             alt="Logo Uniplac"
-            width={100}
-            height={100}
+            width={90}
+            height={90}
           />
         </div>
 
@@ -126,16 +127,42 @@ export default function login() {
                 >
                   {newPassword == true ? "Nova senha" : "Senha"}
                 </label>
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  value={password}
-                  placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
+                <div className="justify-between flex flex-row-reverse items-center">
+                  <div className="absolute" id="show">
+                    <AiFillEyeInvisible
+                      className="w-4  mr-3"
+                      onClick={() =>
+                        (document.getElementById("password").type = "text") +
+                        (document.getElementById("show").hidden = true) +
+                        (document.getElementById("hidden").hidden = false)
+                      }
+                    />
+                  </div>
+
+                  <div className="absolute" id="hidden" hidden>
+                    <AiFillEye
+                      hidden
+                      className="w-4 mr-3"
+                      onClick={() =>
+                        (document.getElementById("password").type =
+                          "password") +
+                        (document.getElementById("show").hidden = false) +
+                        (document.getElementById("hidden").hidden = true)
+                      }
+                    />
+                  </div>
+
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    value={password}
+                    placeholder="••••••••"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
               </div>
               <div>
                 <span className="text-red-500" id="error" hidden>
