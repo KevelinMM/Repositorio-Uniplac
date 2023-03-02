@@ -83,8 +83,8 @@ export default function Origin(req) {
         </div>
         <input
           required
-          className="w-full rounded-lg border-gray-200 p-3 text-sm"
-          placeholder="Digite a origin"
+          className="w-full rounded-md border-gray-200 p-2 text-sm shadow-lg"
+          placeholder="Aperte enter para Cadastrar Origem"
           type="text"
           id="origin"
           onChange={(e) =>

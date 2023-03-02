@@ -14,7 +14,7 @@ html {
 
 input,
 select {
-  @apply shadow outline-none px-2 py-1 rounded;
+  @apply outline-none px-2 py-1 rounded;
 }
 
 .soft-transition {
@@ -30,6 +30,6 @@ select {
 }
 
 .adminCards{
-  @apply bg-slate-300 p-6 rounded-md my-4 shadow-lg
+  @apply bg-slate-300 p-6 rounded-md m-2 shadow-lg xl:m-5 
 }
 
