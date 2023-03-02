@@ -1,7 +1,6 @@
 import axios from "axios";
 import Image from "next/image";
 import { useState } from "react";
-import Back from "../components/Back";
 import createCookie from "../helpers/createCookie";
 import { deleteCookie } from "cookies-next";
 import sendEmail from "../helpers/sendEmail";
@@ -202,7 +201,6 @@ export default function Login() {
             </form>
           </div>
         </div>
-        <Back />
       </div>
     </div>
   );

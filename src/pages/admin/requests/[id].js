@@ -212,30 +212,34 @@ export default function Request(props) {
   );
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
+  const infoUser = [];
 
+  try {
+    const token = context.req.cookies["auth"];
+    const user = await axios.get(process.env.BACKEND + "userInfo", {
+      headers: { Authorization: `bearer ${token}` },
+    });
 
-  var document;
+    const infoUser = user.data.shift();
+    var document;
 
-  const doc = await axios.get(
-    process.env.BACKEND + "documents/" + context.params.id
-  );
-  document = doc.data;
+    const doc = await axios.get(
+      process.env.BACKEND + "documents/" + context.params.id
+    );
+    document = doc.data;
 
-  const getAllTags = await axios.get(process.env.BACKEND + "tags");
-  const allTags = getAllTags.data;
+    const getAllTags = await axios.get(process.env.BACKEND + "tags");
+    const allTags = getAllTags.data;
 
-  return { props: {  document, allTags } };
-}
-
-export async function getStaticPaths() {
-  const getDoc = await axios.get(process.env.BACKEND + "documents");
-
-  const allDocuments = getDoc.data;
-
-  const paths = allDocuments.map((post) => ({
-    params: { id: post.id.toString() },
-  }));
-
-  return { paths, fallback: true };
+    return { props: { infoUser, document, allTags, token } };
+  } catch (e) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+      props: {},
+    };
+  }
 }
