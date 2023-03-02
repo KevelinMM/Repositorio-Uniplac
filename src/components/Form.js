@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import sendEmail from "../helpers/sendEmail";
 import createDoc from "../helpers/createDoc";
 import AlertBox from "../components/AlertBox";
+import { Triangle } from "react-loader-spinner";
 
 export default function Form(req) {
   const [correctCode, setCorrectCode] = useState();
@@ -53,30 +54,32 @@ export default function Form(req) {
   async function sendDocument() {
     try {
       setAlertMensage("Solicitação enviada com sucesso! Verifique seu email.");
-      createDoc(
-        name,
-        email,
-        title,
-        subTitle,
-        content,
-        origin,
-        type,
-        lista,
-        file
-      );
-      await sendEmail(
-        allOrigins.filter((e) => e[0].origin_id == origin)[0][0].email,
-        "Uma nova solicitação de " +
-          name +
-          " foi enviada e aguarda sua validação para ser publicado no Repositório Institucional Uniplac! <br/> acesse: http://localhost:3000/login"
-      );
-      await sendEmail(
-        email,
-        "Sua solicitação para publicar o documento " +
-          title +
-          " no Repositório Institucional Uniplac foi enviada para analise, você será informado sobre o andamento da publicação pelo email! <br/> Segundo a Lei Geral de Proteção de Dados Pessoais, ao enviar a solicitação, você autorizou que seus dados fossem coletados pela instituição Uniplac."
-      );
-      window.location.reload();
+      document.getElementById("loading").hidden = false;
+      //createDoc(
+      //  name,
+      //  email,
+      //  title,
+      //  subTitle,
+      //  content,
+      //  origin,
+      //  type,
+      //  lista,
+      //  file
+      //);
+      //await sendEmail(
+      //  allOrigins.filter((e) => e[0].origin_id == origin)[0][0].email,
+      //  "Uma nova solicitação de " +
+      //    name +
+      //    " foi enviada e aguarda sua validação para ser publicado no Repositório Institucional Uniplac! <br/> acesse: http://localhost:3000/login"
+      //);
+      //await sendEmail(
+      //  email,
+      //  "Sua solicitação para publicar o documento " +
+      //    title +
+      //    " no Repositório Institucional Uniplac foi enviada para analise, você será informado sobre o andamento da publicação pelo email! <br/> Segundo a Lei Geral de Proteção de Dados Pessoais, ao enviar a solicitação, você autorizou que seus dados fossem coletados pela instituição Uniplac."
+      //);
+      document.getElementById("loading").hidden = true;
+      //window.location.reload();
     } catch {
       setAlertMensage("Erro ao enviar documento, tente novamente mais tarde!");
     }
@@ -109,7 +112,36 @@ export default function Form(req) {
         </div>
 
         <div className="rounded-lg bg-white shadow-lg lg:col-span-3 pb-6 lg:pt-4 px-4 lg:px-10">
+          <div id="loading" hidden>
+            <div className="flex flex-col col-span-1 my-16">
+              <div className="mx-auto">
+                <Triangle
+                  height="80"
+                  width="80"
+                  color="#4fa94d"
+                  ariaLabel="triangle-loading"
+                  visible={true}
+                />
+              </div>
+              <h1 className="mx-auto">Enviando documento...</h1>
+            </div>
+          </div>
+          <div hidden id="succes">
+            <div className="flex flex-col col-span-1">
+              <div className="mx-auto">
+                <Triangle
+                  height="80"
+                  width="80"
+                  color="#4fa94d"
+                  ariaLabel="triangle-loading"
+                  visible={true}
+                />
+              </div>
+              <h1 className="mx-auto">Enviando documento...</h1>
+            </div>
+          </div>
           <form
+            hidden
             className="space-y-4"
             id="formPubli"
             onSubmit={(e) => sendDocument() + e.preventDefault()}
@@ -178,6 +210,7 @@ export default function Form(req) {
             {allowed == true ? (
               <div className="space-y-4">
                 <input
+                  required
                   className="w-full rounded-lg border-gray-200 p-3 text-sm"
                   placeholder="Nome completo do autor *"
                   type="text"
@@ -208,10 +241,10 @@ export default function Form(req) {
                       required
                       className="rounded-lg border-gray-200 p-3 text-sm pr-8"
                       id="origin"
-                      defaultValue="0"
+                      defaultValue=""
                       onChange={(e) => setOrigin(e.target.value)}
                     >
-                      <option value="0" disabled>
+                      <option value="" disabled>
                         Selecione a origem *
                       </option>
                       {allOrigins.map((e) =>
@@ -229,10 +262,10 @@ export default function Form(req) {
                     required
                     className="rounded-lg border-gray-200 p-3 text-sm pr-8 mt-4 sm:mt-0"
                     id="category"
-                    defaultValue="0"
+                    defaultValue=""
                     onChange={(e) => setType(e.target.value)}
                   >
-                    <option value="0" disabled>
+                    <option value="" disabled>
                       Selecione a categoria *
                     </option>
                     {allTypes.map((e) =>
