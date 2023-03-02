@@ -1,9 +1,9 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import sendEmail from "../helpers/sendEmail";
 import createDoc from "../helpers/createDoc";
-import AlertBox from "../components/AlertBox";
 import { Triangle } from "react-loader-spinner";
+import { GiTrophyCup } from "react-icons/gi";
+import { MdOutlineReportGmailerrorred } from "react-icons/md";
 
 export default function Form(req) {
   const [correctCode, setCorrectCode] = useState();
@@ -19,7 +19,6 @@ export default function Form(req) {
   const [file, setFile] = useState();
   const [tagListId, setTagListId] = useState([]);
   const [lista, setLista] = useState([]);
-  const [alertMensage, setAlertMensage] = useState();
 
   const [allTypes, setAllTypes] = useState(req.types);
   const [allOrigins, setAllOrigins] = useState(req.origins);
@@ -53,35 +52,48 @@ export default function Form(req) {
 
   async function sendDocument() {
     try {
-      setAlertMensage("Solicitação enviada com sucesso! Verifique seu email.");
       document.getElementById("loading").hidden = false;
-      //createDoc(
-      //  name,
-      //  email,
-      //  title,
-      //  subTitle,
-      //  content,
-      //  origin,
-      //  type,
-      //  lista,
-      //  file
-      //);
-      //await sendEmail(
-      //  allOrigins.filter((e) => e[0].origin_id == origin)[0][0].email,
-      //  "Uma nova solicitação de " +
-      //    name +
-      //    " foi enviada e aguarda sua validação para ser publicado no Repositório Institucional Uniplac! <br/> acesse: http://localhost:3000/login"
-      //);
-      //await sendEmail(
-      //  email,
-      //  "Sua solicitação para publicar o documento " +
-      //    title +
-      //    " no Repositório Institucional Uniplac foi enviada para analise, você será informado sobre o andamento da publicação pelo email! <br/> Segundo a Lei Geral de Proteção de Dados Pessoais, ao enviar a solicitação, você autorizou que seus dados fossem coletados pela instituição Uniplac."
-      //);
+      document.getElementById("formPubli").hidden = true;
+      const create = await createDoc(
+        name,
+        email,
+        title,
+        subTitle,
+        content,
+        origin,
+        type,
+        lista,
+        file
+      );
+      if(create == false){
+        document.getElementById("loading").hidden = true;
+        document.getElementById("error").hidden = false;
+        return false;
+      }
+      const email1 = await sendEmail(
+        allOrigins.filter((e) => e[0].origin_id == origin)[0][0].email,
+        "Uma nova solicitação de " +
+          name +
+          " foi enviada e aguarda sua validação para ser publicado no Repositório Institucional Uniplac! <br/> acesse: http://localhost:3000/login"
+      );
+      const email2 = await sendEmail(
+        email,
+        "Sua solicitação para publicar o documento " +
+          title +
+          " no Repositório Institucional Uniplac foi enviada para analise, você será informado sobre o andamento da publicação pelo email! <br/> Segundo a Lei Geral de Proteção de Dados Pessoais, ao enviar a solicitação, você autorizou que seus dados fossem coletados pela instituição Uniplac."
+      );
+      if(email1 == false || email2 == false){
+        document.getElementById("loading").hidden = true;
+        document.getElementById("error").hidden = false;
+        return
+      }
       document.getElementById("loading").hidden = true;
-      //window.location.reload();
+      document.getElementById("success").hidden = false;
     } catch {
-      setAlertMensage("Erro ao enviar documento, tente novamente mais tarde!");
+      document.getElementById("loading").hidden = true;
+      document.getElementById("error").hidden = false;
+
+
     }
   }
 
@@ -126,22 +138,24 @@ export default function Form(req) {
               <h1 className="mx-auto">Enviando documento...</h1>
             </div>
           </div>
-          <div hidden id="succes">
-            <div className="flex flex-col col-span-1">
+          <div id="success" hidden>
+            <div className="flex flex-col col-span-1 my-16">
               <div className="mx-auto">
-                <Triangle
-                  height="80"
-                  width="80"
-                  color="#4fa94d"
-                  ariaLabel="triangle-loading"
-                  visible={true}
-                />
+                <GiTrophyCup className="text-6xl text-green-600 animate-bounce"/>
               </div>
-              <h1 className="mx-auto">Enviando documento...</h1>
+              <h1 className="mx-auto">Documento enviado com sucesso!</h1>
+            </div>
+          </div>
+          <div id="error" hidden>
+            <div className="flex flex-col col-span-1 my-16">
+              <div className="mx-auto">
+                <MdOutlineReportGmailerrorred className="text-6xl text-red-600 animate-bounce"/>
+              </div>
+              <h1 className="mx-auto">Ocorreu um erro ao cadastrar seu documento!</h1>
             </div>
           </div>
           <form
-            hidden
+            
             className="space-y-4"
             id="formPubli"
             onSubmit={(e) => sendDocument() + e.preventDefault()}
@@ -457,7 +471,6 @@ export default function Form(req) {
               ""
             )}
           </form>
-          <AlertBox msg={alertMensage} />
         </div>
       </div>
     </div>

@@ -7,8 +7,10 @@ async function sendEmail(email, content) {
       assunto: "Repositório Institucional Uniplac",
       conteudo: content + "",
     });
+    return true
   } catch (e) {
     console.log(e);
+    return false
   }
 }
 

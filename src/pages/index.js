@@ -18,18 +18,6 @@ export default function Home(props) {
   const [origins, setOrigin] = useState(props.origins);
   const [allOrigins, setAllOrigin] = useState(props.allOrigins);
 
-  const cpf = "08860883997"
-
-  function mascara(cpf){
-    const textoAjustado = cpf.replace(/(\d{3})(\d{3})(\d{3})/,
-                        function( regex, arg1, arg2, arg3) {
-                        return arg1 + '.' + arg2 + '.' + arg3 + '-';
-                        });
-
-    return textoAjustado
-  }
-
-  console.log(mascara(cpf))
   return (
     <section>
       <Header />
