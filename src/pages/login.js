@@ -54,12 +54,12 @@ export default function Login() {
   }
 
   return (
-    <div className=" bg-gradient-to-t from-blue-100 min-h-screen">
-      <div className="flex flex-col items-center mt-20 px-6 py-8 mx-auto md:h-screen ">
+    <div className=" bg-gradient-to-t from-blue-100 ">
+      <div className="flex flex-col items-center md:mt-14 p-5 mx-auto md:h-screen min-h-screen">
         <h1 className="text-2xl lg:text-3xl text-slate-700 mb-4 font-bold">
           Administradores do Repositório
         </h1>
-        <div className="pb-10 pt-4">
+        <div className="pb-6 pt-2">
           <Image
             src={`/logoUniplac.png`}
             alt="Logo Uniplac"
@@ -68,8 +68,8 @@ export default function Login() {
           />
         </div>
 
-        <div className="w-full bg-white bg-opacity-90 rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0 ">
-          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+        <div className="w-full bg-white bg-opacity-90 rounded-lg shadow sm:max-w-md">
+          <div className="p-6 space-y-2 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
               Login
             </h1>
@@ -201,7 +201,16 @@ export default function Login() {
             </form>
           </div>
         </div>
+        
       </div>
+      <footer className="bg-white text-center lg:text-left mb-0">
+        <div className="text-gray-700 text-center p-3 flex justify-center cursor-default">
+          Copyright &copy; {new Date().getFullYear()}{" "}
+          <p className="text-blue-500 hover:text-blue-700 ">
+            {" <NIU/>"}
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }

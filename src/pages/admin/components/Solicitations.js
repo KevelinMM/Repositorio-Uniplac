@@ -16,7 +16,7 @@ export default function Solicitations(req) {
       <select
         defaultValue={"all"}
         id="select"
-        className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 "
+        className="bg-gray-50 border border-gray-100 text-gray-900 rounded-md shadow-lg block w-full p-1.5 "
         onChange={(e) =>
           setDocuments(
             e.target.value == "all"

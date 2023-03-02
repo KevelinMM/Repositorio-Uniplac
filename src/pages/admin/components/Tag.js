@@ -64,19 +64,19 @@ export default function Origin(req) {
       <div className="mb-4 flex justify-between">
         <div>
           <p className="font-semibold">Cadastrar Tag</p>
-          <p className="text-sm pt-1">* Aperte enter para cadastrar.</p>
           <p className="text-sm pt-1">
             * Tags que já existem não poderão ser criadas novamente.
           </p>
         </div>
-        <span id="showTag"
+        <span
+          id="showTag"
           onClick={() => setTagsSearch(tagsSearch.length > 0 ? [] : allTags)}
           className="text-blue-500 underline cursor-pointer mr-2 mb-1"
         >
           Ver todos
         </span>
       </div>
-      <div className="flex flex-row-reverse">
+      <div className="flex flex-row">
         <div hidden id="tagCheck" className="absolute">
           <FaCheck className="m-4 w-4 text-green-500" />
         </div>
@@ -88,12 +88,12 @@ export default function Origin(req) {
         </div>
         <input
           required
-          className="w-full rounded-lg border-gray-200 p-3 text-sm"
+          className="w-full rounded-md shadow-lg border-gray-200 p-2 text-sm"
           placeholder="Digite o nome da Tag"
           type="text"
           id="tag"
           onChange={(e) =>
-            e.target.value.length > 1
+            e.target.value.length > 0
               ? setTagsSearch(
                   allTags.filter((y) =>
                     y.tag.toLowerCase().includes(e.target.value.toLowerCase())
@@ -105,6 +105,7 @@ export default function Origin(req) {
                 (document.getElementById("tagAlert").hidden = true)
           }
         />
+        <button className="btn ml-2">Adicionar</button>
       </div>
       <ul className="mx-2 rounded">
         {tagsSearch.map((e, index) => (

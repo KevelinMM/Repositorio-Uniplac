@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import { FaCheck, FaTrash } from "react-icons/fa";
-import { FiAlertCircle } from "react-icons/fi";
-import { MdClose } from "react-icons/md";
+import { FaTrash } from "react-icons/fa";
 import axios from "axios";
 
 export default function User(req) {
@@ -61,12 +59,11 @@ export default function User(req) {
           className="text-blue-500 underline cursor-pointer mr-2 mb-1"
         ></span>
       </div>
-
       <div className="flex flex-row-reverse">
         <input
           required
-          className="w-full rounded-lg border-gray-200 p-2 mb-2 text-sm"
-          placeholder="Procure o usuário, digite espaço para ver todos"
+          className="w-full rounded-md shadow-lg border-gray-200 p-2 mb-2 text-sm"
+          placeholder="Procure o usuário."
           type="text"
           id="user"
           onChange={(e) =>
@@ -99,44 +96,38 @@ export default function User(req) {
           </li>
         ))}
       </ul>
-      <p className="font-semibold my-4">Cadastrar usuário</p>
+      <p className="font-semibold my-4">Cadastrar</p>
 
-      <div>
-        <label htmlFor="userName">Nome</label>
+      <div className="space-y-2">
         <input
           required
-          className="w-full rounded-lg border-gray-200 p-3 text-sm"
-          placeholder="Digite o nome"
+          className="w-full rounded-md shadow-lg border-gray-200 p-2 text-sm"
+          placeholder="Nome"
           type="text"
           id="userName"
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
         />
-        <label htmlFor="userEmail">Email</label>
         <input
           required
-          className="w-full rounded-lg border-gray-200 p-3 text-sm"
-          placeholder="Digite o email"
+          className="w-full rounded-md shadow-lg border-gray-200 p-2 text-sm"
+          placeholder="Email Institucional"
           type="email"
           id="userEmail"
           value={userEmail}
           onChange={(e) => setUserEmail(e.target.value)}
         />
       </div>
-
-      <div className="flex my-4 items-center">
-        <div className="">
-          <label htmlFor="userPermission" className="pr-2">
-            Permição
-          </label>
+      <div className=" sm:flex sm:space-x-4 mb-2">
+        <div className="flex items-center justify-center my-3 ">
           <select
-            className="px-6"
+            className="w-full rounded-md shadow-lg pr-7 border-none"
             defaultValue={userPermission}
             id="userPermission"
             onChange={(e) => setUserPermission(e.target.value)}
           >
             <option value="0" disabled>
-              {userPermission == "0" ? "Selecione" : userPermission}
+              {userPermission == "0" ? "Permissão" : userPermission}
             </option>
             {allPermissions.map((e) => (
               <option key={e.id} value={e.id}>
@@ -145,17 +136,15 @@ export default function User(req) {
             ))}
           </select>
         </div>
-        <div>
-          <label htmlFor="userOrigin" className="px-2">
-            Origem
-          </label>
+        <div className="flex items-center justify-center my-3 ">
           <select
+            className="w-full rounded-md shadow-lg pr-5 border-none"
             defaultValue={userOrigin}
             id="userOrigin"
             onChange={(e) => setUserOrigin(e.target.value)}
           >
             <option value="0" disabled>
-              {userOrigin == "0" ? "Selecione" : userOrigin}
+              {userOrigin == "0" ? "Origem" : userOrigin}
             </option>
             {allOrigins.map((e) => (
               <option key={e.id} value={e.id}>
@@ -166,7 +155,7 @@ export default function User(req) {
         </div>
       </div>
 
-      <a className="btn" onClick={(e) => createUser()}>
+      <a className="btn " onClick={(e) => createUser()}>
         Criar
       </a>
     </form>

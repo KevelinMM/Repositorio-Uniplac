@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { useState } from "react";
-import Type from "../../components/Type";
 import axios from "axios";
 import Solicitations from "./components/Solicitations";
 import Category from "./components/Category";
@@ -32,20 +31,19 @@ export default function SuperAdm(props) {
   const [documents, setDocuments] = useState(props.documents);
 
   return (
-    <div className="bg-gradient-to-t from-blue-100 min-h-screen px-6 md:px-20 xl:px-52 py-12">
-      <div className="flex justify-between pb-6 xl:pb-12 items-center">
-        <div>
-          <p className="text-gray-700 text-lg md:text-3xl font-bold">Painel</p>
+    <>
+    <div className="bg-gradient-to-t from-blue-100 min-h-screen px-2 sm:px-5 lg:px-10 xl:px-24 pt-8 md:pt-16 pb-6">
+      <div className="flex justify-between pb-6 xl:pb-12 items-center lg:px-4">
+        <div className="flex items-center">
+          <p className="page-title"> {origin}</p>
           <p
             onClick={() => Router.push("/login")}
-            className="rounded text-xl hover:text-red-700 cursor-pointer "
+            className="rounded text-xl hover:text-red-700 cursor-pointer ml-2"
           >
             <MdOutlineLogout />
           </p>
         </div>
-        <p className="text-gray-700 text-lg md:text-3xl font-bold pl-2">
-          {origin}
-        </p>
+        <p className="md:text-3xl page-title">Repositório Institucional</p>
         <Image
           src={`/logoUniplac.png`}
           alt="Logo Uniplac"
@@ -53,23 +51,20 @@ export default function SuperAdm(props) {
           height={70}
         />
       </div>
-
-      <div className="grid lg:grid-cols-2 gap-4 md:gap-10">
-        {userInfo[0].permission_id.id == 1 ? (
-          <>
-            <Category allTypes={allTypes} token={token} />
-            <Origin allOrigins={allOrigins} token={token} />
-          </>
-        ) : null}
+      <div className="px-4 pb-4 text-justify">
+        <p>
+          Página destinada a administração de publicações no repositório da
+          Instituição Uniplac, criação de palavras chaves (tags) e categorias
+          que serão usadas pelos alunos ao cadastrar seus documentos.
+        </p>
+        <p> Ex: Artigos, TCCs, Ebooks.. (PDFs)</p>
       </div>
-
-      <Tag allTags={allTags} token={token} infoUser={userInfo} />
 
       {userInfo[0].permission_id.id == 1 || userInfo[0].origin_id.id == 1 ? (
         <select
           defaultValue={"all"}
           id="countries"
-          className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 "
+          className="ml-2 md:ml-5 pr-10 pl-3 border border-gray-100 text-gray-900 rounded-md shadow-lg block py-2 "
           onChange={(e) =>
             setDocuments(
               e.target.value == 1 || e.target.value == "all"
@@ -80,7 +75,7 @@ export default function SuperAdm(props) {
             )
           }
         >
-          <option value="all">Todos</option>
+          <option value="all">Solicitações por usuários</option>
           {allOrigins.map((e) => (
             <option key={e.id} value={e.id}>
               {e.origin}
@@ -88,84 +83,105 @@ export default function SuperAdm(props) {
           ))}
         </select>
       ) : null}
-      
+
       <Solicitations documents={documents} allOrigins={allOrigins} />
 
-      <div className="adminCards">
-        <p className="text-sm font-semibold">
-          * Você só tem permissão para cadastrar Tags. Para adicionar
-          categorias, solicite: niu.atendimento@uniplaclages.edu.br
-        </p>
-        <Type type={allTypes} />
+      <div className="grid lg:grid-cols-2 ">
+        {userInfo[0].permission_id.id == 1 ? (
+          <>
+            <Category allTypes={allTypes} token={token} />
+            <Tag allTags={allTags} token={token} infoUser={userInfo} />
+          </>
+        ) : null}
       </div>
-      {userInfo[0].permission_id.id == 1 ? (
-        <User
-          allUsers={allUsers}
-          allPermissions={allPermissions}
-          allOrigns={allOrigins}
-          token={token}
-        />
-      ) : null}
+
+      <div className="page-title ml-4"> Área restrita para Super Admin</div>
+
+      <div className="grid lg:grid-cols-2 ">
+        {userInfo[0].permission_id.id == 1 ? (
+          <>
+            <Origin allOrigins={allOrigins} token={token} />
+            <User
+              allUsers={allUsers}
+              allPermissions={allPermissions}
+              allOrigns={allOrigins}
+              token={token}
+            />
+          </>
+        ) : null}
+      </div>
+
     </div>
+        <footer className="bg-white text-center lg:text-left text-base w-full bottom-0 ">
+        <div className="text-gray-700 text-center p-3 flex justify-center cursor-default">
+          Copyright &copy; {new Date().getFullYear()}{" "}
+          <p className="text-blue-500 hover:text-blue-700 ">
+            {" <NIU/>"}
+          </p>
+        </div>
+      </footer>
+      </>
   );
 }
 export async function getServerSideProps(context) {
-  try{
-  const token = context.req.cookies["auth"];
-  const user = await axios.get(process.env.BACKEND + "userInfo", {
-    headers: { Authorization: `bearer ${token}` },
-  });
-
-  const infoUser = user.data.shift();
-  var documents;
-  if (infoUser.origin_id) {
-    const doc = await axios.get(
-      process.env.BACKEND + "documentsByOrigin/" + infoUser.origin_id.id
-    );
-    documents = doc.data;
-  } else {
-    const doc = await axios.get(process.env.BACKEND + "documentsByOrigin/" + 1);
-    documents = doc.data;
-  }
-
-  const getAllTags = await axios.get(process.env.BACKEND + "tags");
-  const getAllOrigins = await axios.get(process.env.BACKEND + "origins");
-  const getAllTypes = await axios.get(process.env.BACKEND + "types");
-  const getAllPermissions = await axios.get(
-    process.env.BACKEND + "permissions",
-    {
+  try {
+    const token = context.req.cookies["auth"];
+    const user = await axios.get(process.env.BACKEND + "userInfo", {
       headers: { Authorization: `bearer ${token}` },
+    });
+
+    const infoUser = user.data.shift();
+    var documents;
+    if (infoUser.origin_id) {
+      const doc = await axios.get(
+        process.env.BACKEND + "documentsByOrigin/" + infoUser.origin_id.id
+      );
+      documents = doc.data;
+    } else {
+      const doc = await axios.get(
+        process.env.BACKEND + "documentsByOrigin/" + 1
+      );
+      documents = doc.data;
     }
-  );
-  const getAllUsers = await axios.get(process.env.BACKEND + "users", {
-    headers: { Authorization: `bearer ${token}` },
-  });
 
-  const allTags = getAllTags.data;
-  const allOrigins = getAllOrigins.data;
-  const allTypes = getAllTypes.data;
-  const allPermissions = getAllPermissions.data;
-  const allUsers = getAllUsers.data;
+    const getAllTags = await axios.get(process.env.BACKEND + "tags");
+    const getAllOrigins = await axios.get(process.env.BACKEND + "origins");
+    const getAllTypes = await axios.get(process.env.BACKEND + "types");
+    const getAllPermissions = await axios.get(
+      process.env.BACKEND + "permissions",
+      {
+        headers: { Authorization: `bearer ${token}` },
+      }
+    );
+    const getAllUsers = await axios.get(process.env.BACKEND + "users", {
+      headers: { Authorization: `bearer ${token}` },
+    });
 
-  return {
-    props: {
-      infoUser,
-      documents,
-      allTags,
-      allOrigins,
-      allTypes,
-      allPermissions,
-      allUsers,
-      token,
-    },
-  };
-}catch (e) {
-  return {
-    redirect: {
-      permanent: false,
-      destination: "/500",
-    },
-    props: {},
-  };
-}
+    const allTags = getAllTags.data;
+    const allOrigins = getAllOrigins.data;
+    const allTypes = getAllTypes.data;
+    const allPermissions = getAllPermissions.data;
+    const allUsers = getAllUsers.data;
+
+    return {
+      props: {
+        infoUser,
+        documents,
+        allTags,
+        allOrigins,
+        allTypes,
+        allPermissions,
+        allUsers,
+        token,
+      },
+    };
+  } catch (e) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/500",
+      },
+      props: {},
+    };
+  }
 }

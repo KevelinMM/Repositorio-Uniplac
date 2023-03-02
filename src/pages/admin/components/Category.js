@@ -68,14 +68,20 @@ export default function Category(req) {
       onSubmit={(e) => e.preventDefault() + createType()}
     >
       <div className="flex justify-between mb-4">
-        <p className="font-semibold">Categorias</p>
+      <div>
+          <p className="font-semibold">Cadastrar Categoria</p>
+          <p className="text-sm pt-1">
+            * Categorias que já existem não poderão ser criadas novamente.
+          </p>
+        </div>
+        
         <span
           id="showType"
           onClick={() => setTypesSearch(typesSearch.length > 0 ? [] : allTypes)}
           className="text-blue-500 underline cursor-pointer mr-2 mb-1"
         ></span>
       </div>
-      <div className="flex flex-row-reverse">
+      <div className="flex">
         <div hidden id="typeCheck" className="absolute">
           <FaCheck className="m-4 w-4 text-green-500" />
         </div>
@@ -87,12 +93,12 @@ export default function Category(req) {
         </div>
         <input
           required
-          className="w-full rounded-lg border-gray-200 p-3 text-sm"
+          className="w-full rounded-md shadow-lg border-gray-200 p-2 text-sm"
           placeholder="Digite a categoria"
           type="text"
           id="type"
           onChange={(e) =>
-            e.target.value.length > 1
+            e.target.value.length > 0
               ? setTypesSearch(
                   allTypes.filter((y) =>
                     y.type.toLowerCase().includes(e.target.value.toLowerCase())
@@ -104,7 +110,9 @@ export default function Category(req) {
                 (document.getElementById("typeAlert").hidden = true)
           }
         />
+         <button className="btn ml-2">Adicionar</button>
       </div>
+      
       <ul className="mx-2 rounded">
         {typesSearch.map((e, index) => (
           <li
