@@ -6,6 +6,7 @@ import { deleteCookie } from "cookies-next";
 import sendEmail from "../helpers/sendEmail";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
+
 export default function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -75,6 +76,8 @@ export default function Login() {
             </h1>
             <form className="space-y-4 md:space-y-3" onSubmit={(e) => login(e)}>
               <div>
+
+              
                 <label
                   htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-900 "
@@ -201,14 +204,11 @@ export default function Login() {
             </form>
           </div>
         </div>
-        
       </div>
       <footer className="bg-white text-center lg:text-left mb-0">
         <div className="text-gray-700 text-center p-3 flex justify-center cursor-default">
           Copyright &copy; {new Date().getFullYear()}{" "}
-          <p className="text-blue-500 hover:text-blue-700 ">
-            {" <NIU/>"}
-          </p>
+          <p className="text-blue-500 hover:text-blue-700 ">{" <NIU/>"}</p>
         </div>
       </footer>
     </div>
