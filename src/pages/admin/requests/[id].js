@@ -240,7 +240,21 @@ export default function Request(props) {
   );
 }
 
-export async function getServerSidePorps(context) {
+//export async function getServerSidePorps(context) {
+//  var document;
+//
+//  const doc = await axios.get(
+//    process.env.BACKEND + "documents/" + context.params.id
+//  );
+//  document = doc.data;
+//
+//  const getAllTags = await axios.get(process.env.BACKEND + "tags");
+//  const allTags = getAllTags.data;
+//
+//  return { props: { document, allTags } };
+//}
+
+export async function getStaticProps(context) {
   var document;
 
   const doc = await axios.get(
@@ -254,30 +268,16 @@ export async function getServerSidePorps(context) {
   return { props: { document, allTags } };
 }
 
-//export async function getStaticProps(context) {
-//  var document;
-//
-//  const doc = await axios.get(
-//    process.env.BACKEND + "documents/" + context.params.id
-//  );
-//  document = doc.data;
-//
-//  const getAllTags = await axios.get(process.env.BACKEND + "tags");
-//  const allTags = getAllTags.data;
-//
-//  return { props: { document, allTags } };
-//}
-//
-//export async function getStaticPaths() {
-//  const getDoc = await axios.get(process.env.BACKEND + "documents");
-//
-//  const document = getDoc.data;
-//
-//  //const paths = document.map((post) => ({
-//  //  params: { id: post.id.toString() },
-//  //}));
-//
-//  const paths = { params: { id: 1 } };
-//
-//  return { paths, fallback: false };
-//}
+export async function getStaticPaths() {
+  const getDoc = await axios.get(process.env.BACKEND + "documents");
+
+  const document = getDoc.data;
+
+  const paths = document.map((post) => ({
+    params: { id: post.id.toString() },
+  }));
+
+  //const paths = { params: { id: 1 } };
+
+  return { paths, fallback: false };
+}
