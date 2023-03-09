@@ -20,7 +20,7 @@ export default function Request(props) {
   const [subTitle, setSubTitle] = useState("props.document[0].subtitle");
   const [content, setContent] = useState("props.document[0].content");
   const [fileLink, setLink] = useState(
-    "process.env.FILESRV" + "showFile/" +" props.document[0].file"
+    "process.env.FILESRV" + "showFile/" + " props.document[0].file"
   );
   const [reason, setReason] = useState();
 
@@ -126,27 +126,28 @@ export default function Request(props) {
             {title}
           </h1>
           <div className=" flex flex-row flex-wrap gap-2">
-            {lista || lista.map((e, index) =>
-              e.approved == true ? (
-                <span
-                  key={index}
-                  className="flex flex-row items-center bg-blue-200  rounded-full text-xs px-2 py-1 ml-2"
-                >
-                  {e.tag}
-                </span>
-              ) : (
-                <span
-                  key={index}
-                  className="flex flex-row items-center bg-red-200 hover:bg-gray-200 cursor-pointer rounded-full text-xs px-2 py-1 ml-2"
-                  onClick={(y) =>
-                    setLista(lista.filter((item) => item.tag != e.tag)) +
-                    deleteTag(e.id)
-                  }
-                >
-                  {e.tag + " x"}
-                </span>
-              )
-            )}
+            {lista ||
+              lista.map((e, index) =>
+                e.approved == true ? (
+                  <span
+                    key={index}
+                    className="flex flex-row items-center bg-blue-200  rounded-full text-xs px-2 py-1 ml-2"
+                  >
+                    {e.tag}
+                  </span>
+                ) : (
+                  <span
+                    key={index}
+                    className="flex flex-row items-center bg-red-200 hover:bg-gray-200 cursor-pointer rounded-full text-xs px-2 py-1 ml-2"
+                    onClick={(y) =>
+                      setLista(lista.filter((item) => item.tag != e.tag)) +
+                      deleteTag(e.id)
+                    }
+                  >
+                    {e.tag + " x"}
+                  </span>
+                )
+              )}
           </div>
         </div>
         <h1 className="font-sans break-normal text-gray-700 pb-2 text-base">
@@ -255,35 +256,47 @@ export default function Request(props) {
 //}
 
 export async function getStaticProps(context) {
-  var document;
+  try {
+    var document;
 
-  const doc = await axios.get(
-    process.env.BACKEND + "documents/" + context.params.id
-  );
-  document = doc.data;
+    const doc = await axios.get(
+      process.env.BACKEND + "documents/" + context.params.id
+    );
+    document = doc.data;
 
-  const getAllTags = await axios.get(process.env.BACKEND + "tags");
-  const allTags = getAllTags.data;
+    const getAllTags = await axios.get(process.env.BACKEND + "tags");
+    const allTags = getAllTags.data;
 
-  return { props: { document, allTags } };
+    return { props: { document, allTags } };
+  } catch (e) {
+    return {
+      paths: [{ params: { id: "1" } }, { params: { id: "2" } }],
+      fallback: false,
+    };
+  }
 }
 
 export async function getStaticPaths() {
-  try{
+  try {
     const getDoc = await axios.get(process.env.BACKEND + "documents");
 
     const document = getDoc.data;
-  
+
     //const paths = document.map((post) => ({
     //  params: { id: post.id.toString() },
     //}));
-  
+
     console.log(paths);
     //const paths = { params: { id: 1 } };
-  
-    return { paths: [{ params: { id: '1' } }, { params: { id: '2' } }], fallback: false };
-  }catch(e){
-    return { paths: [{ params: { id: '1' } }, { params: { id: '2' } }], fallback: false };
-  }
 
+    return {
+      paths: [{ params: { id: "1" } }, { params: { id: "2" } }],
+      fallback: false,
+    };
+  } catch (e) {
+    return {
+      paths: [{ params: { id: "1" } }, { params: { id: "2" } }],
+      fallback: false,
+    };
+  }
 }
