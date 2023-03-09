@@ -126,7 +126,7 @@ export default function Request(props) {
             {title}
           </h1>
           <div className=" flex flex-row flex-wrap gap-2">
-            {lista.map((e, index) =>
+            {lista || lista.map((e, index) =>
               e.approved == true ? (
                 <span
                   key={index}
