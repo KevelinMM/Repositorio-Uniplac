@@ -200,7 +200,7 @@ export default function Detail(props) {
   );
 }
 
-export async function getStaticProps(context) {
+export async function getServerSidePorps(context) {
   try {
     const id = context.params.id;
     const getDoc = await axios.get(process.env.BACKEND + "documents/" + id);
@@ -227,15 +227,42 @@ export async function getStaticProps(context) {
   }
 }
 
-export async function getStaticPaths() {
-  const getDoc = await axios.get(process.env.BACKEND + "documentsApproved");
-
-  const document = getDoc.data;
-
-  //const paths = document.map((post) => ({
-  //  params: { id: post.id.toString() },
-  //}))
-  const paths = { params: { id: 1 } };
-
-  return { paths, fallback: true };
-}
+//export async function getStaticProps(context) {
+//  try {
+//    const id = context.params.id;
+//    const getDoc = await axios.get(process.env.BACKEND + "documents/" + id);
+//    const getTags = await axios.get(process.env.BACKEND + "tagsNum");
+//    const getAllTags = await axios.get(process.env.BACKEND + "tags");
+//    const getTypes = await axios.get(process.env.BACKEND + "typesNum");
+//    const getOrigins = await axios.get(process.env.BACKEND + "originsNum");
+//
+//    const document = getDoc.data;
+//    const types = getTypes.data;
+//    const tags = getTags.data;
+//    const allTags = getAllTags.data;
+//    const origins = getOrigins.data;
+//
+//    return { props: { document, tags, allTags, types, origins } };
+//  } catch {
+//    return {
+//      redirect: {
+//        permanent: false,
+//        destination: "/500",
+//      },
+//      props: {},
+//    };
+//  }
+//}
+//
+//export async function getStaticPaths() {
+//  const getDoc = await axios.get(process.env.BACKEND + "documentsApproved");
+//
+//  const document = getDoc.data;
+//
+//  //const paths = document.map((post) => ({
+//  //  params: { id: post.id.toString() },
+//  //}))
+//  const paths = { params: { id: 1 } };
+//
+//  return { paths, fallback: false };
+//}
