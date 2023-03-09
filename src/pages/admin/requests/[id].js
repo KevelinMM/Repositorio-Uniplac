@@ -278,9 +278,9 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
   try {
-    const getDoc = await axios.get(process.env.BACKEND + "documents");
-
-    const document = getDoc.data;
+    //const getDoc = await axios.get(process.env.BACKEND + "documents");
+//
+    //const document = getDoc.data;
 
     //const paths = document.map((post) => ({
     //  params: { id: post.id.toString() },
