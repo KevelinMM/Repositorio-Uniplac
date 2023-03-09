@@ -5,7 +5,7 @@ import Solicitations from "./components/Solicitations";
 import Category from "./components/Category";
 import Origin from "./components/Origin";
 import Tag from "./components/Tag";
-//import User from "./components/User";
+import User from "./components/User";
 import { MdOutlineLogout } from "react-icons/md";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../api/auth/[...nextauth]";
@@ -46,7 +46,11 @@ export default function SuperAdm(props) {
               <MdOutlineLogout />
             </p>
           </div>
-          <Link href={"/"}><h1 className="cursor-pointer md:text-3xl page-title">Repositório Institucional</h1></Link>
+          <Link href={"/"}>
+            <h1 className="cursor-pointer md:text-3xl page-title">
+              Repositório Institucional
+            </h1>
+          </Link>
           <Image
             src={`/logoUniplac.png`}
             alt="Logo Uniplac"
@@ -101,7 +105,17 @@ export default function SuperAdm(props) {
         <div className="page-title ml-4"> Área restrita para Super Admin</div>
 
         <div className="grid lg:grid-cols-2 ">
-
+          {userInfo[0].permission_id.id == 1 ? (
+            <>
+              <Origin allOrigins={allOrigins} token={token} />
+              <User
+                allUsers={allUsers}
+                allPermissions={allPermissions}
+                allOrigns={allOrigins}
+                token={token}
+              />
+            </>
+          ) : null}
         </div>
       </div>
       <footer className="bg-white text-center lg:text-left text-base w-full bottom-0 ">
@@ -180,16 +194,3 @@ export async function getServerSideProps(context) {
     },
   };
 }
-
-
-//{userInfo[0].permission_id.id == 1 ? (
-//  <>
-//    <Origin allOrigins={allOrigins} token={token} />
-//    <User
-//      allUsers={allUsers}
-//      allPermissions={allPermissions}
-//      allOrigns={allOrigins}
-//      token={token}
-//    />
-//  </>
-//) : null}

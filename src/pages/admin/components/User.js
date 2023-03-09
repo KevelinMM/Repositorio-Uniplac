@@ -15,7 +15,7 @@ export default function User(req) {
   const token = req.token;
 
   async function createUser() {
-    const createUser = await axios.post(
+    await axios.post(
       process.env.BACKEND + "users",
       {
         name: userName,
@@ -32,7 +32,7 @@ export default function User(req) {
   }
 
   async function deleteUser(userId) {
-    const deleteUser = await axios.delete(
+    await axios.delete(
       process.env.BACKEND + "users/" + userId,
       {
         headers: { Authorization: `bearer ${token}` },
@@ -137,21 +137,7 @@ export default function User(req) {
           </select>
         </div>
         <div className="flex items-center justify-center my-3 ">
-          <select
-            className="w-full rounded-md shadow-lg pr-5 border-none"
-            defaultValue={userOrigin}
-            id="userOrigin"
-            onChange={(e) => setUserOrigin(e.target.value)}
-          >
-            <option value="0" disabled>
-              {userOrigin == "0" ? "Origem" : userOrigin}
-            </option>
-            {allOrigins.map((e) => (
-              <option key={e.id} value={e.id}>
-                {e.origin}
-              </option>
-            ))}
-          </select>
+{"1"}
         </div>
       </div>
 
@@ -161,3 +147,19 @@ export default function User(req) {
     </form>
   );
 }
+
+//<select
+//className="w-full rounded-md shadow-lg pr-5 border-none"
+//defaultValue={userOrigin}
+//id="userOrigin"
+//onChange={(e) => setUserOrigin(e.target.value)}
+//>
+//<option value="0" disabled>
+//  {userOrigin == "0" ? "Origem" : userOrigin}
+//</option>
+//{allOrigins.map((e) => (
+//  <option key={e.id} value={e.id}>
+//    {e.origin}
+//  </option>
+//))}
+//</select>
