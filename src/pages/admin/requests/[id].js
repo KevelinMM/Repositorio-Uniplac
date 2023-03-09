@@ -269,16 +269,21 @@ export async function getStaticProps(context) {
 }
 
 export async function getStaticPaths() {
-  const getDoc = await axios.get(process.env.BACKEND + "documents");
+  try{
+    const getDoc = await axios.get(process.env.BACKEND + "documents");
 
-  const document = getDoc.data;
+    const document = getDoc.data;
+  
+    //const paths = document.map((post) => ({
+    //  params: { id: post.id.toString() },
+    //}));
+  
+    console.log(paths);
+    //const paths = { params: { id: 1 } };
+  
+    return { paths: [{ params: { id: '1' } }, { params: { id: '2' } }], fallback: false };
+  }catch(e){
+    return { paths: [{ params: { id: '1' } }, { params: { id: '2' } }], fallback: false };
+  }
 
-  //const paths = document.map((post) => ({
-  //  params: { id: post.id.toString() },
-  //}));
-
-  console.log(paths);
-  //const paths = { params: { id: 1 } };
-
-  return { paths: [{ params: { id: '1' } }, { params: { id: '2' } }], fallback: false };
 }
