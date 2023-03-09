@@ -111,7 +111,7 @@ export default function User(req) {
             <option value="0" disabled>
               {userPermission == "0" ? "Permissão" : userPermission}
             </option>
-            {allPermissions.map((e) => (
+            {allPermissions && allPermissions.map((e) => (
               <option key={e.id} value={e.id || ""}>
                 {e.name}
               </option>
