@@ -8,22 +8,22 @@ import Footer from "../../components/Footer";
 import axios from "axios";
 
 export default function Detail(props) {
-  const [tags, setTags] = useState(props.tags);
-  const [types, setTypes] = useState(props.types);
-  const [origins, setOrigin] = useState(props.origins);
-  const title = props.document[0].title;
-  const subTitle = props.document[0].subtitle;
-  const content = props.document[0].content;
-  const autor = props.document[0].autor;
-  const curator = props.document[0].user_id.name;
-  const typeId = props.document[0].type_id.type;
-  const origemId = props.document[0].origin_id.origin;
-  const date = new Date(props.document[0].created_at);
+  const [tags, setTags] = useState(["props.tags"]);
+  const [types, setTypes] = useState(["props.types"]);
+  const [origins, setOrigin] = useState(["props.origins"]);
+  const title = "props.document[0].title";
+  const subTitle = "props.document[0].subtitle";
+  const content = "props.document[0].content";
+  const autor = "props.document[0].autor";
+  const curator = "props.document[0].user_id.name";
+  const typeId = "props.document[0].type_id.type";
+  const origemId = "props.document[0].origin_id.origin";
+  const date = new Date("props.document[0].created_at");
 
-  const [tagsId, setTagsId] = useState(props.document[0].tag);
+  const [tagsId, setTagsId] = useState(["props.document[0].tag"]);
 
   const [fileLink, setFileLink] = useState(
-    process.env.FILESRV + "showFile/" + props.document[0].file
+    "process.env.FILESRV" + "showFile/" + "props.document[0].file"
   );
 
   var citation;

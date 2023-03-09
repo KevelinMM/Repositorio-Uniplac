@@ -7,25 +7,25 @@ import { useSession, getSession, signIn } from "next-auth/react";
 import Back from "../../../components/Back";
 
 export default function Request(props) {
-  const [origin, setOrigin] = useState(props.document[0].origin_id.origin);
-  const [approved, setApproved] = useState(props.document[0].approved);
-  const [id, setId] = useState(props.document[0].id);
-  const [category, setCategory] = useState(props.document[0].type_id.type);
-  const [autor, setAutor] = useState(props.document[0].autor);
+  const [origin, setOrigin] = useState("props.document[0].origin_id.origin");
+  const [approved, setApproved] = useState("props.document[0].approved");
+  const [id, setId] = useState("props.document[0].id");
+  const [category, setCategory] = useState("props.document[0].type_id.type");
+  const [autor, setAutor] = useState("props.document[0].autor");
   const [curator, setCurator] = useState(
-    props.document[0].curator ? props.document[0].curator : "Sem curador"
+    "props.document[0].curator" ? "props.document[0].curator" : "Sem curador"
   );
-  const [email, setEmail] = useState(props.document[0].autor_email);
-  const [title, setTitle] = useState(props.document[0].title);
-  const [subTitle, setSubTitle] = useState(props.document[0].subtitle);
-  const [content, setContent] = useState(props.document[0].content);
+  const [email, setEmail] = useState("props.document[0].autor_email");
+  const [title, setTitle] = useState("props.document[0].title");
+  const [subTitle, setSubTitle] = useState("props.document[0].subtitle");
+  const [content, setContent] = useState("props.document[0].content");
   const [fileLink, setLink] = useState(
-    process.env.FILESRV + "showFile/" + props.document[0].file
+    "process.env.FILESRV" + "showFile/" +" props.document[0].file"
   );
   const [reason, setReason] = useState();
 
-  const [lista, setLista] = useState(props.document[0].tag.slice(1));
-  const date = new Date(props.document[0].created_at);
+  const [lista, setLista] = useState(["props.document[0].tag.slice(1)"]);
+  const date = new Date("props.document[0].created_at");
 
   const { data: session, status } = useSession();
 
