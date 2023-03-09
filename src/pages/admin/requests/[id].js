@@ -273,11 +273,12 @@ export async function getStaticPaths() {
 
   const document = getDoc.data;
 
-  const paths = document.map((post) => ({
-    params: { id: post.id.toString() },
-  }));
+  //const paths = document.map((post) => ({
+  //  params: { id: post.id.toString() },
+  //}));
 
+  console.log(paths);
   //const paths = { params: { id: 1 } };
 
-  return { paths, fallback: false };
+  return { paths: [{ params: { id: '1' } }, { params: { id: '2' } }], fallback: false };
 }
