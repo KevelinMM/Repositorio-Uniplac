@@ -77,7 +77,26 @@ export default function User(req) {
           }
         />
       </div>
-      <ul className="mx-2 rounded">{"2"}</ul>
+      <ul className="mx-2 rounded">
+        {usersSearch &&
+          usersSearch.map((e, index) => (
+            <li
+              key={index}
+              className="cursor-pointer rounded-md p-2 bg-slate-50 flex justify-between shadow-md mt-1"
+              onClick={(z) =>
+                setUserName(e.name) +
+                setUserEmail(e.email) +
+                setUserPermission(e.permission_id.name) +
+                setUserOrigin(e.origin_id ? e.origin_id.origin : "Sem origin")
+              }
+            >
+              {e.name}
+              <a onClick={(z) => deleteUser(e.id)} className="cursor-pointer">
+                <FaTrash />
+              </a>
+            </li>
+          ))}
+      </ul>
       <p className="font-semibold my-4">Cadastrar</p>
 
       <div className="space-y-2">
@@ -111,14 +130,31 @@ export default function User(req) {
             <option value="0" disabled>
               {userPermission == "0" ? "Permissão" : userPermission}
             </option>
-            {allPermissions && allPermissions.map((e) => (
-              <option key={e.id} value={e.id || ""}>
-                {e.name}
+            {allPermissions &&
+              allPermissions.map((e) => (
+                <option key={e.id} value={e.id || ""}>
+                  {e.name}
+                </option>
+              ))}
+          </select>
+        </div>
+        <div className="flex items-center justify-center my-3 ">
+          <select
+            className="w-full rounded-md shadow-lg pr-5 border-none"
+            defaultValue={userOrigin}
+            id="userOrigin"
+            onChange={(e) => setUserOrigin(e.target.value)}
+          >
+            <option value="0" disabled>
+              {userOrigin == "0" ? "Origem" : userOrigin}
+            </option>
+            {allOrigins && allOrigins.map((e) => (
+              <option key={e.id} value={e.id}>
+                {e.origin}
               </option>
             ))}
           </select>
         </div>
-        <div className="flex items-center justify-center my-3 ">{"1"}</div>
       </div>
 
       <a className="btn " onClick={(e) => createUser()}>
@@ -127,37 +163,3 @@ export default function User(req) {
     </form>
   );
 }
-
-//<select
-//className="w-full rounded-md shadow-lg pr-5 border-none"
-//defaultValue={userOrigin}
-//id="userOrigin"
-//onChange={(e) => setUserOrigin(e.target.value)}
-//>
-//<option value="0" disabled>
-//  {userOrigin == "0" ? "Origem" : userOrigin}
-//</option>
-//{allOrigins.map((e) => (
-//  <option key={e.id} value={e.id}>
-//    {e.origin}
-//  </option>
-//))}
-//</select>
-
-//{usersSearch.map((e, index) => (
-//  <li
-//    key={index}
-//    className="cursor-pointer rounded-md p-2 bg-slate-50 flex justify-between shadow-md mt-1"
-//    onClick={(z) =>
-//      setUserName(e.name) +
-//      setUserEmail(e.email) +
-//      setUserPermission(e.permission_id.name) +
-//      setUserOrigin(e.origin_id ? e.origin_id.origin : "Sem origin")
-//    }
-//  >
-//    {e.name}
-//    <a onClick={(z) => deleteUser(e.id)} className="cursor-pointer">
-//      <FaTrash />
-//    </a>
-//  </li>
-//))}
