@@ -123,46 +123,46 @@ export default function Header() {
                   </div>
                 ) : (
                   <div className="cursor-pointer inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-2 px-4 group">
-                    <div class="flex items-center justify-center  ">
-                      <div class="relative inline-block text-left ">
+                    <div className="flex items-center justify-center  ">
+                      <div className="relative inline-block text-left ">
                         <button
                           type="button"
-                          class="inline-flex justify-center w-full rounded-md px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2"
+                          className="inline-flex justify-center w-full rounded-md px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2"
                           id="dropdown-button"
                           aria-haspopup="true"
                           aria-expanded="false"
                         >
-                          <p className="">Olá, {session.user.name.split(' ')[0]}</p>
+                          <div>Olá, {session.user.name.split(' ')[0]}</div>
                           <svg
-                            class="-mr-1 ml-1 mb h-5 w-5"
+                            className="-mr-1 ml-1 mb h-5 w-5"
                             viewBox="0 0 20 20"
                             fill="currentColor"
                           >
                             <path
-                              fill-rule="evenodd"
+                              fillRule="evenodd"
                               d="M10.292 14.292a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L10 11.586l3.293-3.292a1 1 0 011.414 1.414l-4 4z"
-                              clip-rule="evenodd"
+                              clipRule="evenodd"
                             />
                           </svg>
                         </button>
                         <div
-                          class="hidden group-hover:block origin-top-right absolute right-0 mt-2 w-32 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
+                          className="hidden group-hover:block origin-top-right absolute right-0 mt-2 w-32 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
                           role="menu"
                           aria-orientation="vertical"
                           aria-labelledby="dropdown-button"
-                          tabindex="-1"
+                          tabIndex="-1"
                         >
-                          <div class="py-1" role="none">
-                            <Link href="/admin" role="menuitem" tabindex="-1">
-                              <p className="w-full cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+                          <div className="py-1" role="none">
+                            <Link href="/admin" role="menuitem" tabIndex="-1">
+                              <div className="w-full cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
                                 Painel
-                              </p>
+                              </div>
                             </Link>
-                            <p onClick={() => signOut()} role="menuitem" tabindex="-1">
+                            <div onClick={() => signOut()} role="menuitem" tabIndex="-1">
                               <p className="w-full cursor-pointer px-4 py-2 text-sm text-red-700 hover:bg-red-50 hover:text-red-900">
                                 Sair
                               </p>
-                            </p>
+                            </div>
                           </div>
                         </div>
                       </div>

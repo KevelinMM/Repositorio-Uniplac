@@ -193,7 +193,6 @@ export default function Detail(props) {
             </div>
           </div>
         </div>
-
         <Back />
       </div>
       <Footer />

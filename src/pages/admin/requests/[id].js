@@ -4,6 +4,7 @@ import Router from "next/router";
 import { useState } from "react";
 import sendEmail from "../../../helpers/sendEmail";
 import { useSession, getSession, signIn } from "next-auth/react";
+import Back from "../../../components/Back";
 
 export default function Request(props) {
   const [origin, setOrigin] = useState(props.document[0].origin_id.origin);
@@ -39,7 +40,12 @@ export default function Request(props) {
         <p class="text-gray-700 text-center">
           Desculpe, você não tem permissão para acessar esta página.
         </p>
-        <button className="bg-green-400 hover:bg-green-300 rounded py-1 px-2 mt-4" onClick={()=> signIn()}>Logar</button>
+        <button
+          className="bg-green-400 hover:bg-green-300 rounded py-1 px-2 mt-4"
+          onClick={() => signIn()}
+        >
+          Logar
+        </button>
       </div>
     );
   }
@@ -112,6 +118,7 @@ export default function Request(props) {
           height={80}
         />
       </div>
+      <Back />
 
       <div className="w-full lg:w-4/5 p-8  mt-2 text-gray-900 leading-normal border-opacity-50 bg-white border border-gray-400 border-rounded mx-auto">
         <div className="flex items-center justify-between">
