@@ -200,8 +200,6 @@ export default function Detail(props) {
   );
 }
 
-
-
 export async function getStaticProps(context) {
   try {
     const id = context.params.id;
@@ -234,11 +232,10 @@ export async function getStaticPaths() {
 
   const document = getDoc.data;
 
-  const paths = document.map((post) => ({
-    params: { id: post.id.toString() },
-  }))
+  //const paths = document.map((post) => ({
+  //  params: { id: post.id.toString() },
+  //}))
+  const paths = { params: { id: 1 } };
 
-  return { paths, fallback: false }
-
+  return { paths, fallback: false };
 }
-
