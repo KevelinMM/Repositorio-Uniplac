@@ -265,5 +265,5 @@ export async function getStaticPaths() {
 
   const paths = { params: { id: 1 } };
 
-  return { paths, fallback: false };
+  return { paths, fallback: true };
 }
