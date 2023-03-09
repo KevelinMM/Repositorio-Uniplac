@@ -77,9 +77,7 @@ export default function User(req) {
           }
         />
       </div>
-      <ul className="mx-2 rounded">
-{"2"}
-      </ul>
+      <ul className="mx-2 rounded">{"2"}</ul>
       <p className="font-semibold my-4">Cadastrar</p>
 
       <div className="space-y-2">
@@ -104,11 +102,23 @@ export default function User(req) {
       </div>
       <div className=" sm:flex sm:space-x-4 mb-2">
         <div className="flex items-center justify-center my-3">
-{"3"}
+          <select
+            className="w-full rounded-md shadow-lg pr-7 border-none"
+            defaultValue={userPermission || ""}
+            id="userPermission"
+            onChange={(e) => setUserPermission(e.target.value)}
+          >
+            <option value="0" disabled>
+              {userPermission == "0" ? "Permissão" : userPermission}
+            </option>
+            {allPermissions.map((e) => (
+              <option key={e.id} value={e.id || ""}>
+                {e.name}
+              </option>
+            ))}
+          </select>
         </div>
-        <div className="flex items-center justify-center my-3 ">
-{"1"}
-        </div>
+        <div className="flex items-center justify-center my-3 ">{"1"}</div>
       </div>
 
       <a className="btn " onClick={(e) => createUser()}>
@@ -151,19 +161,3 @@ export default function User(req) {
 //    </a>
 //  </li>
 //))}
-
-//<select
-//className="w-full rounded-md shadow-lg pr-7 border-none"
-//defaultValue={userPermission}
-//id="userPermission"
-//onChange={(e) => setUserPermission(e.target.value)}
-//>
-//<option value="0" disabled>
-//  {userPermission == "0" ? "Permissão" : userPermission}
-//</option>
-//{allPermissions.map((e) => (
-//  <option key={e.id} value={e.id}>
-//    {e.name}
-//  </option>
-//))}
-//</select>
