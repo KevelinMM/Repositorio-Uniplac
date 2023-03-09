@@ -1,11 +1,11 @@
 import axios from "axios";
 import Image from "next/image";
 import { useState } from "react";
-import createCookie from "../helpers/createCookie";
-import { deleteCookie } from "cookies-next";
 import sendEmail from "../helpers/sendEmail";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
-
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
+import { MutatingDots } from "react-loader-spinner";
 
 export default function Login() {
   const [email, setEmail] = useState();
@@ -13,20 +13,30 @@ export default function Login() {
   const [newPassword, setNewPassword] = useState(false);
   const [code, setCode] = useState();
   const [correctCode, setCorrectCode] = useState();
-  deleteCookie("auth");
+  const [hasError, setHasError] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
 
   async function login(e) {
+    setLoading(true);
     e.preventDefault();
-    try {
-      const login = await axios.post(process.env.BACKEND + "login", {
-        email: email,
-        password: password,
-      });
-      createCookie(login.data.token);
-      window.location.href = "/admin";
-      document.getElementById("error").hidden = true;
-    } catch (e) {
-      document.getElementById("error").hidden = false;
+    const request = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
+
+    if (request && request.ok) {
+      if (router.query.callbackUrl) {
+        router.push(router.query.callbackUrl);
+      } else {
+        router.push("/");
+      }
+    } else {
+      setLoading(false);
+
+      setHasError(true);
     }
   }
 
@@ -76,8 +86,6 @@ export default function Login() {
             </h1>
             <form className="space-y-4 md:space-y-3" onSubmit={(e) => login(e)}>
               <div>
-
-              
                 <label
                   htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-900 "
@@ -166,11 +174,13 @@ export default function Login() {
                   />
                 </div>
               </div>
-              <div>
-                <span className="text-red-500" id="error" hidden>
-                  Usuário ou senha invalido !
-                </span>
-              </div>
+              {hasError && (
+                <div>
+                  <span className="text-red-500">
+                    Usuário ou senha invalido !
+                  </span>
+                </div>
+              )}
               <div className="flex items-center justify-between">
                 {newPassword == true ? (
                   <a
@@ -197,6 +207,22 @@ export default function Login() {
                   </>
                 )}
               </div>
+              {loading && (
+                <div className="flex justify-center">
+                  <MutatingDots
+                    height="100"
+                    width="100"
+                    color="#3b82f6"
+                    secondaryColor="#bfdbfe"
+                    radius="12.5"
+                    ariaLabel="mutating-dots-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                  />
+                </div>
+              )}
+
               <p className="text-sm font-light text-gray-500 ">
                 Página destinada à responsáveis das publicações do Repositório
                 Institucional da Uniplac

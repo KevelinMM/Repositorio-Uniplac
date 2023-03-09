@@ -3,16 +3,17 @@ import Image from "next/image";
 import Router from "next/router";
 import { useState } from "react";
 import sendEmail from "../../../helpers/sendEmail";
+import { useSession, getSession, signIn } from "next-auth/react";
 
 export default function Request(props) {
-  const token = props.token;
-  const user = props.infoUser;
   const [origin, setOrigin] = useState(props.document[0].origin_id.origin);
   const [approved, setApproved] = useState(props.document[0].approved);
   const [id, setId] = useState(props.document[0].id);
   const [category, setCategory] = useState(props.document[0].type_id.type);
   const [autor, setAutor] = useState(props.document[0].autor);
-  const [curator, setCurator] = useState("");
+  const [curator, setCurator] = useState(
+    props.document[0].curator ? props.document[0].curator : "Sem curador"
+  );
   const [email, setEmail] = useState(props.document[0].autor_email);
   const [title, setTitle] = useState(props.document[0].title);
   const [subTitle, setSubTitle] = useState(props.document[0].subtitle);
@@ -24,6 +25,26 @@ export default function Request(props) {
 
   const [lista, setLista] = useState(props.document[0].tag.slice(1));
   const date = new Date(props.document[0].created_at);
+
+  const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
+
+  if (status === "unauthenticated") {
+    return (
+      <div class="text-center container mx-auto my-8 px-4 py-6 bg-white shadow-lg rounded-lg max-w-lg">
+        <h1 class="text-2xl font-bold text-center mb-4">Erro de permissão</h1>
+        <p class="text-gray-700 text-center">
+          Desculpe, você não tem permissão para acessar esta página.
+        </p>
+        <button className="bg-green-400 hover:bg-green-300 rounded py-1 px-2 mt-4" onClick={()=> signIn()}>Logar</button>
+      </div>
+    );
+  }
+
+  const token = session.user.token;
 
   async function approveDoc() {
     approveTags();
@@ -171,7 +192,7 @@ export default function Request(props) {
           </blockquote>
         </div>
 
-        {approved == true && user.permission_id.id != 1 ? null : (
+        {approved == true ? null : (
           <div className="">
             <div className="py-2 space-x-4 flex justify-end items-center">
               <button
@@ -212,34 +233,28 @@ export default function Request(props) {
   );
 }
 
-export async function getServerSideProps(context) {
-  const infoUser = [];
+export async function getStaticProps(context) {
+  var document;
 
-  try {
-    const token = context.req.cookies["auth"];
-    const user = await axios.get(process.env.BACKEND + "userInfo", {
-      headers: { Authorization: `bearer ${token}` },
-    });
+  const doc = await axios.get(
+    process.env.BACKEND + "documents/" + context.params.id
+  );
+  document = doc.data;
 
-    const infoUser = user.data.shift();
-    var document;
+  const getAllTags = await axios.get(process.env.BACKEND + "tags");
+  const allTags = getAllTags.data;
 
-    const doc = await axios.get(
-      process.env.BACKEND + "documents/" + context.params.id
-    );
-    document = doc.data;
+  return { props: { document, allTags } };
+}
 
-    const getAllTags = await axios.get(process.env.BACKEND + "tags");
-    const allTags = getAllTags.data;
+export async function getStaticPaths() {
+  const getDoc = await axios.get(process.env.BACKEND + "documents");
 
-    return { props: { infoUser, document, allTags, token } };
-  } catch (e) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/login",
-      },
-      props: {},
-    };
-  }
+  const document = getDoc.data;
+
+  const paths = document.map((post) => ({
+    params: { id: post.id.toString() },
+  }));
+
+  return { paths, fallback: false };
 }
