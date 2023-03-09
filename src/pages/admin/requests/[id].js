@@ -257,17 +257,17 @@ export default function Request(props) {
 
 export async function getStaticProps(context) {
   try {
-    var document;
+    //var document;
+//
+    //const doc = await axios.get(
+    //  process.env.BACKEND + "documents/" + context.params.id
+    //);
+    //document = doc.data;
+//
+    //const getAllTags = await axios.get(process.env.BACKEND + "tags");
+    //const allTags = getAllTags.data;
 
-    const doc = await axios.get(
-      process.env.BACKEND + "documents/" + context.params.id
-    );
-    document = doc.data;
-
-    const getAllTags = await axios.get(process.env.BACKEND + "tags");
-    const allTags = getAllTags.data;
-
-    return { props: { document, allTags } };
+    return { props: { document: "", allTags: "" } };
   } catch (e) {
     return {
       paths: [{ params: { id: "1" } }, { params: { id: "2" } }],
