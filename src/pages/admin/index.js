@@ -143,7 +143,6 @@ export async function getServerSideProps(context) {
   const user = await axios.get(process.env.BACKEND + "userInfo", {
     headers: { Authorization: `bearer ${token}` },
   });
-  console.log(user.data);
 
   const infoUser = user.data.shift();
 
@@ -181,6 +180,7 @@ export async function getServerSideProps(context) {
     props: {
       loggedUser,
       infoUser,
+      token,
       documents,
       allTags,
       allOrigins,

@@ -68,13 +68,13 @@ export default function Category(req) {
       onSubmit={(e) => e.preventDefault() + createType()}
     >
       <div className="flex justify-between mb-4">
-      <div>
+        <div>
           <p className="font-semibold">Cadastrar Categoria</p>
           <p className="text-sm pt-1">
             * Categorias que já existem não poderão ser criadas novamente.
           </p>
         </div>
-        
+
         <span
           id="showType"
           onClick={() => setTypesSearch(typesSearch.length > 0 ? [] : allTypes)}
@@ -82,37 +82,41 @@ export default function Category(req) {
         ></span>
       </div>
       <div className="flex">
-        <div hidden id="typeCheck" className="absolute">
-          <FaCheck className="m-4 w-4 text-green-500" />
-        </div>
-        <div hidden id="typeDelete" className="absolute">
-          <MdClose className="m-4 w-4 text-red-500" />
-        </div>
-        <div hidden id="typeAlert" className="absolute">
-          <FiAlertCircle className="m-4 w-4 font-bold text-yellow-500" />
-        </div>
-        <input
-          required
-          className="w-full rounded-md shadow-lg border-gray-200 p-2 text-sm"
-          placeholder="Digite a categoria"
-          type="text"
-          id="type"
-          onChange={(e) =>
-            e.target.value.length > 0
-              ? setTypesSearch(
-                  allTypes.filter((y) =>
-                    y.type.toLowerCase().includes(e.target.value.toLowerCase())
+        <div className="flex flex-row-reverse w-full items-center">
+          <div hidden id="typeCheck" className="absolute">
+            <FaCheck className="m-4 w-4 text-green-500" />
+          </div>
+          <div hidden id="typeDelete" className="absolute">
+            <MdClose className="m-4 w-4 text-red-500" />
+          </div>
+          <div hidden id="typeAlert" className="absolute">
+            <FiAlertCircle className="m-4 w-4 font-bold text-yellow-500" />
+          </div>
+          <input
+            required
+            className="w-full rounded-md shadow-lg border-gray-200 p-2 text-sm"
+            placeholder="Digite a categoria"
+            type="text"
+            id="type"
+            onChange={(e) =>
+              e.target.value.length > 0
+                ? setTypesSearch(
+                    allTypes.filter((y) =>
+                      y.type
+                        .toLowerCase()
+                        .includes(e.target.value.toLowerCase())
+                    )
                   )
-                )
-              : setTypesSearch([]) +
-                (document.getElementById("typeCheck").hidden = true) +
-                (document.getElementById("typeDelete").hidden = true) +
-                (document.getElementById("typeAlert").hidden = true)
-          }
-        />
-         <button className="btn ml-2">Adicionar</button>
+                : setTypesSearch([]) +
+                  (document.getElementById("typeCheck").hidden = true) +
+                  (document.getElementById("typeDelete").hidden = true) +
+                  (document.getElementById("typeAlert").hidden = true)
+            }
+          />
+        </div>
+        <button className="btn ml-2">Adicionar</button>
       </div>
-      
+
       <ul className="mx-2 rounded">
         {typesSearch.map((e, index) => (
           <li

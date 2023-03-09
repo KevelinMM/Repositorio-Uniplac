@@ -81,7 +81,7 @@ export default function User(req) {
         {usersSearch.map((e, index) => (
           <li
             key={index}
-            className="rounded-md p-2 bg-slate-50 flex justify-between shadow-md mt-1"
+            className="cursor-pointer rounded-md p-2 bg-slate-50 flex justify-between shadow-md mt-1"
             onClick={(z) =>
               setUserName(e.name) +
               setUserEmail(e.email) +
@@ -105,7 +105,7 @@ export default function User(req) {
           placeholder="Nome"
           type="text"
           id="userName"
-          value={userName}
+          value={userName || ""}
           onChange={(e) => setUserName(e.target.value)}
         />
         <input
@@ -114,12 +114,12 @@ export default function User(req) {
           placeholder="Email Institucional"
           type="email"
           id="userEmail"
-          value={userEmail}
+          value={userEmail || ""}
           onChange={(e) => setUserEmail(e.target.value)}
         />
       </div>
       <div className=" sm:flex sm:space-x-4 mb-2">
-        <div className="flex items-center justify-center my-3 ">
+        <div className="flex items-center justify-center my-3">
           <select
             className="w-full rounded-md shadow-lg pr-7 border-none"
             defaultValue={userPermission}

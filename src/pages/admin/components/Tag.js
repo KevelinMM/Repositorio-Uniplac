@@ -76,35 +76,37 @@ export default function Origin(req) {
           Ver todos
         </span>
       </div>
-      <div className="flex flex-row">
-        <div hidden id="tagCheck" className="absolute">
-          <FaCheck className="m-4 w-4 text-green-500" />
-        </div>
-        <div hidden id="tagDelete" className="absolute">
-          <MdClose className="m-4 w-4 text-red-500" />
-        </div>
-        <div hidden id="tagAlert" className="absolute">
-          <FiAlertCircle className="m-4 w-4 font-bold text-yellow-500" />
-        </div>
-        <input
-          required
-          className="w-full rounded-md shadow-lg border-gray-200 p-2 text-sm"
-          placeholder="Digite o nome da Tag"
-          type="text"
-          id="tag"
-          onChange={(e) =>
-            e.target.value.length > 0
-              ? setTagsSearch(
-                  allTags.filter((y) =>
-                    y.tag.toLowerCase().includes(e.target.value.toLowerCase())
+      <div className="flex">
+        <div className="flex flex-row-reverse w-full items-center">
+          <div hidden id="tagCheck" className="absolute">
+            <FaCheck className="m-4 w-4 text-green-500" />
+          </div>
+          <div hidden id="tagDelete" className="absolute">
+            <MdClose className="m-4 w-4 text-red-500" />
+          </div>
+          <div hidden id="tagAlert" className="absolute">
+            <FiAlertCircle className="m-4 w-4 font-bold text-yellow-500" />
+          </div>
+          <input
+            required
+            className="w-full rounded-md shadow-lg border-gray-200 p-2 text-sm"
+            placeholder="Digite o nome da Tag"
+            type="text"
+            id="tag"
+            onChange={(e) =>
+              e.target.value.length > 0
+                ? setTagsSearch(
+                    allTags.filter((y) =>
+                      y.tag.toLowerCase().includes(e.target.value.toLowerCase())
+                    )
                   )
-                )
-              : setTagsSearch([]) +
-                (document.getElementById("tagCheck").hidden = true) +
-                (document.getElementById("tagDelete").hidden = true) +
-                (document.getElementById("tagAlert").hidden = true)
-          }
-        />
+                : setTagsSearch([]) +
+                  (document.getElementById("tagCheck").hidden = true) +
+                  (document.getElementById("tagDelete").hidden = true) +
+                  (document.getElementById("tagAlert").hidden = true)
+            }
+          />
+        </div>
         <button className="btn ml-2">Adicionar</button>
       </div>
       <ul className="mx-2 rounded">

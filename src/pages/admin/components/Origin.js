@@ -65,43 +65,47 @@ export default function Origin(req) {
       <div className="flex justify-between mb-4">
         <p className="font-semibold">Origens</p>
         <span
-        id="showOrigin"
-          onClick={() => setOriginsSearch(originsSearch.length > 0 ? [] : allOrigins)}
-          className="text-blue-500 underline cursor-pointer mr-2 mb-1"
-        >
-        </span>
-      </div>
-      <div className="flex flex-row-reverse">
-        <div hidden id="originCheck" className="absolute">
-          <FaCheck className="m-4 w-4 text-green-500" />
-        </div>
-        <div hidden id="originDelete" className="absolute">
-          <MdClose className="m-4 w-4 text-red-500" />
-        </div>
-        <div hidden id="originAlert" className="absolute">
-          <FiAlertCircle className="m-4 w-4 font-bold text-yellow-500" />
-        </div>
-        <input
-          required
-          className="w-full rounded-md border-gray-200 p-2 text-sm shadow-lg"
-          placeholder="Aperte enter para Cadastrar Origem"
-          type="text"
-          id="origin"
-          onChange={(e) =>
-            e.target.value.length > 1
-              ? setOriginsSearch(
-                  allOrigins.filter((y) =>
-                    y.origin
-                      .toLowerCase()
-                      .includes(e.target.value.toLowerCase())
-                  )
-                )
-              : setOriginsSearch([]) +
-                (document.getElementById("originCheck").hidden = true) +
-                (document.getElementById("originDelete").hidden = true) +
-                (document.getElementById("originAlert").hidden = true)
+          id="showOrigin"
+          onClick={() =>
+            setOriginsSearch(originsSearch.length > 0 ? [] : allOrigins)
           }
-        />
+          className="text-blue-500 underline cursor-pointer mr-2 mb-1"
+        ></span>
+      </div>
+      <div className="flex">
+        <div className="flex flex-row-reverse w-full items-center">
+          <div hidden id="originCheck" className="absolute">
+            <FaCheck className="m-4 w-4 text-green-500" />
+          </div>
+          <div hidden id="originDelete" className="absolute">
+            <MdClose className="m-4 w-4 text-red-500" />
+          </div>
+          <div hidden id="originAlert" className="absolute">
+            <FiAlertCircle className="m-4 w-4 font-bold text-yellow-500" />
+          </div>
+          <input
+            required
+            className="w-full rounded-md border-gray-200 p-2 text-sm shadow-lg"
+            placeholder="Aperte enter para Cadastrar Origem"
+            type="text"
+            id="origin"
+            onChange={(e) =>
+              e.target.value.length > 1
+                ? setOriginsSearch(
+                    allOrigins.filter((y) =>
+                      y.origin
+                        .toLowerCase()
+                        .includes(e.target.value.toLowerCase())
+                    )
+                  )
+                : setOriginsSearch([]) +
+                  (document.getElementById("originCheck").hidden = true) +
+                  (document.getElementById("originDelete").hidden = true) +
+                  (document.getElementById("originAlert").hidden = true)
+            }
+          />
+        </div>
+        <button className="btn ml-2">Adicionar</button>
       </div>
       <ul className="mx-2 rounded">
         {originsSearch.map((e, index) => (
