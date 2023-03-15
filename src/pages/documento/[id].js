@@ -8,9 +8,9 @@ import Footer from "../../components/Footer";
 import axios from "axios";
 
 export default function Detail(props) {
-  const [tags, setTags] = useState([props.tags]);
-  const [types, setTypes] = useState([props.types]);
-  const [origins, setOrigin] = useState([props.origins]);
+  const [tags, setTags] = useState(props.tags);
+  const [types, setTypes] = useState(props.types);
+  const [origins, setOrigin] = useState(props.origins);
   const title = props.document[0].title;
   const subTitle = props.document[0].subtitle;
   const content = props.document[0].content;
