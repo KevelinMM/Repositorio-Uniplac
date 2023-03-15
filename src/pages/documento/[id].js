@@ -266,10 +266,11 @@ export async function getStaticPaths() {
     const paths = document.map((post) => ({
       params: { id: post.id.toString() },
     }))
+    console.log(paths)
 
     return {
       paths,
-      fallback: true,
+      fallback: false,
     };
   } catch (e) {
     return {
