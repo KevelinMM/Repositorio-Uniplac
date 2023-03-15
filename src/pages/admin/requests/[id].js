@@ -7,25 +7,25 @@ import { useSession, getSession, signIn } from "next-auth/react";
 import Back from "../../../components/Back";
 
 export default function Request(props) {
-  const [origin, setOrigin] = useState("props.document[0].origin_id.origin");
-  const [approved, setApproved] = useState("props.document[0].approved");
-  const [id, setId] = useState("props.document[0].id");
-  const [category, setCategory] = useState("props.document[0].type_id.type");
-  const [autor, setAutor] = useState("props.document[0].autor");
+  const [origin, setOrigin] = useState(props.document[0].origin_id.origin);
+  const [approved, setApproved] = useState(props.document[0].approved);
+  const [id, setId] = useState(props.document[0].id);
+  const [category, setCategory] = useState(props.document[0].type_id.type);
+  const [autor, setAutor] = useState(props.document[0].autor);
   const [curator, setCurator] = useState(
-    "props.document[0].curator" ? "props.document[0].curator" : "Sem curador"
+    props.document[0].curator ? props.document[0].curator : "Sem curador"
   );
-  const [email, setEmail] = useState("props.document[0].autor_email");
-  const [title, setTitle] = useState("props.document[0].title");
-  const [subTitle, setSubTitle] = useState("props.document[0].subtitle");
-  const [content, setContent] = useState("props.document[0].content");
+  const [email, setEmail] = useState(props.document[0].autor_email);
+  const [title, setTitle] = useState(props.document[0].title);
+  const [subTitle, setSubTitle] = useState(props.document[0].subtitle);
+  const [content, setContent] = useState(props.document[0].content);
   const [fileLink, setLink] = useState(
-    "process.env.FILESRV" + "showFile/" + " props.document[0].file"
+    process.env.FILESRV + "showFile/" + props.document[0].file
   );
   const [reason, setReason] = useState();
 
-  const [lista, setLista] = useState(["props.document[0].tag.slice(1)"]);
-  const date = new Date("props.document[0].created_at");
+  const [lista, setLista] = useState([props.document[0].tag.slice(1)]);
+  const date = new Date(props.document[0].created_at);
 
   const { data: session, status } = useSession();
 
@@ -126,7 +126,7 @@ export default function Request(props) {
             {title}
           </h1>
           <div className=" flex flex-row flex-wrap gap-2">
-            {lista ||
+            {lista &&
               lista.map((e, index) =>
                 e.approved == true ? (
                   <span
@@ -257,17 +257,17 @@ export default function Request(props) {
 
 export async function getStaticProps(context) {
   try {
-    //var document;
-//
-    //const doc = await axios.get(
-    //  process.env.BACKEND + "documents/" + context.params.id
-    //);
-    //document = doc.data;
-//
-    //const getAllTags = await axios.get(process.env.BACKEND + "tags");
-    //const allTags = getAllTags.data;
+    var document;
 
-    return { props: { document: "", allTags: "" } };
+    const doc = await axios.get(
+      process.env.BACKEND + "documents/" + context.params.id
+    );
+    document = doc.data;
+
+    const getAllTags = await axios.get(process.env.BACKEND + "tags");
+    const allTags = getAllTags.data;
+
+    return { props: { document, allTags } };
   } catch (e) {
     return {
       paths: [{ params: { id: "1" } }, { params: { id: "2" } }],
@@ -278,19 +278,16 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
   try {
-    //const getDoc = await axios.get(process.env.BACKEND + "documents");
-//
-    //const document = getDoc.data;
+    const getDoc = await axios.get(process.env.BACKEND + "documents");
 
-    //const paths = document.map((post) => ({
-    //  params: { id: post.id.toString() },
-    //}));
+    const document = getDoc.data
+    const paths = document.map((post) => ({
+      params: { id: post.id.toString() },
+    }));
 
-    console.log(paths);
-    //const paths = { params: { id: 1 } };
 
     return {
-      paths: [{ params: { id: "1" } }, { params: { id: "2" } }],
+      paths,
       fallback: false,
     };
   } catch (e) {
