@@ -64,15 +64,15 @@ export default function Detail(props) {
                 </div>
               ))}
           </div>
-          <h1 className="font-sans break-normal text-gray-900 pt-2 text-xl">
+          <h1 className="font-sans break-all text-gray-900 pt-2 text-xl ">
             {title}
           </h1>
-          <h1 className="font-sans break-normal text-gray-700 pb-2 text-base">
+          <h1 className="font-sans break-all text-gray-700 pb-2 text-base">
             {subTitle}
           </h1>
           <hr className="border-b border-gray-400" />
 
-          <p className="py-6">{content}</p>
+          <p className="py-6 break-all">{content}</p>
 
           <div className="flex flex-row items-center">
             <a

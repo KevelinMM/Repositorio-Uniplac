@@ -132,16 +132,16 @@ export default function Request(props) {
           height={80}
         />
       </div>
-      <Back />
+      <Back />{console.log(lista)}
 
       <div className="w-full lg:w-4/5 p-8  mt-2 text-gray-900 leading-normal border-opacity-50 bg-white border border-gray-400 border-rounded mx-auto">
         <div className="flex items-center justify-between">
-          <h1 className="font-sans break-normal text-gray-900 pt-2 text-xl mb-8">
+          <h1 className="font-sans break-all text-gray-900 pt-2 text-xl mb-8">
             {title}
           </h1>
           <div className=" flex flex-row flex-wrap gap-2">
             {lista &&
-              lista.map((e, index) =>
+              lista[0].map((e, index) =>
                 e.approved == true ? (
                   <span
                     key={index}
@@ -164,12 +164,12 @@ export default function Request(props) {
               )}
           </div>
         </div>
-        <h1 className="font-sans break-normal text-gray-700 pb-2 text-base">
+        <h1 className="font-sans break-all text-gray-700 pb-2 text-base w-full">
           {subTitle}
         </h1>
         <hr className="border-b border-gray-400" />
 
-        <p className="py-6">{content}</p>
+        <p className="py-6 break-all">{content}</p>
 
         <div className="flex flex-row items-center">
           <a
