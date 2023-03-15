@@ -8,22 +8,22 @@ import Footer from "../../components/Footer";
 import axios from "axios";
 
 export default function Detail(props) {
-  const [tags, setTags] = useState(["props.tags"]);
-  const [types, setTypes] = useState(["props.types"]);
-  const [origins, setOrigin] = useState(["props.origins"]);
-  const title = "props.document[0].title";
-  const subTitle = "props.document[0].subtitle";
-  const content = "props.document[0].content";
-  const autor = "props.document[0].autor";
-  const curator = "props.document[0].user_id.name";
-  const typeId = "props.document[0].type_id.type";
-  const origemId = "props.document[0].origin_id.origin";
-  const date = new Date("props.document[0].created_at");
+  const [tags, setTags] = useState([props.tags]);
+  const [types, setTypes] = useState([props.types]);
+  const [origins, setOrigin] = useState([props.origins]);
+  const title = props.document[0].title;
+  const subTitle = props.document[0].subtitle;
+  const content = props.document[0].content;
+  const autor = props.document[0].autor;
+  const curator = props.document[0].user_id.name;
+  const typeId = props.document[0].type_id.type;
+  const origemId = props.document[0].origin_id.origin;
+  const date = new Date(props.document[0].created_at);
 
-  const [tagsId, setTagsId] = useState(["props.document[0].tag"]);
+  const [tagsId, setTagsId] = useState([props.document[0].tag]);
 
   const [fileLink, setFileLink] = useState(
-    "process.env.FILESRV" + "showFile/" + "props.document[0].file"
+    process.env.FILESRV + "showFile/" + props.document[0].file
   );
 
   var citation;
@@ -55,7 +55,7 @@ export default function Detail(props) {
         </div>
         <div className="w-full lg:w-4/5 p-8  mt-2 text-gray-900 leading-normal border-opacity-50 bg-white border border-gray-400 border-rounded">
           <div className="hidden md:flex md:flex-row-reverse gap-2 ">
-            {tagsId ||
+            {tagsId &&
               tagsId.map((e, index) => (
                 <div key={index}>
                   <p className="bg-blue-200 rounded-full px-2 text-sm ">
@@ -230,21 +230,21 @@ export default function Detail(props) {
 
 export async function getStaticProps(context) {
   try {
-    //const id = context.params.id;
-    //const getDoc = await axios.get(process.env.BACKEND + "documents/" + id);
-    //const getTags = await axios.get(process.env.BACKEND + "tagsNum");
-    //const getAllTags = await axios.get(process.env.BACKEND + "tags");
-    //const getTypes = await axios.get(process.env.BACKEND + "typesNum");
-    //const getOrigins = await axios.get(process.env.BACKEND + "originsNum");
-    //
-    //const document = getDoc.data;
-    //const types = getTypes.data;
-    //const tags = getTags.data;
-    //const allTags = getAllTags.data;
-    //const origins = getOrigins.data;
+    const id = context.params.id;
+    const getDoc = await axios.get(process.env.BACKEND + "documents/" + id);
+    const getTags = await axios.get(process.env.BACKEND + "tagsNum");
+    const getAllTags = await axios.get(process.env.BACKEND + "tags");
+    const getTypes = await axios.get(process.env.BACKEND + "typesNum");
+    const getOrigins = await axios.get(process.env.BACKEND + "originsNum");
+    
+    const document = getDoc.data;
+    const types = getTypes.data;
+    const tags = getTags.data;
+    const allTags = getAllTags.data;
+    const origins = getOrigins.data;
 
     return {
-      props: { document: "", tags: "", allTags: "", types: "", origins: "" },
+      props: { document, tags, allTags, types, origins },
     };
   } catch {
     return {
@@ -259,17 +259,16 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
   try {
-    //const getDoc = await axios.get(process.env.BACKEND + "documentsApproved");
-    //
-    //const document = getDoc.data;
-    //
-    //const paths = document.map((post) => ({
-    //  params: { id: post.id.toString() },
-    //}))
-    //const paths = { params: { id: 1 } };
+    const getDoc = await axios.get(process.env.BACKEND + "documentsApproved");
+    
+    const document = getDoc.data;
+    
+    const paths = document.map((post) => ({
+      params: { id: post.id.toString() },
+    }))
 
     return {
-      paths: [{ params: { id: "1" } }, { params: { id: "2" } }],
+      paths,
       fallback: false,
     };
   } catch (e) {

@@ -6,9 +6,9 @@ const nextConfig = {
     domains: ['ww2.uniplaclages.edu.br'],
   },
   env:{
-    BACKEND: 'http://172.16.248.107:3333/',
+    BACKEND: 'https://apidev.uniplaclages.edu.br:40002/',
     API_EMAIL: 'http://api.uniplaclages.edu.br:3991/enviaemail',
-    FILESRV: 'http://172.16.248.107:1465/'
+    FILESRV: 'https://apidev.uniplaclages.edu.br:40002/'
   }
 }
 
