@@ -19,6 +19,7 @@ export default function Detail(props) {
   const typeId = props.document[0].type_id.type;
   const origemId = props.document[0].origin_id.origin;
   const date = new Date(props.document[0].created_at);
+  const [exibir, setExibir] = useState(false);
 
   const [tagsId, setTagsId] = useState([props.document[0].tag]);
 
@@ -164,23 +165,34 @@ export default function Detail(props) {
                     </svg>
                     Citar:
                   </p>
+
                   <div
-                    onClick={() => navigator.clipboard.writeText(citation)}
+                    onClick={() =>
+                      navigator.clipboard.writeText(citation) +
+                      setExibir(true)+
+                      setTimeout(() => {
+                        setExibir(false);
+                      }, 1000)
+                    }
                     className="shadow text-sm break-all px-1 flex items-end bg-gray-100 hover:bg-gray-200 focus:border-green-500 focus:border cursor-pointer "
                   >
-                    <sapn>
-                      {autor.split(" ")[1].toUpperCase() +
-                        ", " +
-                        autor.split(" ")[0] +
-                        ". "}{" "}
-                      <bolder className="font-bold">
-                        {props.document[0].title}
-                      </bolder>
-                      {";"}
-                      <br />
-                      {" Disponivel em: <http://repositorio.uniplaclages.edu.br/documento/4>. " +
-                        date.getFullYear()}
-                    </sapn>
+                    {exibir ? (
+                      <span className="text-lg">Copiado</span>
+                    ) : (
+                      <span>
+                        {autor.split(" ")[1].toUpperCase() +
+                          ", " +
+                          autor.split(" ")[0] +
+                          ". "}{" "}
+                        <span className="font-bold">
+                          {props.document[0].title}
+                        </span>
+                        {";"}
+                        <br />
+                        {" Disponivel em: <http://repositorio.uniplaclages.edu.br/documento/4>. " +
+                          date.getFullYear()}
+                      </span>
+                    )}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 512 512"
@@ -236,7 +248,7 @@ export async function getStaticProps(context) {
     const getAllTags = await axios.get(process.env.BACKEND + "tags");
     const getTypes = await axios.get(process.env.BACKEND + "typesNum");
     const getOrigins = await axios.get(process.env.BACKEND + "originsNum");
-    
+
     const document = getDoc.data;
     const types = getTypes.data;
     const tags = getTags.data;
@@ -260,17 +272,17 @@ export async function getStaticProps(context) {
 export async function getStaticPaths() {
   try {
     const getDoc = await axios.get(process.env.BACKEND + "documentsApproved");
-    
+
     const document = getDoc.data;
-    
+
     const paths = document.map((post) => ({
       params: { id: post.id.toString() },
-    }))
-    console.log(paths)
+    }));
+    console.log(paths);
 
     return {
       paths,
-      fallback: 'blocking',
+      fallback: "blocking",
     };
   } catch (e) {
     return {
