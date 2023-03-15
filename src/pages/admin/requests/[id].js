@@ -1,7 +1,7 @@
 import axios from "axios";
 import Image from "next/image";
 import Router from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import sendEmail from "../../../helpers/sendEmail";
 import { useSession, getSession, signIn } from "next-auth/react";
 import Back from "../../../components/Back";
@@ -29,6 +29,8 @@ export default function Request(props) {
 
   const { data: session, status } = useSession();
 
+  const [user, setUser] = useState();
+
   if (status === "loading") {
     return <p>Loading...</p>;
   }
@@ -52,13 +54,25 @@ export default function Request(props) {
 
   const token = session.user.token;
 
+  async function getUserInfo() {
+    const user = await axios.get(process.env.BACKEND + "userInfo", {
+      headers: { Authorization: `bearer ${token}` },
+    });
+
+    const infoUser = user.data.shift();
+    //console.log(infoUser.id);
+
+    return infoUser.id;
+  }
+
   async function approveDoc() {
+    const userId = await getUserInfo();
     approveTags();
     await axios.post(
       process.env.BACKEND + "documentApprove/" + id,
 
       {
-        user_id: user.id,
+        user_id: userId,
       },
       {
         headers: { Authorization: `bearer ${token}` },
@@ -280,11 +294,10 @@ export async function getStaticPaths() {
   try {
     const getDoc = await axios.get(process.env.BACKEND + "documents");
 
-    const document = getDoc.data
+    const document = getDoc.data;
     const paths = document.map((post) => ({
       params: { id: post.id.toString() },
     }));
-
 
     return {
       paths,
