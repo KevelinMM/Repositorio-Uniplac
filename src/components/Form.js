@@ -74,7 +74,7 @@ export default function Form(req) {
         allOrigins.filter((e) => e[0].origin_id == origin)[0][0].email,
         "Uma nova solicitação de " +
           name +
-          " foi enviada e aguarda sua validação para ser publicado no Repositório Institucional Uniplac! <br/> acesse: http://apidev.uniplaclages.edu.br/login"
+          " foi enviada e aguarda sua validação para ser publicado no Repositório Institucional Uniplac! <br/> acesse: https://repositorio.uniplaclages.edu.br/login"
       );
       const email2 = await sendEmail(
         email,
