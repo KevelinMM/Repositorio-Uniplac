@@ -82,7 +82,7 @@ export default function Request(props) {
       email,
       "Seu documento " +
         title +
-        " foi publicado! <br/>Acesse em: http://localhost:3000/documento/" +
+        " foi publicado! <br/>Acesse em: https://repositorio.uniplaclages.edu.br/documento/" +
         id
     );
   }
@@ -97,7 +97,7 @@ export default function Request(props) {
         title +
         " não foi aprovado! <br/>Motivo: " +
         reason +
-        "<br/> Faça as alterações necessárias e envie novamente sua socilitação em: www.repositorio.uniplaclages.edu.br/#formPubli, ou entre em contato com " +
+        "<br/> Faça as alterações necessárias e envie novamente sua socilitação em: https://repositorio.uniplaclages.edu.br//#formPubli, ou entre em contato com " +
         user.email +
         " ."
     );
