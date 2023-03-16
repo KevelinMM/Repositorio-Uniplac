@@ -24,7 +24,7 @@ export default function Request(props) {
   );
   const [reason, setReason] = useState();
 
-  const [lista, setLista] = useState([props.document[0].tag.slice(1)]);
+  const [lista, setLista] = useState(props.document[0].tag.slice(1));
   const date = new Date(props.document[0].created_at);
 
   const { data: session, status } = useSession();
@@ -132,7 +132,7 @@ export default function Request(props) {
           height={80}
         />
       </div>
-      <Back />{console.log(lista)}
+      <Back />
 
       <div className="w-full lg:w-4/5 p-8  mt-2 text-gray-900 leading-normal border-opacity-50 bg-white border border-gray-400 border-rounded mx-auto">
         <div className="flex items-center justify-between">
@@ -141,7 +141,7 @@ export default function Request(props) {
           </h1>
           <div className=" flex flex-row flex-wrap gap-2">
             {lista &&
-              lista[0].map((e, index) =>
+              lista.map((e, index) =>
                 e.approved == true ? (
                   <span
                     key={index}

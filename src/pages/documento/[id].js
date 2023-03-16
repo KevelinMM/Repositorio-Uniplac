@@ -21,7 +21,7 @@ export default function Detail(props) {
   const date = new Date(props.document[0].created_at);
   const [exibir, setExibir] = useState(false);
 
-  const [tagsId, setTagsId] = useState([props.document[0].tag]);
+  const [tagsId, setTagsId] = useState(props.document[0].tag);
 
   const [fileLink, setFileLink] = useState(
     process.env.FILESRV + "showFile/" + props.document[0].file
@@ -278,7 +278,7 @@ export async function getStaticPaths() {
     const paths = document.map((post) => ({
       params: { id: post.id.toString() },
     }));
-    console.log(paths);
+    //console.log(paths);
 
     return {
       paths,
