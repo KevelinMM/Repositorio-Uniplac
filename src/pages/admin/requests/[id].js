@@ -136,7 +136,7 @@ export default function Request(props) {
 
       <div className="w-full lg:w-4/5 p-8  mt-2 text-gray-900 leading-normal border-opacity-50 bg-white border border-gray-400 border-rounded mx-auto">
         <div className="flex items-center justify-between">
-          <h1 className="font-sans break-all text-gray-900 pt-2 text-xl mb-8">
+          <h1 className="font-sans break-words text-gray-900 pt-2 text-xl mb-8">
             {title}
           </h1>
           <div className=" flex flex-row flex-wrap gap-2">
@@ -164,12 +164,12 @@ export default function Request(props) {
               )}
           </div>
         </div>
-        <h1 className="font-sans break-all text-gray-700 pb-2 text-base w-full">
+        <h1 className="font-sans break-words text-gray-700 pb-2 text-base w-full">
           {subTitle}
         </h1>
         <hr className="border-b border-gray-400" />
 
-        <p className="py-6 break-all">{content}</p>
+        <p className="py-6 break-words">{content}</p>
 
         <div className="flex flex-row items-center">
           <a

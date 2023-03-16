@@ -65,15 +65,15 @@ export default function Detail(props) {
                 </div>
               ))}
           </div>
-          <h1 className="font-sans break-all text-gray-900 pt-2 text-xl ">
+          <h1 className="font-sans break-words text-gray-900 pt-2 text-xl ">
             {title}
           </h1>
-          <h1 className="font-sans break-all text-gray-700 pb-2 text-base">
+          <h1 className="font-sans break-words text-gray-700 pb-2 text-base">
             {subTitle}
           </h1>
           <hr className="border-b border-gray-400" />
 
-          <p className="py-6 break-all">{content}</p>
+          <p className="py-6 break-words">{content}</p>
 
           <div className="flex flex-row items-center">
             <a
@@ -174,7 +174,7 @@ export default function Detail(props) {
                         setExibir(false);
                       }, 1000)
                     }
-                    className="shadow text-sm break-all px-1 flex items-end bg-gray-100 hover:bg-gray-200 focus:border-green-500 focus:border cursor-pointer "
+                    className="shadow text-sm break-words px-1 flex items-end bg-gray-100 hover:bg-gray-200 focus:border-green-500 focus:border cursor-pointer "
                   >
                     {exibir ? (
                       <span className="text-lg">Copiado</span>
