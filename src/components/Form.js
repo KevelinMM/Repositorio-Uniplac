@@ -7,7 +7,7 @@ import { MdOutlineReportGmailerrorred } from "react-icons/md";
 
 export default function Form(req) {
   const [correctCode, setCorrectCode] = useState();
-  const [allowed, setAllowed] = useState(true); //default false
+  const [allowed, setAllowed] = useState(false); //default false
 
   const [listName, setListName] = useState([]);
   const [name, setName] = useState();
