@@ -64,6 +64,7 @@ export default function Origin(req) {
     >
       <div className="flex justify-between mb-4">
         <p className="font-semibold">Origens</p>
+
         <span
           id="showOrigin"
           onClick={() =>
@@ -71,6 +72,7 @@ export default function Origin(req) {
           }
           className="text-blue-500 underline cursor-pointer mr-2 mb-1"
         ></span>
+        
       </div>
       <div className="flex">
         <div className="flex flex-row-reverse w-full items-center">

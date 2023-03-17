@@ -423,7 +423,7 @@ export default function Form(req) {
                   className="block w-full text-sm text-gray-900 border border-gray-300 cursor-pointer bg-gray-50 focus:outline-none"
                   aria-describedby="file_input_help"
                   id="file_input"
-                  accept=".pdf"
+                  accept="application/pdf"
                   type="file"
                   onChange={(e) => setFile(e.target.files)}
                 />

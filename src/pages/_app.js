@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import Head from "next/head";
 import { SessionProvider } from "next-auth/react";
+import GoogleAnalytics from "@bradgarropy/next-google-analytics";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
@@ -14,6 +15,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             href="http://ww2.uniplaclages.edu.br/aviso-webmail/img/logo.png"
           />
         </Head>
+        <GoogleAnalytics measurementId="G-HLXR7QF7J2" />
         <Component {...pageProps} />
       </div>
     </SessionProvider>
