@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { FaTrash } from "react-icons/fa";
 import axios from "axios";
+import sendEmail from "../../../helpers/sendEmail"
 
 export default function User(req) {
   const [allUsers, setAllUsers] = useState(req.allUsers);
@@ -28,26 +29,27 @@ export default function User(req) {
         headers: { Authorization: `bearer ${token}` },
       }
     );
+    sendEmail(userEmail, "Você agora tem acesso ao Repositório Uniplac. Informe seu e-mail e redefina sua senha! </br> Acesse: https://repositorio.uniplaclages.edu.br/login")
     window.location.reload();
   }
 
-  //async function deleteUser(userId) {
-  //  await axios.delete(
-  //    process.env.BACKEND + "users/" + userId,
-  //    {
-  //      headers: { Authorization: `bearer ${token}` },
-  //    }
-  //  );
-  //  window.location.reload();
-  //}
-  //useEffect(
-  //  (e) => {
-  //    usersSearch.length > 0
-  //      ? (document.getElementById("showUser").innerHTML = "Ocultar")
-  //      : (document.getElementById("showUser").innerHTML = "Ver todos");
-  //  },
-  //  [usersSearch]
-  //);
+  async function deleteUser(userId) {
+    await axios.delete(
+      process.env.BACKEND + "users/" + userId,
+      {
+        headers: { Authorization: `bearer ${token}` },
+      }
+    );
+    window.location.reload();
+  }
+  useEffect(
+    (e) => {
+      usersSearch.length > 0
+        ? (document.getElementById("showUser").innerHTML = "Ocultar")
+        : (document.getElementById("showUser").innerHTML = "Ver todos");
+    },
+    [usersSearch]
+  )
 
   return (
     <form className="adminCards">
@@ -123,7 +125,7 @@ export default function User(req) {
         <div className="flex items-center justify-center my-3">
           <select
             className="w-full rounded-md shadow-lg pr-7 border-none"
-            defaultValue={userPermission || ""}
+            defaultValue={userPermission || 0}
             id="userPermission"
             onChange={(e) => setUserPermission(e.target.value)}
           >

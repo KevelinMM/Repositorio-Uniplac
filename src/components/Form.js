@@ -260,7 +260,7 @@ export default function Form(req) {
                     >
                       <option value="" disabled>
                         Selecione a origem *
-                      </option>
+                      </option>{console.log(allOrigins)}
                       {allOrigins.map((e) =>
                         e[0].origin_name == "Outros" ? null : (
                           <option key={e[0].origin_id} value={e[0].origin_id}>
