@@ -9,6 +9,7 @@ export default function Form(req) {
   const [correctCode, setCorrectCode] = useState();
   const [allowed, setAllowed] = useState(true); //default false
 
+  const [listName, setListName] = useState([]);
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [title, setTitle] = useState();
@@ -22,7 +23,6 @@ export default function Form(req) {
 
   const [allTypes, setAllTypes] = useState(req.types);
   const [allOrigins, setAllOrigins] = useState(req.origins);
-  const [allTags, setAllTags] = useState(req.tags);
   const [allTagsSearch, setAllTagsSearch] = useState(req.tags);
 
   async function sendCode() {
@@ -52,10 +52,21 @@ export default function Form(req) {
 
   async function sendDocument() {
     try {
+      var authors = "";
+
+      for (let i = 0; i <= listName.length - 1; i++) {
+        //console.log(listName[i]);
+        authors = authors.concat(listName[i] + ", ");
+      }
+
+      if(authors == ""){
+        console.log("sem autor")
+      }
+
       document.getElementById("loading").hidden = false;
       document.getElementById("formPubli").hidden = true;
       const create = await createDoc(
-        name,
+        authors,
         email,
         title,
         subTitle,
@@ -64,7 +75,7 @@ export default function Form(req) {
         type,
         lista,
         file
-      );
+      )
       if(create == false){
         document.getElementById("loading").hidden = true;
         document.getElementById("error").hidden = false;
@@ -92,8 +103,6 @@ export default function Form(req) {
     } catch {
       document.getElementById("loading").hidden = true;
       document.getElementById("error").hidden = false;
-
-
     }
   }
 
@@ -141,7 +150,7 @@ export default function Form(req) {
           <div id="success" hidden>
             <div className="flex flex-col col-span-1 my-16">
               <div className="mx-auto">
-                <GiTrophyCup className="text-6xl text-green-600 animate-bounce"/>
+                <GiTrophyCup className="text-6xl text-green-600 animate-bounce" />
               </div>
               <h1 className="mx-auto">Documento enviado com sucesso!</h1>
             </div>
@@ -149,13 +158,14 @@ export default function Form(req) {
           <div id="error" hidden>
             <div className="flex flex-col col-span-1 my-16">
               <div className="mx-auto">
-                <MdOutlineReportGmailerrorred className="text-6xl text-red-600 animate-bounce"/>
+                <MdOutlineReportGmailerrorred className="text-6xl text-red-600 animate-bounce" />
               </div>
-              <h1 className="mx-auto">Ocorreu um erro ao cadastrar seu documento!</h1>
+              <h1 className="mx-auto">
+                Ocorreu um erro ao cadastrar seu documento!
+              </h1>
             </div>
           </div>
           <form
-            
             className="space-y-4"
             id="formPubli"
             onSubmit={(e) => sendDocument() + e.preventDefault()}
@@ -224,13 +234,35 @@ export default function Form(req) {
             {allowed == true ? (
               <div className="space-y-4">
                 <input
-                  required
                   className="w-full rounded-lg border-gray-200 p-3 text-sm"
                   placeholder="Nome completo do autor *"
                   type="text"
                   id="name"
+                  value={name || ""}
                   onChange={(e) => setName(e.target.value)}
+                  onBlur={(e) =>
+                    (name != undefined ? listName.push(e.target.value) : "") +
+                    setName()
+                  }
                 />
+                <button
+                  onClick={(e) =>
+                    e.preventDefault() +
+                    (name != undefined ? listName.push(name) : "") +
+                    setName()
+                  }
+                ></button>
+                {listName.map((autor, index) => (
+                  <span
+                    key={index}
+                    className="flex flex-row items-center  bg-blue-200 hover:bg-gray-200 cursor-pointer rounded-full text-xs px-2 py-1 ml-2"
+                    onClick={(e) =>
+                      setListName(listName.filter((e, n) => n != index))
+                    }
+                  >
+                    {autor} <span className="text-base pl-1">x</span>
+                  </span>
+                ))}
                 <input
                   required
                   className="w-full rounded-lg border-gray-200 p-3 text-sm"
@@ -256,11 +288,20 @@ export default function Form(req) {
                       className="rounded-lg border-gray-200 p-3 text-sm pr-8"
                       id="origin"
                       defaultValue=""
-                      onChange={(e) => setOrigin(e.target.value) + setAllTypes(req.types.filter((z) => e.target.value == z.origin_id || z.origin_id == 1))}
+                      onChange={(e) =>
+                        setOrigin(e.target.value) +
+                        setAllTypes(
+                          req.types.filter(
+                            (z) =>
+                              e.target.value == z.origin_id || z.origin_id == 1
+                          )
+                        )
+                      }
                     >
                       <option value="" disabled>
                         Selecione a origem *
                       </option>
+
                       {allOrigins.map((e) =>
                         e[0].origin_name == "Outros" ? null : (
                           <option key={e[0].origin_id} value={e[0].origin_id}>

@@ -197,7 +197,7 @@ export default function Request(props) {
           ></iframe>
           <blockquote className=" italic p-4 ">
             <p className="flex ml-6 border-l-2 border-blue-500 pl-2">
-              Autor: {autor}
+              Autor(es): {autor}
             </p>
             <p className="flex ml-6 border-l-2 border-blue-500 pl-2 ">
               Curador: {curator}
