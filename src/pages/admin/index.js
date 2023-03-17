@@ -22,11 +22,17 @@ export default function SuperAdm(props) {
       : userInfo[0].permission_id.name
   );
 
+
   const [allTags, setAllTags] = useState(props.allTags);
 
   const [allOrigins, setAllOrigins] = useState(props.allOrigins);
-
-  const [allTypes, setAllTypes] = useState(props.allTypes);
+  const [allTypes, setAllTypes] = useState(
+    userInfo[0].origin_id != null
+      ? props.allTypes.filter(
+          (e) => e.origin_id == userInfo[0].origin_id || e.origin_id == 1
+        )
+      : props.allTypes
+  );
 
   const [allPermissions, setAllPermissions] = useState(props.allPermissions);
   const [allUsers, setAllUsers] = useState(props.allUsers);

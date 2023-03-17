@@ -7,7 +7,7 @@ import { MdOutlineReportGmailerrorred } from "react-icons/md";
 
 export default function Form(req) {
   const [correctCode, setCorrectCode] = useState();
-  const [allowed, setAllowed] = useState(false); //default false
+  const [allowed, setAllowed] = useState(true); //default false
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -256,11 +256,11 @@ export default function Form(req) {
                       className="rounded-lg border-gray-200 p-3 text-sm pr-8"
                       id="origin"
                       defaultValue=""
-                      onChange={(e) => setOrigin(e.target.value)}
+                      onChange={(e) => setOrigin(e.target.value) + setAllTypes(req.types.filter((z) => e.target.value == z.origin_id || z.origin_id == 1))}
                     >
                       <option value="" disabled>
                         Selecione a origem *
-                      </option>{console.log(allOrigins)}
+                      </option>
                       {allOrigins.map((e) =>
                         e[0].origin_name == "Outros" ? null : (
                           <option key={e[0].origin_id} value={e[0].origin_id}>
