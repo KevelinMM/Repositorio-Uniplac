@@ -26,8 +26,6 @@ export default function Detail(props) {
     process.env.FILESRV + "showFile/" + props.document[0].file
   );
 
-
-
   return (
     <section>
       <Header />
@@ -145,59 +143,6 @@ export default function Detail(props) {
   );
 }
 
-{
-  citation != undefined ? (
-    <blockquote className="text italic flex flex-col ml-4">
-      <p className="flex items-center space-x-2">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 448 512"
-          className="w-3 mr-2"
-        >
-          <path d="M0 216C0 149.7 53.7 96 120 96h8c17.7 0 32 14.3 32 32s-14.3 32-32 32h-8c-30.9 0-56 25.1-56 56v8h64c35.3 0 64 28.7 64 64v64c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V320 288 216zm256 0c0-66.3 53.7-120 120-120h8c17.7 0 32 14.3 32 32s-14.3 32-32 32h-8c-30.9 0-56 25.1-56 56v8h64c35.3 0 64 28.7 64 64v64c0 35.3-28.7 64-64 64H320c-35.3 0-64-28.7-64-64V320 288 216z" />
-        </svg>
-        Citar:
-      </p>
-
-      <div
-        onClick={() =>
-          navigator.clipboard.writeText(citation) +
-          setExibir(true) +
-          setTimeout(() => {
-            setExibir(false);
-          }, 1000)
-        }
-        className="shadow text-sm break-words px-1 flex items-end bg-gray-100 hover:bg-gray-200 focus:border-green-500 focus:border cursor-pointer "
-      >
-        {exibir ? (
-          <span className="text-lg">Copiado</span>
-        ) : (
-          <span>
-            {autor.split(" ")[1].toUpperCase() +
-              ", " +
-              autor.split(" ")[0] +
-              ". "}{" "}
-            <span className="font-bold">{props.document[0].title}</span>
-            {";"}
-            <br />
-            {" Disponivel em: <http://repositorio.uniplaclages.edu.br/documento/4>. " +
-              date.getFullYear()}
-          </span>
-        )}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
-          className="w-4 m-1"
-        >
-          <path d="M224 0c-35.3 0-64 28.7-64 64V288c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H224zM64 160c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H288c35.3 0 64-28.7 64-64V384H288v64H64V224h64V160H64z" />
-        </svg>
-      </div>
-    </blockquote>
-  ) : null;
-}
-
-
-
 export async function getStaticProps(context) {
   try {
     const id = context.params.id;
@@ -249,7 +194,7 @@ export async function getStaticPaths() {
   }
 }
 
-  /* 
+/* 
   *Citações*
   var citation;
   const [exibir, setExibir] = useState(false);
@@ -320,4 +265,60 @@ export async function getStaticPaths() {
       </div>
     </blockquote>
   ) : null}
+
+
+  *onClick:
+  
+  {
+  citation != undefined ? (
+    <blockquote className="text italic flex flex-col ml-4">
+      <p className="flex items-center space-x-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 448 512"
+          className="w-3 mr-2"
+        >
+          <path d="M0 216C0 149.7 53.7 96 120 96h8c17.7 0 32 14.3 32 32s-14.3 32-32 32h-8c-30.9 0-56 25.1-56 56v8h64c35.3 0 64 28.7 64 64v64c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V320 288 216zm256 0c0-66.3 53.7-120 120-120h8c17.7 0 32 14.3 32 32s-14.3 32-32 32h-8c-30.9 0-56 25.1-56 56v8h64c35.3 0 64 28.7 64 64v64c0 35.3-28.7 64-64 64H320c-35.3 0-64-28.7-64-64V320 288 216z" />
+        </svg>
+        Citar:
+      </p>
+
+      <div
+        onClick={() =>
+          navigator.clipboard.writeText(citation) +
+          setExibir(true) +
+          setTimeout(() => {
+            setExibir(false);
+          }, 1000)
+        }
+        className="shadow text-sm break-words px-1 flex items-end bg-gray-100 hover:bg-gray-200 focus:border-green-500 focus:border cursor-pointer "
+      >
+        {exibir ? (
+          <span className="text-lg">Copiado</span>
+        ) : (
+          <span>
+            {autor.split(" ")[1].toUpperCase() +
+              ", " +
+              autor.split(" ")[0] +
+              ". "}{" "}
+            <span className="font-bold">{props.document[0].title}</span>
+            {";"}
+            <br />
+            {" Disponivel em: <http://repositorio.uniplaclages.edu.br/documento/4>. " +
+              date.getFullYear()}
+          </span>
+        )}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+          className="w-4 m-1"
+        >
+          <path d="M224 0c-35.3 0-64 28.7-64 64V288c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H224zM64 160c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H288c35.3 0 64-28.7 64-64V384H288v64H64V224h64V160H64z" />
+        </svg>
+      </div>
+    </blockquote>
+  ) : null;
+}
+
+
   */
