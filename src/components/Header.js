@@ -152,9 +152,9 @@ export default function Header() {
                         >
                           <div>Olá, {session.user.name.split(" ")[0]}</div>
                           {pending && (
-                            <span class="relative flex h-2 w-2 opacity-70">
-                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-                              <span class="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
+                            <span className="relative flex h-2 w-2 opacity-70">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
                             </span>
                           )}
 
