@@ -1,16 +1,33 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import db from "../db/db";
 import { signIn, signOut, useSession } from "next-auth/react";
+import axios from "axios";
 
 const base = db.documents;
 
 export default function Header() {
   const [result, setResult] = useState(base);
   const [valueSearch, setValueSearch] = useState();
+  const [pending, setPeding] = useState(false);
 
   const { data: session } = useSession();
+
+  useEffect(() => {
+    getPending();
+  }, []);
+
+  async function getPending() {
+    const getPendencias = await axios.get(
+      process.env.BACKEND + "documentsByOrigin/" + 3
+    );
+    const pendentes = getPendencias.data.filter(
+      (document) => document.approved == false
+    );
+    setPeding(pendentes.length > 0);
+    console.log(pending);
+  }
 
   return (
     <header>
@@ -64,6 +81,7 @@ export default function Header() {
                     <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"></path>
                   </svg>
                 </div>
+
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
@@ -132,7 +150,14 @@ export default function Header() {
                           aria-haspopup="true"
                           aria-expanded="false"
                         >
-                          <div>Olá, {session.user.name.split(' ')[0]}</div>
+                          <div>Olá, {session.user.name.split(" ")[0]}</div>
+                          {pending && (
+                            <span class="relative flex h-2 w-2 opacity-70">
+                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                              <span class="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
+                            </span>
+                          )}
+
                           <svg
                             className="-mr-1 ml-1 mb h-5 w-5"
                             viewBox="0 0 20 20"
@@ -158,7 +183,11 @@ export default function Header() {
                                 Painel
                               </div>
                             </Link>
-                            <div onClick={() => signOut()} role="menuitem" tabIndex="-1">
+                            <div
+                              onClick={() => signOut()}
+                              role="menuitem"
+                              tabIndex="-1"
+                            >
                               <p className="w-full cursor-pointer px-4 py-2 text-sm text-red-700 hover:bg-red-50 hover:text-red-900">
                                 Sair
                               </p>
