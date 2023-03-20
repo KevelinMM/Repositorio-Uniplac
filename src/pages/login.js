@@ -7,6 +7,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { MutatingDots } from "react-loader-spinner";
 import ReCAPTCHA from "react-google-recaptcha";
+import Link from "next/link";
 
 export default function Login() {
   const [email, setEmail] = useState();
@@ -250,7 +251,7 @@ export default function Login() {
             </form>
           </div>
         </div>
-        <a href="/" className=" cursor-pointer mt-4 text-slate-600 underline items-start">Voltar para página inicial</a>
+        <Link href="/" className=" cursor-pointer mt-4 text-slate-600 underline items-start">Voltar para página inicial</Link>
       </div>
     
 
