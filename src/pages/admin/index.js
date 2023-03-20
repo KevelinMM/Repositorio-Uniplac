@@ -28,22 +28,26 @@ export default function SuperAdm(props) {
   const [allTypes, setAllTypes] = useState(
     userInfo[0].origin_id != null
       ? props.allTypes.filter(
-          (e) => e.origin_id == userInfo[0].origin_id || e.origin_id == 1
+          (e) => e.origin_id == userInfo[0].origin_id.id || e.origin_id == 1
         )
       : props.allTypes
   );
+
+  console.log(allTypes)
 
   const [allPermissions, setAllPermissions] = useState(props.allPermissions);
   const [allUsers, setAllUsers] = useState(props.allUsers);
 
   const [documents, setDocuments] = useState(props.documents);
+  
+  const origin_id = (userInfo[0].origin_id ?  userInfo[0].origin_id.id : "")
 
   return (
     <>
       <div className="bg-gradient-to-t from-blue-100 min-h-screen px-2 sm:px-5 lg:px-10 xl:px-24 pt-8 md:pt-16 pb-6">
         <div className="flex justify-between pb-6 xl:pb-12 items-center lg:px-4">
-          <div className="flex items-center">
-            <p className="page-title"> {origin}</p>
+          <div className="flex items-center page-title">
+            <p >{origin}</p>
             <p
               onClick={() => signOut()}
               className="rounded text-xl hover:text-red-700 cursor-pointer ml-2"
@@ -108,6 +112,7 @@ export default function SuperAdm(props) {
           permission={userInfo[0].permission_id.id}
           allTypes={allTypes}
           token={token}
+          origin_id={origin_id}
         />
         <Tag allTags={allTags} token={token} infoUser={userInfo} />
 

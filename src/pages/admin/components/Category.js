@@ -9,6 +9,8 @@ export default function Category(req) {
   const [typesSearch, setTypesSearch] = useState([]);
   const token = req.token;
 
+
+
   async function deleteType(typeId) {
     await axios.delete(process.env.BACKEND + "types/" + typeId, {
       headers: { Authorization: `bearer ${token}` },
@@ -40,6 +42,7 @@ export default function Category(req) {
         process.env.BACKEND + "types",
         {
           type: typeName,
+          origin_id: req.origin_id
         },
         {
           headers: { Authorization: `bearer ${token}` },
