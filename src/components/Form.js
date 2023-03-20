@@ -11,7 +11,7 @@ export default function Form(req) {
 
   const [listName, setListName] = useState([]);
   const [name, setName] = useState();
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState("");
   const [title, setTitle] = useState();
   const [subTitle, setSubTitle] = useState();
   const [origin, setOrigin] = useState();
@@ -20,12 +20,14 @@ export default function Form(req) {
   const [file, setFile] = useState();
   const [tagListId, setTagListId] = useState([]);
   const [lista, setLista] = useState([]);
+  const [codeSubimited, setCodeSubimited] = useState(false);
 
   const [allTypes, setAllTypes] = useState(req.types);
   const [allOrigins, setAllOrigins] = useState(req.origins);
   const [allTagsSearch, setAllTagsSearch] = useState(req.tags);
 
   async function sendCode() {
+    setCodeSubimited(true);
     document.getElementById("infoSendEmail").hidden = false;
     const randomNumber = Math.floor(Math.random() * 1000) + 9999;
     setCorrectCode(randomNumber);
@@ -59,8 +61,8 @@ export default function Form(req) {
         authors = authors.concat(listName[i] + ", ");
       }
 
-      if(authors == ""){
-        console.log("sem autor")
+      if (authors == "") {
+        console.log("sem autor");
       }
 
       document.getElementById("loading").hidden = false;
@@ -75,8 +77,8 @@ export default function Form(req) {
         type,
         lista,
         file
-      )
-      if(create == false){
+      );
+      if (create == false) {
         document.getElementById("loading").hidden = true;
         document.getElementById("error").hidden = false;
         return false;
@@ -93,10 +95,10 @@ export default function Form(req) {
           title +
           " no Repositório Institucional Uniplac foi enviada para analise, você será informado sobre o andamento da publicação pelo email! <br/> Segundo a Lei Geral de Proteção de Dados Pessoais, ao enviar a solicitação, você autorizou que seus dados fossem coletados pela instituição Uniplac."
       );
-      if(email1 == false || email2 == false){
+      if (email1 == false || email2 == false) {
         document.getElementById("loading").hidden = true;
         document.getElementById("error").hidden = false;
-        return
+        return;
       }
       document.getElementById("loading").hidden = true;
       document.getElementById("success").hidden = false;
@@ -120,9 +122,7 @@ export default function Form(req) {
             <li className="p-1">
               Envie e aguarde o retorno de seu orientador pelo email.
             </li>
-            <li className="p-1">
-              Apenas documentos em PDF são permitidos.
-            </li>
+            <li className="p-1">Apenas documentos em PDF são permitidos.</li>
           </ul>
           <div className="mt-8">
             <a className="text-2xl font-bold text-blue-600">
@@ -186,13 +186,27 @@ export default function Form(req) {
                   id="email"
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <div className="flex items-center" onClick={(e) => sendCode()}>
-                  <label className="text-sm text-center bg-blue-400 hover:bg-blue-500 px-2 rounded-r-lg h-full text-white flex items-center cursor-pointer">
-                    Validar email
-                  </label>
-                </div>
+                {!codeSubimited ? (
+                  <button
+                    className="flex items-center"
+                    onClick={(e) => email.length > 0 && sendCode()}
+                  >
+                    <label className="text-sm text-center bg-blue-400 hover:bg-blue-500 px-2 rounded-r-lg h-full text-white flex items-center cursor-pointer">
+                      Validar email
+                    </label>
+                  </button>
+                ) : (
+                  <div
+                    className="flex items-center"
+                    onClick={(e) => sendCode()}
+                  >
+                    <label className="text-sm text-center bg-gray-400 hover:bg-gray-500 px-2 rounded-r-lg h-full text-white flex items-center cursor-pointer">
+                      Reenviar código
+                    </label>
+                  </div>
+                )}
               </div>
-              <span id="infoSendEmail" hidden className="text-sm text-gray-500">
+              <span id="infoSendEmail" hidden className="text-sm bg-blue-50 rounded px-2 text-gray-500">
                 Foi enviado um código para validação no seu e-mail.
               </span>
             </div>
@@ -304,6 +318,7 @@ export default function Form(req) {
                       <option value="" disabled>
                         Selecione a origem *
                       </option>
+                      {console.log(allTypes)}
 
                       {allOrigins.map((e) =>
                         e[0].origin_name == "Outros" ? null : (
@@ -312,7 +327,6 @@ export default function Form(req) {
                           </option>
                         )
                       )}
-                      <option value={1}>Outros</option>
                     </select>
                   </div>
 
@@ -326,14 +340,11 @@ export default function Form(req) {
                     <option value="" disabled>
                       Selecione a categoria *
                     </option>
-                    {allTypes.map((e) =>
-                      e.type == "Outros" ? null : (
-                        <option key={e.id} value={e.id}>
-                          {e.type}
-                        </option>
-                      )
-                    )}
-                    <option value="1">Outros</option>
+                    {allTypes.map((e) => (
+                      <option key={e.id} value={e.id}>
+                        {e.type}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div>
