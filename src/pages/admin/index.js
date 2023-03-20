@@ -104,7 +104,11 @@ export default function SuperAdm(props) {
         ) : null}
 
         <Solicitations documents={documents} allOrigins={allOrigins} />
-        <Category allTypes={allTypes} token={token} />
+        <Category
+          permission={userInfo[0].permission_id.id}
+          allTypes={allTypes}
+          token={token}
+        />
         <Tag allTags={allTags} token={token} infoUser={userInfo} />
 
         <div className="grid lg:grid-cols-2 ">

@@ -124,9 +124,11 @@ export default function Category(req) {
             className="rounded-md p-2 bg-slate-50 flex justify-between shadow-md mt-1"
           >
             {e.type}
-            <a onClick={(z) => deleteType(e.id)} className="cursor-pointer">
-              <FaTrash />
-            </a>
+            {req.permission == 1 && (
+              <a onClick={(z) => deleteType(e.id)} className="cursor-pointer">
+                <FaTrash />
+              </a>
+            )}
           </li>
         ))}
       </ul>
