@@ -7,7 +7,7 @@ import { MdOutlineReportGmailerrorred } from "react-icons/md";
 
 export default function Form(req) {
   const [correctCode, setCorrectCode] = useState();
-  const [allowed, setAllowed] = useState(true); //default false
+  const [allowed, setAllowed] = useState(false); //default false
 
   const [listName, setListName] = useState([]);
   const [name, setName] = useState();
@@ -119,6 +119,9 @@ export default function Form(req) {
             </li>
             <li className="p-1">
               Envie e aguarde o retorno de seu orientador pelo email.
+            </li>
+            <li className="p-1">
+              Apenas documentos em PDF são permitidos.
             </li>
           </ul>
           <div className="mt-8">
