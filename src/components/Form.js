@@ -120,6 +120,9 @@ export default function Form(req) {
             <li className="p-1">
               Envie e aguarde o retorno de seu orientador pelo email.
             </li>
+            <li className="p-1">
+              Apenas documentos em PDF são permitidos.
+            </li>
           </ul>
           <div className="mt-8">
             <a className="text-2xl font-bold text-blue-600">

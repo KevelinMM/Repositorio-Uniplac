@@ -22,7 +22,6 @@ export default function SuperAdm(props) {
       : userInfo[0].permission_id.name
   );
 
-
   const [allTags, setAllTags] = useState(props.allTags);
 
   const [allOrigins, setAllOrigins] = useState(props.allOrigins);
@@ -67,10 +66,17 @@ export default function SuperAdm(props) {
         <div className="px-4 pb-4 text-justify">
           <p>
             Página destinada a administração de publicações no repositório da
-            Instituição Uniplac, criação de palavras chaves (tags) e categorias
-            que serão usadas pelos alunos ao cadastrar seus documentos.
+            Instituição Uniplac.
           </p>
-          <p> Ex: Artigos, TCCs, Ebooks.. (PDFs)</p>
+          <a
+            className="underline cursor-pointer"
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://docs.google.com/document/d/1km6T0_OrD2quYkzHoDMGXYUrf3tvk2ytGvf0juUaFT0/edit?usp=share_linkhttps://docs.google.com/document/d/1km6T0_OrD2quYkzHoDMGXYUrf3tvk2ytGvf0juUaFT0/edit?usp=share_link"
+          >
+            {" "}
+            Instruções aos administradores do RI{" "}
+          </a>
         </div>
 
         {userInfo[0].permission_id.id == 1 || userInfo[0].origin_id.id == 1 ? (
@@ -98,21 +104,16 @@ export default function SuperAdm(props) {
         ) : null}
 
         <Solicitations documents={documents} allOrigins={allOrigins} />
+        <Category allTypes={allTypes} token={token} />
+        <Tag allTags={allTags} token={token} infoUser={userInfo} />
 
         <div className="grid lg:grid-cols-2 ">
           {userInfo[0].permission_id.id == 1 ? (
             <>
-              <Category allTypes={allTypes} token={token} />
-              <Tag allTags={allTags} token={token} infoUser={userInfo} />
-            </>
-          ) : null}
-        </div>
-
-        <div className="page-title ml-4"> Área restrita para Super Admin</div>
-
-        <div className="grid lg:grid-cols-2 ">
-          {userInfo[0].permission_id.id == 1 ? (
-            <>
+              <div className="page-title ml-4">
+                {" "}
+                Área restrita para Super Admin
+              </div>
               <Origin allOrigins={allOrigins} token={token} />
               <User
                 allUsers={allUsers}
