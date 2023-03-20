@@ -16,16 +16,22 @@ export default function Login() {
   const [correctCode, setCorrectCode] = useState();
   const [hasError, setHasError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [notRobot, setNotRobot] = useState(false);
 
   const router = useRouter();
 
   function onChange(value) {
-    console.log("Captcha value:", value);
+    setNotRobot(true);
   }
 
   async function login(e) {
-    setLoading(true);
     e.preventDefault();
+    if (!notRobot) {
+      document.getElementById("recaptcha").classList.add("reCapcha")
+      return
+    };
+    setLoading(true);
+
     const request = await signIn("credentials", {
       redirect: false,
       email,
@@ -178,7 +184,14 @@ export default function Login() {
                     required
                   />
                 </div>
-                <ReCAPTCHA sitekey="6LcAGBglAAAAAHBxfo6xxjcbxS8vI7YdNsNwS26s" onChange={onChange} />
+                <div className="flex justify-center py-2">
+                  <ReCAPTCHA
+                  id="recaptcha"
+                  className=""
+                    sitekey="6LcAGBglAAAAAHBxfo6xxjcbxS8vI7YdNsNwS26s"
+                    onChange={onChange}
+                  />
+                </div>
               </div>
               {hasError && (
                 <div>

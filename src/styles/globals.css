@@ -17,6 +17,10 @@ select {
   @apply outline-none px-2 py-1 rounded;
 }
 
+.reCapcha{
+  @apply ring ring-red-300 rounded
+}
+
 .soft-transition {
   @apply transition ease-in-out duration-150 hover:scale-110 ;
 }
