@@ -15,18 +15,19 @@ export default function Header() {
   const { data: session } = useSession();
 
   useEffect(() => {
-    getPending();
-  }, []);
+    if (session) {
+      getPending(session.user.originId ? session.user.originId.id : 0);
+    }
+  }, [session]);
 
-  async function getPending() {
+  async function getPending(perm) {
     const getPendencias = await axios.get(
-      process.env.BACKEND + "documentsByOrigin/" + 3
+      process.env.BACKEND + "documentsByOrigin/" + perm
     );
     const pendentes = getPendencias.data.filter(
       (document) => document.approved == false
     );
     setPeding(pendentes.length > 0);
-    console.log(pending);
   }
 
   return (
