@@ -6,6 +6,7 @@ import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { MutatingDots } from "react-loader-spinner";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function Login() {
   const [email, setEmail] = useState();
@@ -17,6 +18,10 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
+
+  function onChange(value) {
+    console.log("Captcha value:", value);
+  }
 
   async function login(e) {
     setLoading(true);
@@ -173,6 +178,7 @@ export default function Login() {
                     required
                   />
                 </div>
+                <ReCAPTCHA sitekey="6LcAGBglAAAAAHBxfo6xxjcbxS8vI7YdNsNwS26s" onChange={onChange} />
               </div>
               {hasError && (
                 <div>
