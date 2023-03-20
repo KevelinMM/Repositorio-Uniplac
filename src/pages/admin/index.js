@@ -33,21 +33,21 @@ export default function SuperAdm(props) {
       : props.allTypes
   );
 
-  console.log(allTypes)
+  console.log(allTypes);
 
   const [allPermissions, setAllPermissions] = useState(props.allPermissions);
   const [allUsers, setAllUsers] = useState(props.allUsers);
 
   const [documents, setDocuments] = useState(props.documents);
-  
-  const origin_id = (userInfo[0].origin_id ?  userInfo[0].origin_id.id : "")
+
+  const origin_id = userInfo[0].origin_id ? userInfo[0].origin_id.id : "";
 
   return (
     <>
       <div className="bg-gradient-to-t from-blue-100 min-h-screen px-2 sm:px-5 lg:px-10 xl:px-24 pt-8 md:pt-16 pb-6">
         <div className="flex justify-between pb-6 xl:pb-12 items-center lg:px-4">
           <div className="flex items-center page-title">
-            <p >{origin}</p>
+            <p>{origin}</p>
             <p
               onClick={() => signOut()}
               className="rounded text-xl hover:text-red-700 cursor-pointer ml-2"
@@ -116,20 +116,22 @@ export default function SuperAdm(props) {
         />
         <Tag allTags={allTags} token={token} infoUser={userInfo} />
 
-        <div className="grid lg:grid-cols-2 ">
+        <div>
           {userInfo[0].permission_id.id == 1 ? (
             <>
               <div className="page-title ml-4">
                 {" "}
                 Área restrita para Super Admin
               </div>
-              <Origin allOrigins={allOrigins} token={token} />
-              <User
-                allUsers={allUsers}
-                allPermissions={allPermissions}
-                allOrigns={allOrigins}
-                token={token}
-              />
+              <div className="grid lg:grid-cols-2 ">
+                <Origin allOrigins={allOrigins} token={token} />
+                <User
+                  allUsers={allUsers}
+                  allPermissions={allPermissions}
+                  allOrigns={allOrigins}
+                  token={token}
+                />
+              </div>
             </>
           ) : null}
         </div>
