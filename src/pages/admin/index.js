@@ -193,7 +193,7 @@ export async function getServerSideProps(context) {
   });
 
   const allTags = getAllTags.data;
-  const allOrigins = getAllOrigins.data;
+  const allOrigins = getAllOrigins.data.filter((e)=> e.id != 1);
   const allTypes = getAllTypes.data;
   const allPermissions = getAllPermissions.data;
   const allUsers = getAllUsers.data;
