@@ -86,7 +86,6 @@ export default function Home(props) {
       ? allPageTypes.push(e.type_id.type)
       : null
   );
-  console.log(aux);
   useEffect(
     (e) => {
       allTags == true
@@ -118,7 +117,7 @@ export default function Home(props) {
           <Origin origin={origins} />
           <Type type={types} />
         </div>
-        <div className="w-full lg:w-4/5 p-2 lg:p-8 mt-2 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-opacity-50 border-rounded">
+        <div className="w-full lg:w-4/5 p-2 lg:p-8 mt-2 lg:mt-0 text-gray-900 leading-normal bg-gray-50 border-opacity-50 border border-gray-300 border-rounded">
           <h1 className="page-title">Resultado da Pesquisa</h1>
           <div className="flex flex-row flex-wrap gap-2 mb-6">
             {allPageOrigins.map((e, index) => (

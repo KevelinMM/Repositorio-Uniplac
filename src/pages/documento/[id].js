@@ -35,7 +35,7 @@ export default function Detail(props) {
           <Origin origin={origins} />
           <Type type={types} />
         </div>
-        <div className="w-full lg:w-4/5 p-8  mt-2 text-gray-900 leading-normal border-opacity-50 bg-white border border-gray-400 border-rounded">
+        <div className="w-full lg:w-4/5 p-8  mt-2 text-gray-900 leading-normal border-opacity-50 bg-gray-50  border border-gray-300 border-rounded">
           <div className="hidden md:flex md:flex-row-reverse gap-2 ">
             {tagsId &&
               tagsId.map((e, index) => (

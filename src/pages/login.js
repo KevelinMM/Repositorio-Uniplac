@@ -85,10 +85,11 @@ export default function Login() {
           <Image
             src={`/logoUniplac.png`}
             alt="Logo Uniplac"
-            width={90}
-            height={90}
+            width={80}
+            height={80}
           />
         </div>
+      
 
         <div className="w-full bg-white bg-opacity-90 rounded-lg shadow sm:max-w-md">
           <div className="p-6 space-y-2 md:space-y-6 sm:p-8">
@@ -249,7 +250,10 @@ export default function Login() {
             </form>
           </div>
         </div>
+        <a href="/" className=" cursor-pointer mt-4 text-slate-600 underline items-start">Voltar para página inicial</a>
       </div>
+    
+
       <footer className="bg-white text-center lg:text-left mb-0">
         <div className="text-gray-700 text-center p-3 flex justify-center cursor-default">
           Copyright &copy; {new Date().getFullYear()}{" "}

@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 section {
-  @apply bg-gray-100 tracking-normal
+  @apply bg-slate-200  tracking-normal
 }
 
 html {
