@@ -42,6 +42,7 @@ export default function Form(req) {
     if (code.length == 5 && code == correctCode) {
       document.getElementById("codeOk").hidden = false;
       document.getElementById("code").readOnly = true;
+      document.getElementById("email").readOnly = true;
       document.getElementById("codeWrong").hidden = true;
       setAllowed(true);
     } else {
