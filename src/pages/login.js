@@ -8,7 +8,6 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { MutatingDots } from "react-loader-spinner";
 import ReCAPTCHA from "react-google-recaptcha";
-import Link from "next/link";
 
 export default function Login() {
   const [email, setEmail] = useState();
