@@ -527,7 +527,7 @@ export default function Form(req) {
                 </label>
                 <input
                   required
-                  className="block w-full text-white cursor-pointer"
+                  className="block w-full cursor-pointer"
                   aria-describedby="file_input_help"
                   id="file_input"
                   accept="application/pdf"
