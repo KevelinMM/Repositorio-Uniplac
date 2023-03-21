@@ -213,6 +213,7 @@ export default function Request(props) {
             </p>
           </blockquote>
         </div>
+        {console.log(approved)}
         {approved == true ? null : (
           <div className="">
             <div className="py-2 space-x-4 flex justify-end items-center">

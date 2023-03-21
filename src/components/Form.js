@@ -8,7 +8,7 @@ import { BsQuestionDiamond } from "react-icons/bs";
 
 export default function Form(req) {
   const [correctCode, setCorrectCode] = useState();
-  const [allowed, setAllowed] = useState(true); //default false
+  const [allowed, setAllowed] = useState(false); //default false
 
   const [listName, setListName] = useState([]);
   const [name, setName] = useState();
@@ -323,7 +323,7 @@ export default function Form(req) {
                     }
                   >
                     <p className="text-md font-medium text-gray-700">Origem</p>
-                    <BsQuestionDiamond className="-z-10 text-lg soft-transition animate-pulse" />
+                    <BsQuestionDiamond className=" text-lg soft-transition animate-pulse" />
                   </div>
                   <p id="originInfo" hidden className=" mt-2">
                     Cada origem contém um ou mais responsáveis para analisar e
@@ -371,7 +371,7 @@ export default function Form(req) {
                     <p className=" text-md font-medium text-gray-700">
                       Categoria
                     </p>
-                    <BsQuestionDiamond className="-z-10 text-lg soft-transition animate-pulse" />
+                    <BsQuestionDiamond className=" text-lg soft-transition animate-pulse" />
                   </div>
                   <p id="categoryInfo" hidden className="mt-2">
                     Categorias são referentes ao tipo de trabalho realizado. Ex:
@@ -405,7 +405,7 @@ export default function Form(req) {
                     }
                   >
                     <p className=" text-md font-medium text-gray-700">Tags</p>
-                    <BsQuestionDiamond className="-z-10 text-lg soft-transition animate-pulse" />
+                    <BsQuestionDiamond className="text-lg soft-transition animate-pulse" />
                   </div>
                   <p id="tagsInfo" hidden className=" mt-2">
                     Tags são filtros para localizar seu trabalho na página do
