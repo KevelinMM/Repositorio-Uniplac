@@ -8,7 +8,7 @@ import { BsQuestionDiamond } from "react-icons/bs";
 
 export default function Form(req) {
   const [correctCode, setCorrectCode] = useState();
-  const [allowed, setAllowed] = useState(true); //default false
+  const [allowed, setAllowed] = useState(false); //default false
 
   const [listName, setListName] = useState([]);
   const [name, setName] = useState();
@@ -181,7 +181,7 @@ export default function Form(req) {
                   Email
                 </label>
                 <input
-                  className="w-full rounded-l-lg border-gray-200 p-3 text-sm"
+                  className="w-full rounded-l-lg border-gray-200 text-sm"
                   placeholder="Email"
                   type="email"
                   id="email"
@@ -201,8 +201,8 @@ export default function Form(req) {
                     className="flex items-center"
                     onClick={(e) => sendCode()}
                   >
-                    <label className="text-sm text-center bg-gray-400 hover:bg-gray-500 px-2 rounded-r-lg h-full text-white flex items-center cursor-pointer">
-                      Reenviar código
+                    <label className=" text-sm text-center bg-gray-400 hover:bg-gray-500 px-2 rounded-r-lg h-full text-white flex items-center cursor-pointer">
+                      Reenviar Código
                     </label>
                   </div>
                 )}
@@ -210,18 +210,18 @@ export default function Form(req) {
               <span
                 id="infoSendEmail"
                 hidden
-                className="text-sm bg-blue-50 rounded px-2 text-gray-500"
+                className="text-sm px-2 text-gray-500"
               >
                 Foi enviado um código para validação no seu e-mail.
               </span>
             </div>
-            <div className="flex flex-row-reverse">
+            <div className="flex flex-row-reverse items-center">
               <label className="sr-only" htmlFor="code">
                 Código
               </label>
 
               <input
-                className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                className="inputForms"
                 placeholder="Código"
                 type="text"
                 id="code"
@@ -229,7 +229,7 @@ export default function Form(req) {
                 onChange={(e) => validateCodde(e.target.value)}
               />
               <div
-                className="absolute search-icon pt-4 pr-3"
+                className="absolute search-icon pr-3"
                 id="codeOk"
                 hidden
               >
@@ -242,21 +242,21 @@ export default function Form(req) {
                 </svg>
               </div>
               <div
-                className="absolute search-icon pt-2 pr-4"
+                className="absolute search-icon pr-3"
                 id="codeWrong"
                 hidden
               >
                 <p className="text-red-600 text-xl">x</p>
               </div>
             </div>
-            <p className="text-sm pl-2 pb-2 ">
+            <p className="text-sm pl-2  ">
               Após validação, siga com o formulário.
             </p>
 
             {allowed == true ? (
               <div className="space-y-4 text-sm">
                 <input
-                  className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                  className="inputForms"
                   placeholder="Nome completo do(s) autor(es) *"
                   type="text"
                   id="name"
@@ -287,7 +287,7 @@ export default function Form(req) {
                 ))}
                 <input
                   required
-                  className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                  className="inputForms"
                   placeholder="Título do documento *"
                   type="text"
                   id="title"
@@ -296,7 +296,7 @@ export default function Form(req) {
 
                 <input
                   required
-                  className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                  className="inputForms"
                   placeholder="Sub-Título *"
                   type="text"
                   id="subTitle"
@@ -306,7 +306,7 @@ export default function Form(req) {
 
                 <textarea
                   required
-                  className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                  className="inputForms"
                   placeholder="Escreva um breve resumo sobre seu trabalho."
                   rows="8"
                   id="resume"
@@ -416,7 +416,7 @@ export default function Form(req) {
                 </div>
 
                 <input
-                  className="w-full rounded-lg border-gray-200 p-3 text-sm mt-2"
+                  className="inputForms"
                   placeholder="Digite para encontrar Tags. Caso não exista, adicione."
                   type="text"
                   id="tags"
@@ -438,11 +438,11 @@ export default function Form(req) {
                         (document.getElementById("newTag").hidden = true);
                   }}
                 />
-                <div id="resultTags">
+                <div id="resultTags" className="space-y-1">
                   {tagListId.map((e) => (
                     <div
                       key={e.tag}
-                      className="hover:bg-gray-200 px-2 border-b"
+                      className="hover:bg-gray-200 p-2 border-b rounded shadow cursor-pointer"
                       onClick={(y) =>
                         lista.indexOf(e.id) <= -1
                           ? (lista.length >= 5
@@ -460,13 +460,13 @@ export default function Form(req) {
                           : null
                       }
                     >
-                      <a className="text-black text-base">{e.tag}</a>
+                      <a >{e.tag}</a>
                     </div>
                   ))}
                   <div
                     hidden
                     id="newTag"
-                    className="bg-green-100 hover:bg-green-200 px-2 cursor-pointer"
+                    className="bg-green-100 hover:bg-green-200 p-2 cursor-pointer rounded shadow"
                     onClick={(e) =>
                       document.getElementById("tags").value != ""
                         ? lista.push({
@@ -478,7 +478,7 @@ export default function Form(req) {
                         : null
                     }
                   >
-                    <a className="text-black text-base">Adicionar nova tag</a>
+                    <a >Adicionar nova tag</a>
                   </div>
                 </div>
 
@@ -556,8 +556,7 @@ export default function Form(req) {
                   </label>
                 </div>
 
-                <button className="mt-4 inline-flex items-center justify-center rounded-lg bg-green-500 px-3 py-2 md:px-5 md:py-3 text-white ">
-                  <span className="md:font-medium"> Enviar </span>
+                <button className="btn flex">Enviar
 
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

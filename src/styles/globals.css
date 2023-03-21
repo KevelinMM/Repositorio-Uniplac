@@ -30,7 +30,7 @@ select {
 }
 
 .btn {
-  @apply cursor-pointer shadow-md bg-[#5698c8] soft-transition text-white px-3 py-1 rounded hover:bg-gray-700 ;
+  @apply cursor-pointer shadow-md bg-[#5698c8] soft-transition text-white px-3 py-2 rounded hover:bg-gray-700 ;
 }
 
 .adminCards{
@@ -38,6 +38,10 @@ select {
 }
 
 .formInfo{
-  @apply text-justify bg-slate-200 px-3 rounded-md p-2 text-sm leading-relaxed  indent-2
+  @apply text-justify bg-slate-200 px-3 rounded-md p-2 text-sm leading-relaxed indent-2
+}
+
+.inputForms{
+  @apply w-full rounded-lg border-gray-200 px-3 text-sm
 }
 
