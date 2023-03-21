@@ -4,10 +4,11 @@ import createDoc from "../helpers/createDoc";
 import { Triangle } from "react-loader-spinner";
 import { GiTrophyCup } from "react-icons/gi";
 import { MdOutlineReportGmailerrorred } from "react-icons/md";
+import mime from "mime-types"
 
 export default function Form(req) {
   const [correctCode, setCorrectCode] = useState();
-  const [allowed, setAllowed] = useState(false); //default false
+  const [allowed, setAllowed] = useState(true); //default false
 
   const [listName, setListName] = useState([]);
   const [name, setName] = useState();
@@ -319,7 +320,6 @@ export default function Form(req) {
                       <option value="" disabled>
                         Selecione a origem *
                       </option>
-                      {console.log(allTypes)}
 
                       {allOrigins.map((e) =>
                         e[0].origin_name == "Outros" ? null : (
@@ -481,7 +481,7 @@ export default function Form(req) {
                   id="file_input"
                   accept="application/pdf"
                   type="file"
-                  onChange={(e) => setFile(e.target.files)}
+                  onChange={(e) => (e.target.files[0].type == "application/pdf" ? setFile(e.target.files) : alert("Formato inválido") + (document.getElementById("file_input").value = "")) }
                 />
 
                 <div className="flex items-center mb-4 bg-slate-200 px-3 rounded-md">
