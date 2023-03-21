@@ -168,7 +168,7 @@ export default function Form(req) {
                 Ocorreu um erro ao cadastrar seu documento!
               </h1>
             </div>
-          </div>
+          </div> 
           <form
             className="space-y-4"
             id="formPubli"
