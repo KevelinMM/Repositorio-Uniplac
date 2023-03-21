@@ -1,4 +1,5 @@
 import axios from "axios";
+import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import sendEmail from "../helpers/sendEmail";
@@ -251,7 +252,7 @@ export default function Login() {
             </form>
           </div>
         </div>
-        <Link href="/" className=" cursor-pointer mt-4 text-slate-600 underline items-start">Voltar para página inicial</Link>
+        <Link href={"/"} className=" cursor-pointer mt-4 text-slate-600 underline items-start">Voltar para página inicial</Link>
       </div>
     
 
