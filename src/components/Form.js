@@ -303,27 +303,53 @@ export default function Form(req) {
                   onChange={(e) => setSubTitle(e.target.value)}
                 />
 
-                <div className="w-full sm:flex">
-                  <div className="pr-3">
-                    <select
-                      required
-                      className="rounded-lg border-gray-200 p-3 text-sm pr-8"
-                      id="origin"
-                      defaultValue=""
-                      onChange={(e) =>
-                        setOrigin(e.target.value) +
-                        setAllTypes(
-                          req.types.filter(
-                            (z) =>
-                              e.target.value == z.origin_id || z.origin_id == 1
-                          )
-                        )
-                      }
-                    >
-                      <option value="" disabled>
-                        Selecione a origem *
-                      </option>
-                      {console.log(allTypes)}
+
+                <textarea
+                  required
+                  className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                  placeholder="Escreva um breve resumo sobre seu trabalho."
+                  rows="8"
+                  id="resume"
+                  maxLength={255}
+                  onChange={(e) => setContent(e.target.value)}
+                ></textarea>
+
+                <div className="formInfo">
+                  <div
+                    className="flex items-center justify-between cursor-pointer"
+                    onClick={() =>
+                      (document.getElementById("originInfo").hidden =
+                        !document.getElementById("originInfo").hidden)
+                    }
+                  >
+                    <p className="text-md font-medium text-gray-700">Origem</p>
+                    <BsQuestionDiamond className="text-lg soft-transition animate-pulse" />
+                  </div>
+                  <p id="originInfo" hidden className=" mt-2">
+                    Cada origem contém um ou mais responsáveis para analisar e
+                    permitir, ou não, a publicação do seu trabalho acadêmico.
+                    Geralmente são cursos ou eventos dos quais você participa ou
+                    já participou.
+                  </p>
+                </div>
+
+                <select
+                  required
+                  className="text-gray-600 rounded-lg border-gray-200 p-3 text-sm mt-2  w-full"
+                  id="origin"
+                  defaultValue=""
+                  onChange={(e) =>
+                    setOrigin(e.target.value) +
+                    setAllTypes(
+                      req.types.filter(
+                        (z) => e.target.value == z.origin_id || z.origin_id == 1
+                      )
+                    )
+                  }
+                >
+                  <option value="" disabled>
+                    Selecione a origem *
+                  </option>
 
                   {allOrigins.map((e) =>
                     e[0].origin_name == "Outros" ? null : (
@@ -506,7 +532,12 @@ export default function Form(req) {
                   id="file_input"
                   accept="application/pdf"
                   type="file"
-                  onChange={(e) => (e.target.files[0].type == "application/pdf" ? setFile(e.target.files) : alert("Formato inválido") + (document.getElementById("file_input").value = "")) }
+                  onChange={(e) =>
+                    e.target.files[0].type == "application/pdf"
+                      ? setFile(e.target.files)
+                      : alert("Formato inválido") +
+                        (document.getElementById("file_input").value = "")
+                  }
                 />
 
                 <div className="space-x-3 leading-relaxed flex items-center mb-4 px-3  p-2 text-sm text-justify">
