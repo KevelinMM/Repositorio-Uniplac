@@ -310,7 +310,7 @@ export default function Form(req) {
                   placeholder="Escreva um breve resumo sobre seu trabalho."
                   rows="8"
                   id="resume"
-                  maxLength={255}
+                  maxLength={1023}
                   onChange={(e) => setContent(e.target.value)}
                 ></textarea>
 
