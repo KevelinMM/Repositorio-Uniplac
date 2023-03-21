@@ -8,7 +8,7 @@ import { BsQuestionDiamond } from "react-icons/bs";
 
 export default function Form(req) {
   const [correctCode, setCorrectCode] = useState();
-  const [allowed, setAllowed] = useState(false); //default false
+  const [allowed, setAllowed] = useState(true); //default false
 
   const [listName, setListName] = useState([]);
   const [name, setName] = useState();
@@ -221,7 +221,7 @@ export default function Form(req) {
               </label>
 
               <input
-                className="inputForms"
+                className="inputForms "
                 placeholder="Código"
                 type="text"
                 id="code"
@@ -229,7 +229,7 @@ export default function Form(req) {
                 onChange={(e) => validateCodde(e.target.value)}
               />
               <div
-                className="absolute search-icon pr-3"
+                className="absolute search-icon pr-3 "
                 id="codeOk"
                 hidden
               >
@@ -323,7 +323,7 @@ export default function Form(req) {
                     }
                   >
                     <p className="text-md font-medium text-gray-700">Origem</p>
-                    <BsQuestionDiamond className="text-lg soft-transition animate-pulse" />
+                    <BsQuestionDiamond className="-z-10 text-lg soft-transition animate-pulse" />
                   </div>
                   <p id="originInfo" hidden className=" mt-2">
                     Cada origem contém um ou mais responsáveis para analisar e
@@ -371,7 +371,7 @@ export default function Form(req) {
                     <p className=" text-md font-medium text-gray-700">
                       Categoria
                     </p>
-                    <BsQuestionDiamond className="text-lg soft-transition animate-pulse" />
+                    <BsQuestionDiamond className="-z-10 text-lg soft-transition animate-pulse" />
                   </div>
                   <p id="categoryInfo" hidden className="mt-2">
                     Categorias são referentes ao tipo de trabalho realizado. Ex:
@@ -405,7 +405,7 @@ export default function Form(req) {
                     }
                   >
                     <p className=" text-md font-medium text-gray-700">Tags</p>
-                    <BsQuestionDiamond className="text-lg soft-transition animate-pulse" />
+                    <BsQuestionDiamond className="-z-10 text-lg soft-transition animate-pulse" />
                   </div>
                   <p id="tagsInfo" hidden className=" mt-2">
                     Tags são filtros para localizar seu trabalho na página do
@@ -486,7 +486,7 @@ export default function Form(req) {
                   {lista.map((e, index) =>
                     e.id ? (
                       <span
-                        key={index}
+                        key={e.id}
                         className="flex flex-row items-center  bg-blue-200 hover:bg-gray-200 cursor-pointer rounded-full text-xs px-2 py-1 ml-2"
                         onClick={(y) =>
                           allTagsSearch.push({
@@ -500,7 +500,7 @@ export default function Form(req) {
                       </span>
                     ) : (
                       <span
-                        key={index}
+                        key={e.id}
                         className="flex flex-row items-center bg-orange-200 hover:bg-orange-200 cursor-pointer rounded-full text-xs px-2 py-1 ml-2"
                         onClick={(y) =>
                           setLista(lista.filter((item) => item.tag != e.tag))

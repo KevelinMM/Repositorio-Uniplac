@@ -34,7 +34,7 @@ export default function Header() {
     <header>
       <nav
         id="header"
-        className="fixed w-full top-0 bg-white border-b border-gray-300"
+        className="fixed w-full top-0 bg-white border-b border-gray-300 z-10"
       >
         <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-4 ">
           <Link href="/">

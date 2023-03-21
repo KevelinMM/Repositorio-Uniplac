@@ -98,7 +98,7 @@ export default function Request(props) {
         " não foi aprovado! <br/>Motivo: " +
         reason +
         "<br/> Faça as alterações necessárias e envie novamente sua socilitação em: https://repositorio.uniplaclages.edu.br//#formPubli, ou entre em contato com " +
-        user.email +
+        session.user.email +
         " ."
     );
   }
@@ -213,7 +213,6 @@ export default function Request(props) {
             </p>
           </blockquote>
         </div>
-{console.log(approved)}
         {approved == true ? null : (
           <div className="">
             <div className="py-2 space-x-4 flex justify-end items-center">
@@ -298,7 +297,7 @@ export async function getStaticPaths() {
     const paths = document.map((post) => ({
       params: { id: post.id.toString() },
     }));
-    console.log(paths)
+    //console.log(paths)
 
     return {
       paths,
