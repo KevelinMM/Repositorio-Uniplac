@@ -11,8 +11,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           <title>Repositório Institucional Uniplac</title>
           <meta name="description" content="Repositório Institucional" />
           <link
-            rel="icon"
-            href="http://ww2.uniplaclages.edu.br/aviso-webmail/img/logo.png"
+            rel="icon" type="image/png" sizes="32x32" href="/logoUniplac.png"
           />
         </Head>
         <GoogleAnalytics measurementId="G-HLXR7QF7J2" />

@@ -8,7 +8,6 @@ import Footer from "../components/Footer";
 import Form from "../components/Form";
 import { useState } from "react";
 import axios from "axios";
-import Link from "next/link";
 
 export default function Home(props) {
   const [publis, setPublis] = useState(props.documents);
