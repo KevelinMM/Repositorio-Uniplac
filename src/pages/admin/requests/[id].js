@@ -29,9 +29,16 @@ export default function Request(props) {
 
   const { data: session, status } = useSession();
 
-  const [user, setUser] = useState();
+  async function getDocInfo() {
+    const doc = await axios.get(
+      process.env.BACKEND + "documents/" + id
+    );
+    setApproved(doc.data[0].approved)
+    setLista(doc.data[0].tag.slice(1))
+  }
 
   if (status === "loading") {
+    getDocInfo()
     return <p>Loading...</p>;
   }
 
@@ -50,9 +57,11 @@ export default function Request(props) {
         </button>
       </div>
     );
+  }else{
   }
 
   const token = session.user.token;
+
 
   async function getUserInfo() {
     const user = await axios.get(process.env.BACKEND + "userInfo", {
@@ -118,6 +127,8 @@ export default function Request(props) {
     });
   }
 
+
+  console.log(approved)
   return (
     <section className="bg-gray-150 min-h-screen p-3 lg:p-24">
       <div className="flex justify-between mb-2 md:mb-10">
@@ -213,7 +224,6 @@ export default function Request(props) {
             </p>
           </blockquote>
         </div>
-        {console.log(approved)}
         {approved == true ? null : (
           <div className="">
             <div className="py-2 space-x-4 flex justify-end items-center">
@@ -302,7 +312,7 @@ export async function getStaticPaths() {
 
     return {
       paths,
-      fallback: 'blocking',
+      fallback: "blocking",
     };
   } catch (e) {
     return {
