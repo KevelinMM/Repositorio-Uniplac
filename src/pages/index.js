@@ -29,8 +29,6 @@ export default function Home(props) {
           <Type type={types} />
         </div>
 
-
-
         <div className=" w-full lg:w-4/5 p-3 lg:p-6 text-gray-900 bg-gray-50 border-opacity-50 border border-gray-300 border-rounded">
           <h2 className="page-title">Sobre o RI Uniplac</h2>
           <div className="text-gray-600 text-justify text-base px-4">

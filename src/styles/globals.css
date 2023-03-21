@@ -37,3 +37,7 @@ select {
   @apply bg-slate-300 p-6 rounded-md m-2 shadow-lg xl:m-5 
 }
 
+.formInfo{
+  @apply text-justify bg-slate-200 px-3 rounded-md p-2 text-sm leading-relaxed  indent-2
+}
+

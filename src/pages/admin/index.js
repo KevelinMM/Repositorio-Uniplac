@@ -33,13 +33,10 @@ export default function SuperAdm(props) {
       : props.allTypes
   );
 
-  console.log(allTypes);
 
   const [allPermissions, setAllPermissions] = useState(props.allPermissions);
   const [allUsers, setAllUsers] = useState(props.allUsers);
-
   const [documents, setDocuments] = useState(props.documents);
-
   const origin_id = userInfo[0].origin_id ? userInfo[0].origin_id.id : "";
 
   return (
