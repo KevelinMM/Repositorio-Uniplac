@@ -4,7 +4,7 @@ import createDoc from "../helpers/createDoc";
 import { Triangle } from "react-loader-spinner";
 import { GiTrophyCup } from "react-icons/gi";
 import { MdOutlineReportGmailerrorred } from "react-icons/md";
-import mime from "mime-types"
+import { BsQuestionDiamond } from "react-icons/bs";
 
 export default function Form(req) {
   const [correctCode, setCorrectCode] = useState();
@@ -59,7 +59,6 @@ export default function Form(req) {
       var authors = "";
 
       for (let i = 0; i <= listName.length - 1; i++) {
-        //console.log(listName[i]);
         authors = authors.concat(listName[i] + ", ");
       }
 
@@ -208,7 +207,11 @@ export default function Form(req) {
                   </div>
                 )}
               </div>
-              <span id="infoSendEmail" hidden className="text-sm bg-blue-50 rounded px-2 text-gray-500">
+              <span
+                id="infoSendEmail"
+                hidden
+                className="text-sm bg-blue-50 rounded px-2 text-gray-500"
+              >
                 Foi enviado um código para validação no seu e-mail.
               </span>
             </div>
@@ -246,15 +249,15 @@ export default function Form(req) {
                 <p className="text-red-600 text-xl">x</p>
               </div>
             </div>
-            <p className="text-sm pl-2 pb-2 lg:pb-6">
+            <p className="text-sm pl-2 pb-2 ">
               Após validação, siga com o formulário.
             </p>
 
             {allowed == true ? (
-              <div className="space-y-4">
+              <div className="space-y-4 text-sm">
                 <input
                   className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                  placeholder="Nome completo do autor *"
+                  placeholder="Nome completo do(s) autor(es) *"
                   type="text"
                   id="name"
                   value={name || ""}
@@ -320,104 +323,136 @@ export default function Form(req) {
                       <option value="" disabled>
                         Selecione a origem *
                       </option>
+                      {console.log(allTypes)}
 
-                      {allOrigins.map((e) =>
-                        e[0].origin_name == "Outros" ? null : (
-                          <option key={e[0].origin_id} value={e[0].origin_id}>
-                            {e[0].origin_name}
-                          </option>
-                        )
-                      )}
-                    </select>
-                  </div>
-
-                  <select
-                    required
-                    className="rounded-lg border-gray-200 p-3 text-sm pr-8 mt-4 sm:mt-0"
-                    id="category"
-                    defaultValue=""
-                    onChange={(e) => setType(e.target.value)}
-                  >
-                    <option value="" disabled>
-                      Selecione a categoria *
-                    </option>
-                    {allTypes.map((e) => (
-                      <option key={e.id} value={e.id}>
-                        {e.type}
+                  {allOrigins.map((e) =>
+                    e[0].origin_name == "Outros" ? null : (
+                      <option key={e[0].origin_id} value={e[0].origin_id}>
+                        {e[0].origin_name}
                       </option>
-                    ))}
-                  </select>
+                    )
+                  )}
+                </select>
+
+                <div className="formInfo">
+                  <div
+                    className="flex items-center justify-between cursor-pointer"
+                    onClick={() =>
+                      (document.getElementById("categoryInfo").hidden =
+                        !document.getElementById("categoryInfo").hidden)
+                    }
+                  >
+                    <p className=" text-md font-medium text-gray-700">
+                      Categoria
+                    </p>
+                    <BsQuestionDiamond className="text-lg soft-transition animate-pulse" />
+                  </div>
+                  <p id="categoryInfo" hidden className="mt-2">
+                    Categorias são referentes ao tipo de trabalho realizado. Ex:
+                    Artigos, monografia, trabalho de conclusão de curso, etc.
+                  </p>
                 </div>
-                <div>
-                  <input
-                    className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                    placeholder="Busque Tags referentes ao seu trabalho"
-                    type="text"
-                    id="tags"
-                    onChange={(e) => {
-                      setTagListId(
-                        allTagsSearch.filter((element) =>
-                          e.target.value.length > 0
-                            ? element.tag
-                                .toLowerCase()
-                                .includes(e.target.value.toLowerCase()) &&
-                              element.approved == true
-                            : ""
-                        )
-                      );
-                      e.target.value != ""
-                        ? (document.getElementById(
-                            "resultTags"
-                          ).hidden = false) +
-                          (document.getElementById("newTag").hidden = false)
-                        : (document.getElementById(
-                            "resultTags"
-                          ).hidden = true) +
-                          (document.getElementById("newTag").hidden = true);
-                    }}
-                  />
-                  <div id="resultTags">
-                    {tagListId.map((e) => (
-                      <div
-                        key={e.tag}
-                        className="hover:bg-gray-200 px-2 border-b"
-                        onClick={(y) =>
-                          lista.indexOf(e.id) <= -1
-                            ? (lista.length >= 5
-                                ? (document.getElementById("tags").placeholder =
-                                    "Número máximo de tags atingido")
-                                : lista.push({ id: e.id, tag: e.tag }) +
-                                  setAllTagsSearch(
-                                    allTagsSearch.filter(
-                                      (item) => item.id != e.id
-                                    )
-                                  )) +
-                              (document.getElementById("tags").value = "") +
-                              setTagListId([]) +
-                              (document.getElementById("newTag").hidden = true)
-                            : null
-                        }
-                      >
-                        <a className="text-black text-base">{e.tag}</a>
-                      </div>
-                    ))}
+
+                <select
+                  required
+                  className="text-gray-600  rounded-lg border-gray-200 p-3 text-sm mt-2 w-full"
+                  id="category"
+                  defaultValue=""
+                  onChange={(e) => setType(e.target.value)}
+                >
+                  <option value="" disabled>
+                    Selecione a categoria *
+                  </option>
+                  {allTypes.map((e) => (
+                    <option key={e.id} value={e.id}>
+                      {e.type}
+                    </option>
+                  ))}
+                </select>
+
+                <div className="formInfo">
+                  <div
+                    className="flex items-center justify-between cursor-pointer"
+                    onClick={() =>
+                      (document.getElementById("tagsInfo").hidden =
+                        !document.getElementById("tagsInfo").hidden)
+                    }
+                  >
+                    <p className=" text-md font-medium text-gray-700">Tags</p>
+                    <BsQuestionDiamond className="text-lg soft-transition animate-pulse" />
+                  </div>
+                  <p id="tagsInfo" hidden className=" mt-2">
+                    Tags são filtros para localizar seu trabalho na página do
+                    Repositório. Utilize as já existentes ou então crie novas
+                    tags, as quais irão para análise. Obs: Apenas 5 são
+                    permitidas, escolha com atenção.
+                  </p>
+                </div>
+
+                <input
+                  className="w-full rounded-lg border-gray-200 p-3 text-sm mt-2"
+                  placeholder="Digite para encontrar Tags. Caso não exista, adicione."
+                  type="text"
+                  id="tags"
+                  onChange={(e) => {
+                    setTagListId(
+                      allTagsSearch.filter((element) =>
+                        e.target.value.length > 0
+                          ? element.tag
+                              .toLowerCase()
+                              .includes(e.target.value.toLowerCase()) &&
+                            element.approved == true
+                          : ""
+                      )
+                    );
+                    e.target.value != ""
+                      ? (document.getElementById("resultTags").hidden = false) +
+                        (document.getElementById("newTag").hidden = false)
+                      : (document.getElementById("resultTags").hidden = true) +
+                        (document.getElementById("newTag").hidden = true);
+                  }}
+                />
+                <div id="resultTags">
+                  {tagListId.map((e) => (
                     <div
-                      hidden
-                      id="newTag"
-                      className="bg-green-100 hover:bg-green-200 px-2 cursor-pointer"
-                      onClick={(e) =>
-                        document.getElementById("tags").value != ""
-                          ? lista.push({
-                              tag: document.getElementById("tags").value,
-                            }) +
+                      key={e.tag}
+                      className="hover:bg-gray-200 px-2 border-b"
+                      onClick={(y) =>
+                        lista.indexOf(e.id) <= -1
+                          ? (lista.length >= 5
+                              ? (document.getElementById("tags").placeholder =
+                                  "Número máximo de tags atingido")
+                              : lista.push({ id: e.id, tag: e.tag }) +
+                                setAllTagsSearch(
+                                  allTagsSearch.filter(
+                                    (item) => item.id != e.id
+                                  )
+                                )) +
                             (document.getElementById("tags").value = "") +
                             setTagListId([]) +
                             (document.getElementById("newTag").hidden = true)
                           : null
                       }
                     >
-                      <a className="text-black text-base">Adicionar nova tag</a>
+                      <a className="text-black text-base">{e.tag}</a>
                     </div>
+                  ))}
+                  <div
+                    hidden
+                    id="newTag"
+                    className="bg-green-100 hover:bg-green-200 px-2 cursor-pointer"
+                    onClick={(e) =>
+                      document.getElementById("tags").value != ""
+                        ? lista.push({
+                            tag: document.getElementById("tags").value,
+                          }) +
+                          (document.getElementById("tags").value = "") +
+                          setTagListId([]) +
+                          (document.getElementById("newTag").hidden = true)
+                        : null
+                    }
+                  >
+                    <a className="text-black text-base">Adicionar nova tag</a>
                   </div>
                 </div>
 
@@ -450,16 +485,6 @@ export default function Form(req) {
                     )
                   )}
                 </div>
-                <p className="px-2 text-md font-medium text-gray-700">Resumo</p>
-                <textarea
-                  required
-                  className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                  placeholder="Escreva um breve resumo sobre seu trabalho."
-                  rows="8"
-                  id="resume"
-                  maxLength={255}
-                  onChange={(e) => setContent(e.target.value)}
-                ></textarea>
 
                 <label
                   className="mb-2 text-sm text-gray-700 flex items-center"
@@ -476,7 +501,7 @@ export default function Form(req) {
                 </label>
                 <input
                   required
-                  className="block w-full text-sm text-gray-900 border border-gray-300 cursor-pointer bg-gray-50 focus:outline-none"
+                  className="block w-full text-white cursor-pointer"
                   aria-describedby="file_input_help"
                   id="file_input"
                   accept="application/pdf"
@@ -484,21 +509,17 @@ export default function Form(req) {
                   onChange={(e) => (e.target.files[0].type == "application/pdf" ? setFile(e.target.files) : alert("Formato inválido") + (document.getElementById("file_input").value = "")) }
                 />
 
-                <div className="flex items-center mb-4 bg-slate-200 px-3 rounded-md">
+                <div className="space-x-3 leading-relaxed flex items-center mb-4 px-3  p-2 text-sm text-justify">
                   <input
                     required
                     id="default-checkbox"
                     type="checkbox"
                     value=""
-                    className="w-4 h-4 bg-gray-300 border-gray-600 rounded focus:ring-blue-600 "
+                    className="w-4 h-4 rounded focus:ring-blue-700 "
                   />
-                  <label
-                    htmlFor="default-checkbox"
-                    className="ml-1 text-sm font-medium text-gray-600 text-justify p-4"
-                  >
-                    Lei Geral de Proteção de Dados Pessoais (LGPD): Declaro
-                    estar ciente que os dados cadastrados serão coletados e
-                    utilizados pela instituição de ensino Uniplac para realizar
+                  <label htmlFor="default-checkbox">
+                    Estou ciente que os dados cadastrados serão coletados e
+                    utilizados pela instituição de ensino Uniplac, para realizar
                     a publicação do documento, controlar o credenciamento dos
                     participantes e enviar comunicados pelo Email informado.
                   </label>
