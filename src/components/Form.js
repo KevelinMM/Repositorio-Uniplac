@@ -181,7 +181,7 @@ export default function Form(req) {
                   Email
                 </label>
                 <input
-                  className="w-full rounded-l-lg border-gray-200 text-sm"
+                  className="w-full rounded-l-lg border-gray-200 text-sm p-3"
                   placeholder="Email"
                   type="email"
                   id="email"

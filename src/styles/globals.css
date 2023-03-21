@@ -42,6 +42,6 @@ select {
 }
 
 .inputForms{
-  @apply w-full rounded-lg border-gray-200 px-3 text-sm
+  @apply w-full rounded-lg border-gray-200 p-3 text-sm
 }
 
