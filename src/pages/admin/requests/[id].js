@@ -127,8 +127,6 @@ export default function Request(props) {
     });
   }
 
-
-  console.log(approved)
   return (
     <section className="bg-gray-150 min-h-screen p-3 lg:p-24">
       <div className="flex justify-between mb-2 md:mb-10">
