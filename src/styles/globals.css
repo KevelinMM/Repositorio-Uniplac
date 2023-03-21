@@ -38,10 +38,10 @@ select {
 }
 
 .formInfo{
-  @apply text-justify bg-slate-200 px-3 rounded-md p-2 text-sm leading-relaxed indent-2
+  @apply text-justify bg-slate-200 bg-opacity-60 px-3 rounded-md p-2 text-sm leading-relaxed indent-2
 }
 
 .inputForms{
-  @apply w-full rounded-lg border-gray-200 p-3 text-sm
+  @apply w-full rounded-lg border-gray-300 p-3 text-sm 
 }
 

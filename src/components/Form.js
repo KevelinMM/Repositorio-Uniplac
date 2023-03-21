@@ -335,7 +335,7 @@ export default function Form(req) {
 
                 <select
                   required
-                  className="text-gray-600 rounded-lg border-gray-200 p-3 text-sm mt-2  w-full"
+                  className="inputForms"
                   id="origin"
                   defaultValue=""
                   onChange={(e) =>
@@ -381,7 +381,7 @@ export default function Form(req) {
 
                 <select
                   required
-                  className="text-gray-600  rounded-lg border-gray-200 p-3 text-sm mt-2 w-full"
+                  className="inputForms"
                   id="category"
                   defaultValue=""
                   onChange={(e) => setType(e.target.value)}
@@ -438,7 +438,7 @@ export default function Form(req) {
                         (document.getElementById("newTag").hidden = true);
                   }}
                 />
-                <div id="resultTags" className="space-y-1">
+                <div id="resultTags" className="space-y-1 ">
                   {tagListId.map((e) => (
                     <div
                       key={e.tag}
