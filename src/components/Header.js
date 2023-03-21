@@ -37,17 +37,19 @@ export default function Header() {
         className="fixed w-full top-0 bg-white border-b border-gray-300"
       >
         <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-4 ">
-          <div className="pl-4 flex items-center cursor-pointer ">
-            <Image
-              src={`/logoUniplac.png`}
-              alt="Logo Uniplac"
-              width={60}
-              height={60}
-            />
-            <div className="text-normal ml-2 text-gray-900 no-underline hover:no-underline font-bold md:text-xl">
-              <Link href="/">Repositório Institucional</Link>
+          <Link href="/">
+            <div className="pl-4 flex items-center cursor-pointer ">
+              <Image
+                src={`/logoUniplac.png`}
+                alt="Logo Uniplac"
+                width={60}
+                height={60}
+              />
+              <div className="text-normal ml-2 text-gray-900 no-underline hover:no-underline font-bold md:text-xl">
+                <p>Repositório Institucional</p>
+              </div>
             </div>
-          </div>
+          </Link>
           <div className="block lg:hidden pr-4">
             <button
               id="nav-toggle"
