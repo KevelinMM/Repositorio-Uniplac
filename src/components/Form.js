@@ -5,7 +5,7 @@ import { Triangle } from "react-loader-spinner";
 import { GiTrophyCup } from "react-icons/gi";
 import { MdOutlineReportGmailerrorred } from "react-icons/md";
 import { BsQuestionDiamond } from "react-icons/bs";
-
+import Link from "next/link";
 export default function Form(req) {
   const [correctCode, setCorrectCode] = useState();
   const [allowed, setAllowed] = useState(false); //default false
@@ -28,11 +28,25 @@ export default function Form(req) {
   const [allTagsSearch, setAllTagsSearch] = useState(req.tags);
 
   async function sendCode() {
+    //valida se o email é institucional
+    document.getElementById("infoErroEmail").hidden = true;
+    document.getElementById("infoErroEmailInstitucional").hidden = true;
+
+    if(!email.includes("@") || email.length == 0){
+      document.getElementById("infoErroEmail").hidden = false;
+      return
+    }
+
+    if (!email.split("@")[1].toLowerCase().includes("uniplac")) {
+      document.getElementById("infoErroEmailInstitucional").hidden = false;
+      return
+    }
+
     setCodeSubimited(true);
     document.getElementById("infoSendEmail").hidden = false;
     const randomNumber = Math.floor(Math.random() * 1000) + 9999;
     setCorrectCode(randomNumber);
-
+    
     await sendEmail(
       email,
       "Seu código de ativação para envio de documento é " + randomNumber
@@ -115,7 +129,17 @@ export default function Form(req) {
         <div className=" lg:col-span-2 px-2 lg:py-6 text-justify">
           <h3 className=" text-lg font-medium">Instruções aos autores</h3>
           <ul className="pl-6  text-sm  list-decimal">
-            <li className="p-1">Realize a validação de seu email.</li>
+            <li className="p-1">
+              Realize a validação de seu email institucional.
+              <div className="underline cursor-pointer text-blue-500">
+                <Link href="http://ww2.uniplaclages.edu.br/eeds/guniplac/">
+                  <a target="_blank" rel="noopener noreferrer">
+                    Criar email
+                  </a>
+                </Link>
+              </div>
+            </li>
+
             <li className="p-1">
               Preencha o formulário para deposito de trabalho (todos os campos
               são obrigatórios para publicação).
@@ -168,7 +192,7 @@ export default function Form(req) {
                 Ocorreu um erro ao cadastrar seu documento!
               </h1>
             </div>
-          </div> 
+          </div>
           <form
             className="space-y-4"
             id="formPubli"
@@ -182,7 +206,7 @@ export default function Form(req) {
                 </label>
                 <input
                   className="w-full rounded-l-lg border-gray-200 text-sm p-3"
-                  placeholder="Email"
+                  placeholder="Email institucional"
                   type="email"
                   id="email"
                   onChange={(e) => setEmail(e.target.value)}
@@ -214,6 +238,21 @@ export default function Form(req) {
               >
                 Foi enviado um código para validação no seu e-mail.
               </span>
+              <span
+                id="infoErroEmailInstitucional"
+                hidden
+                className="text-sm font-medium px-2 text-red-400"
+              >
+                Insira seu email institucional Ex:
+                nome@uniplaclages.edu.br
+              </span>
+              <span
+                id="infoErroEmail"
+                hidden
+                className="text-sm font-medium px-2 text-red-400"
+              >
+                Email inválido!
+              </span>
             </div>
             <div className="flex flex-row-reverse items-center">
               <label className="sr-only" htmlFor="code">
@@ -228,11 +267,7 @@ export default function Form(req) {
                 maxLength={5}
                 onChange={(e) => validateCodde(e.target.value)}
               />
-              <div
-                className="absolute search-icon pr-3 "
-                id="codeOk"
-                hidden
-              >
+              <div className="absolute search-icon pr-3 " id="codeOk" hidden>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 512 512"
@@ -241,11 +276,7 @@ export default function Form(req) {
                   <path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
                 </svg>
               </div>
-              <div
-                className="absolute search-icon pr-3"
-                id="codeWrong"
-                hidden
-              >
+              <div className="absolute search-icon pr-3" id="codeWrong" hidden>
                 <p className="text-red-600 text-xl">x</p>
               </div>
             </div>
@@ -302,7 +333,6 @@ export default function Form(req) {
                   id="subTitle"
                   onChange={(e) => setSubTitle(e.target.value)}
                 />
-
 
                 <textarea
                   required
@@ -460,7 +490,7 @@ export default function Form(req) {
                           : null
                       }
                     >
-                      <a >{e.tag}</a>
+                      <a>{e.tag}</a>
                     </div>
                   ))}
                   <div
@@ -478,7 +508,7 @@ export default function Form(req) {
                         : null
                     }
                   >
-                    <a >Adicionar nova tag</a>
+                    <a>Adicionar nova tag</a>
                   </div>
                 </div>
 
@@ -556,8 +586,8 @@ export default function Form(req) {
                   </label>
                 </div>
 
-                <button className="btn flex">Enviar
-
+                <button className="btn flex">
+                  Enviar
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="ml-3 h-5 w-5"
