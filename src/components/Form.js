@@ -6,9 +6,13 @@ import { GiTrophyCup } from "react-icons/gi";
 import { MdOutlineReportGmailerrorred } from "react-icons/md";
 import { BsQuestionDiamond } from "react-icons/bs";
 import Link from "next/link";
+import { signIn, signOut, useSession } from "next-auth/react";
+
 export default function Form(req) {
+  const { data: session } = useSession();
   const [correctCode, setCorrectCode] = useState();
   const [allowed, setAllowed] = useState(false); //default false
+  const [logged, setLogged] = useState(false); //default false
 
   const [listName, setListName] = useState([]);
   const [name, setName] = useState();
@@ -123,6 +127,15 @@ export default function Form(req) {
     }
   }
 
+  useEffect(()=>{
+    if(session){
+      setEmail(session.user.email)
+      setAllowed(true)
+      setLogged(true)
+      document.getElementById("code").hidden = true
+    }
+  },[session])
+
   return (
     <div className=" py-5 lg:py-16 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 gap-x-10 gap-y-2 xl:grid-cols-5">
@@ -209,9 +222,11 @@ export default function Form(req) {
                   placeholder="Email institucional"
                   type="email"
                   id="email"
+                  value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                {!codeSubimited ? (
+                
+                {!logged && (!codeSubimited ? (
                   <button
                     className="flex items-center"
                     onClick={(e) => email.length > 0 && sendCode()}
@@ -229,7 +244,7 @@ export default function Form(req) {
                       Reenviar Código
                     </label>
                   </div>
-                )}
+                ))}
               </div>
               <span
                 id="infoSendEmail"
