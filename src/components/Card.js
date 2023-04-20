@@ -27,7 +27,7 @@ export default function Card(req) {
         <h3 className="mt-0.5 text-lg font-medium text-gray-900 hover:underline">
           {title}
         </h3>
-        <p className="text-base text-gray-600">
+        <p className="text-base text-gray-600 text-justify indent-6">
           {content.length > 290 ? content.slice(0, 290) + "..." : content}
         </p>
         <div className="mt-4 flex flex-wrap gap-1">

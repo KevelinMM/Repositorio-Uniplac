@@ -13,11 +13,11 @@ export default function Form(req) {
   const [listName, setListName] = useState([]);
   const [name, setName] = useState();
   const [email, setEmail] = useState("");
-  const [title, setTitle] = useState();
-  const [subTitle, setSubTitle] = useState();
+  const [title, setTitle] = useState("");
+  const [subTitle, setSubTitle] = useState("");
   const [origin, setOrigin] = useState();
   const [type, setType] = useState();
-  const [content, setContent] = useState();
+  const [content, setContent] = useState("");
   const [file, setFile] = useState();
   const [tagListId, setTagListId] = useState([]);
   const [lista, setLista] = useState([]);
@@ -32,21 +32,21 @@ export default function Form(req) {
     document.getElementById("infoErroEmail").hidden = true;
     document.getElementById("infoErroEmailInstitucional").hidden = true;
 
-    if(!email.includes("@") || email.length == 0){
+    if (!email.includes("@") || email.length == 0) {
       document.getElementById("infoErroEmail").hidden = false;
-      return
+      return;
     }
 
     if (!email.split("@")[1].toLowerCase().includes("uniplac")) {
       document.getElementById("infoErroEmailInstitucional").hidden = false;
-      return
+      return;
     }
 
     setCodeSubimited(true);
     document.getElementById("infoSendEmail").hidden = false;
     const randomNumber = Math.floor(Math.random() * 1000) + 9999;
     setCorrectCode(randomNumber);
-    
+
     await sendEmail(
       email,
       "Seu código de ativação para envio de documento é " + randomNumber
@@ -243,8 +243,7 @@ export default function Form(req) {
                 hidden
                 className="text-sm font-medium px-2 text-red-400"
               >
-                Insira seu email institucional Ex:
-                nome@uniplaclages.edu.br
+                Insira seu email institucional Ex: nome@uniplaclages.edu.br
               </span>
               <span
                 id="infoErroEmail"
@@ -316,34 +315,55 @@ export default function Form(req) {
                     {autor} <span className="text-base pl-1">x</span>
                   </span>
                 ))}
-                <input
-                  required
-                  className="inputForms"
-                  placeholder="Título do documento *"
-                  type="text"
-                  id="title"
-                  onChange={(e) => setTitle(e.target.value)}
-                />
-
-                <input
-                  required
-                  className="inputForms"
-                  placeholder="Sub-Título *"
-                  type="text"
-                  id="subTitle"
-                  onChange={(e) => setSubTitle(e.target.value)}
-                />
-
-                <textarea
-                  required
-                  className="inputForms"
-                  placeholder="Escreva um breve resumo sobre seu trabalho."
-                  rows="8"
-                  id="resume"
-                  maxLength={1023}
-                  onChange={(e) => setContent(e.target.value)}
-                ></textarea>
-
+                <div className="flex flex-col text-end">
+                  <input
+                    required
+                    className="inputForms"
+                    placeholder="Título do documento *"
+                    type="text"
+                    id="title"
+                    maxLength={254}
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                  <span className="text-sm text-gray-400">
+                    {title.length > 50
+                      ? 254 - title.length + " carracteres restantes"
+                      : ""}
+                  </span>
+                </div>
+                <div className="flex flex-col text-end">
+                  <input
+                    required
+                    className="inputForms"
+                    placeholder="Sub-Título *"
+                    type="text"
+                    id="subTitle"
+                    maxLength={254}
+                    onChange={(e) => setSubTitle(e.target.value)}
+                  />
+                  <span className="text-sm text-gray-400">
+                    {subTitle.length > 50
+                      ? 254 - subTitle.length + " carracteres restantes"
+                      : ""}
+                  </span>
+                </div>
+                <div>
+                  <p className="mb-1 font-medium"> Não se preocupe com a formatação, seu texto será justificado quando publicado.</p>
+                  <textarea
+                    required
+                    className="inputForms"
+                    placeholder="Escreva um parágrafo de resumo sobre seu trabalho."
+                    rows="8"
+                    id="resume"
+                    maxLength={1000}
+                    onChange={(e) => setContent(e.target.value)}
+                  ></textarea>
+                  <span className="text-sm text-gray-400">
+                    {content.length > 100
+                      ? 1000 - content.length + " carracteres restantes"
+                      : ""}
+                  </span>
+                </div>
                 <div className="formInfo">
                   <div
                     className="flex items-center justify-between cursor-pointer"

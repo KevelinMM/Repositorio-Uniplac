@@ -30,7 +30,7 @@ export default function Home(props) {
 
         <div className=" w-full lg:w-4/5 p-3 lg:p-6 text-gray-900 bg-gray-50 border-opacity-50 border border-gray-300 border-rounded">
           <h2 className="page-title">Sobre o RI Uniplac</h2>
-          <div className="text-gray-600 text-justify text-base px-4">
+          <div className="text-gray-600 text-justify text-base px-4 indent-6">
             O Repositório Institucional da Universidade do Planalto Catarinense
             (Uniplac) é um sistema de informação que visa armazenar, preservar,
             organizar e disseminar amplamente a produção intelectual dos

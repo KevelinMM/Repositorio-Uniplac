@@ -54,7 +54,7 @@ export default function Detail(props) {
           </h1>
           <hr className="border-b border-gray-400" />
 
-          <p className="py-6 break-words">{content}</p>
+          <p className="py-6 break-words text-justify indent-6">{content}</p>
 
           <div className="flex flex-row items-center">
             <a
