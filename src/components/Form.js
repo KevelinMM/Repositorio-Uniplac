@@ -7,6 +7,13 @@ import { MdOutlineReportGmailerrorred } from "react-icons/md";
 import { BsQuestionDiamond } from "react-icons/bs";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
+import dynamic from "next/dynamic";
+import "react-quill/dist/quill.snow.css";
+//espera o quill carregar para poder ser renderizado na tela
+const QuillNoSSRWrapper = dynamic(import("react-quill"), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>,
+});
 
 export default function Form(req) {
   const { data: session } = useSession();
@@ -127,14 +134,14 @@ export default function Form(req) {
     }
   }
 
-  useEffect(()=>{
-    if(session){
-      setEmail(session.user.email)
-      setAllowed(true)
-      setLogged(true)
-      document.getElementById("code").hidden = true
+  useEffect(() => {
+    if (session) {
+      setEmail(session.user.email);
+      setAllowed(true);
+      setLogged(true);
+      document.getElementById("code").hidden = true;
     }
-  },[session])
+  }, [session]);
 
   return (
     <div className=" py-5 lg:py-16 sm:px-6 lg:px-8">
@@ -225,26 +232,27 @@ export default function Form(req) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                
-                {!logged && (!codeSubimited ? (
-                  <button
-                    className="flex items-center"
-                    onClick={(e) => email.length > 0 && sendCode()}
-                  >
-                    <label className="text-sm text-center bg-blue-400 hover:bg-blue-500 px-2 rounded-r-lg h-full text-white flex items-center cursor-pointer">
-                      Validar email
-                    </label>
-                  </button>
-                ) : (
-                  <div
-                    className="flex items-center"
-                    onClick={(e) => sendCode()}
-                  >
-                    <label className=" text-sm text-center bg-gray-400 hover:bg-gray-500 px-2 rounded-r-lg h-full text-white flex items-center cursor-pointer">
-                      Reenviar Código
-                    </label>
-                  </div>
-                ))}
+
+                {!logged &&
+                  (!codeSubimited ? (
+                    <button
+                      className="flex items-center"
+                      onClick={(e) => email.length > 0 && sendCode()}
+                    >
+                      <label className="text-sm text-center bg-blue-400 hover:bg-blue-500 px-2 rounded-r-lg h-full text-white flex items-center cursor-pointer">
+                        Validar email
+                      </label>
+                    </button>
+                  ) : (
+                    <div
+                      className="flex items-center"
+                      onClick={(e) => sendCode()}
+                    >
+                      <label className=" text-sm text-center bg-gray-400 hover:bg-gray-500 px-2 rounded-r-lg h-full text-white flex items-center cursor-pointer">
+                        Reenviar Código
+                      </label>
+                    </div>
+                  ))}
               </div>
               <span
                 id="infoSendEmail"
@@ -363,19 +371,16 @@ export default function Form(req) {
                   </span>
                 </div>
                 <div>
-                  <p className="mb-1 font-medium"> Não se preocupe com a formatação, seu texto será justificado quando publicado.</p>
-                  <textarea
-                    required
-                    className="inputForms"
+                  <QuillNoSSRWrapper
+                    className="text-sm text-gray-700"
                     placeholder="Escreva um parágrafo de resumo sobre seu trabalho."
-                    rows="8"
-                    id="resume"
-                    maxLength={1000}
-                    onChange={(e) => setContent(e.target.value)}
-                  ></textarea>
+                    theme="snow"
+                    value={content}
+                    onChange={setContent}
+                  />
                   <span className="text-sm text-gray-400">
                     {content.length > 100
-                      ? 1000 - content.length + " carracteres restantes"
+                      ? content.length + " carracteres"
                       : ""}
                   </span>
                 </div>
