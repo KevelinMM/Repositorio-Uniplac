@@ -366,7 +366,7 @@ export default function Form(req) {
                   />
                   <span className="text-sm text-gray-400">
                     {subTitle.length > 50
-                      ? 254 - subTitle.length + " carracteres restantes"
+                      ? 254 - subTitle.length + " caracteres restantes"
                       : ""}
                   </span>
                 </div>
