@@ -82,7 +82,7 @@ export default function Solicitations(req) {
       <Box sx={{ height: 631, width: "100%", marginBottom: "25px" }}>
         <h1 className="font-bold">Solicitações</h1>
         <DataGrid
-          className="bg-white"
+          className="bg-white cursor-pointer"
           rows={documents}
           columns={columns}
           initialState={{
