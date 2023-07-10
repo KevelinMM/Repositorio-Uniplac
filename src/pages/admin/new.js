@@ -13,6 +13,7 @@ import Link from "next/link";
 import { signOut } from "next-auth/react";
 import Report from "./components/Report";
 
+
 export default function SuperAdm(props) {
   const userInfo = useState(props.infoUser);
   const token = props.token;
@@ -34,6 +35,7 @@ export default function SuperAdm(props) {
       : props.allTypes
   );
 
+
   const [allPermissions, setAllPermissions] = useState(props.allPermissions);
   const [allUsers, setAllUsers] = useState(props.allUsers);
   const [documents, setDocuments] = useState(props.documents);
@@ -41,8 +43,8 @@ export default function SuperAdm(props) {
 
   return (
     <>
-      <Report user={userInfo[0]} />
-      <div className="bg-blue-50 min-h-screen px-2 sm:px-5 lg:px-10 xl:px-24 pt-8 md:pt-16 pb-6">
+      <Report user={userInfo[0]}/>
+      <div className="bg-gradient-to-t from-blue-100 min-h-screen px-2 sm:px-5 lg:px-10 xl:px-24 pt-8 md:pt-16 pb-6">
         <div className="flex justify-between pb-6 xl:pb-12 items-center lg:px-4">
           <div className="flex items-center page-title">
             <p>{origin}</p>
@@ -84,6 +86,7 @@ export default function SuperAdm(props) {
         {userInfo[0].permission_id.id == 1 || userInfo[0].origin_id.id == 1 ? (
           <select
             defaultValue={"all"}
+            id="countries"
             className="ml-2 md:ml-5 pr-10 pl-3 border border-gray-100 text-gray-900 rounded-md shadow-lg block py-2 "
             onChange={(e) =>
               setDocuments(
@@ -105,6 +108,13 @@ export default function SuperAdm(props) {
         ) : null}
 
         <Solicitations documents={documents} allOrigins={allOrigins} />
+        <Category
+          permission={userInfo[0].permission_id.id}
+          allTypes={allTypes}
+          token={token}
+          origin_id={origin_id}
+        />
+        <Tag allTags={allTags} token={token} infoUser={userInfo} />
 
         <div>
           {userInfo[0].permission_id.id == 1 ? (
@@ -114,13 +124,6 @@ export default function SuperAdm(props) {
                 Área restrita para Super Admin
               </div>
               <div className="grid lg:grid-cols-2 ">
-                <Category
-                  permission={userInfo[0].permission_id.id}
-                  allTypes={allTypes}
-                  token={token}
-                  origin_id={origin_id}
-                />
-                <Tag allTags={allTags} token={token} infoUser={userInfo} />
                 <Origin allOrigins={allOrigins} token={token} />
                 <User
                   allUsers={allUsers}
@@ -190,7 +193,7 @@ export async function getServerSideProps(context) {
   });
 
   const allTags = getAllTags.data;
-  const allOrigins = getAllOrigins.data.filter((e) => e.id != 1);
+  const allOrigins = getAllOrigins.data.filter((e)=> e.id != 1);
   const allTypes = getAllTypes.data;
   const allPermissions = getAllPermissions.data;
   const allUsers = getAllUsers.data;

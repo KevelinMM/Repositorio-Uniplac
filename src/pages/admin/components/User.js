@@ -16,12 +16,17 @@ export default function User(req) {
   const token = req.token;
 
   async function createUser() {
+    var caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var senha = '';
+    for (var i = 0; i < 8; i++) {
+      senha += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+    }
     await axios.post(
       process.env.BACKEND + "users",
       {
         name: userName,
         email: userEmail,
-        password: "Uniplac_2023",
+        password: senha,
         permission_id: userPermission,
         origin_id: userOrigin == 0 ? null : userOrigin,
       },
