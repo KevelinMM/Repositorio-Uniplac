@@ -109,11 +109,9 @@ export default function Report({ user }) {
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <Typography variant="h5" component="h2">
-            Ocorreu algum problema?
+          Contate-nos!
           </Typography>
-          <Typography variant="h6" component="h3">
-            Contate-nos!
-          </Typography>
+
           <p className="text-justify my-2 font-">
             Sua mensagem será encaminhada para o setor responsável para que o problema seja
             resolvido.

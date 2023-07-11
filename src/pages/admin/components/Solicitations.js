@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
-import { GrDocumentTime, GrDocumentVerified } from "react-icons/gr";
 import { DataGrid } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
-import Stack from "@mui/material/Stack";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { useRouter } from "next/router";
@@ -28,7 +26,7 @@ const columns = [
       } else if (statusValue === false) {
         statusIcon = (
           <Chip
-          sx={{backgroundColor: "orange"}}
+            sx={{ backgroundColor: "orange" }}
             icon={<HelpOutlineIcon />}
             label="Aguardando"
           ></Chip>
@@ -48,14 +46,14 @@ const columns = [
   {
     field: "id",
     headerName: "ID",
-    width: 50,
+    width: 100,
   },
   { field: "autor", headerName: "Autor", width: 300 },
-  { field: "title", headerName: "Titulo", width: 1000 },
+  { field: "title", headerName: "Titulo", width: 600 },
   {
     field: "origin_id",
     headerName: "Origin",
-    width: 100,
+    width: 230,
     renderCell: (params) => {
       const statusValue = params.value.origin;
 
@@ -79,22 +77,25 @@ export default function Solicitations(req) {
   }, [req.documents]);
   return (
     <div className="adminCards">
-      <Box sx={{ height: 631, width: "100%", marginBottom: "25px" }}>
-        <h1 className="font-bold">Solicitações</h1>
-        <DataGrid
-          className="bg-white cursor-pointer"
-          rows={documents}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 10,
+      <Box sx={{ height: 631, width: "100%", marginBottom: "50px" }}>
+        <h1 className="font-bold mb-5">Solicitações</h1>
+        <div className=" cursor-pointer">
+          <DataGrid
+          
+            className="bg-white"
+            rows={documents}
+            columns={columns}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 10,
+                },
               },
-            },
-          }}
-          onRowClick={handleRowClick}
-          pageSizeOptions={[5]}
-        />
+            }}
+            onRowClick={handleRowClick}
+            pageSizeOptions={[5]}
+          />
+        </div>
       </Box>
     </div>
   );

@@ -71,13 +71,13 @@ export default function SuperAdm(props) {
             Instituição Uniplac.
           </p>
           <a
-            className="underline cursor-pointer"
+            className="underline cursor-pointer font-semibold text-lg"
             target="_blank"
             rel="noopener noreferrer"
             href="https://docs.google.com/document/d/1km6T0_OrD2quYkzHoDMGXYUrf3tvk2ytGvf0juUaFT0/edit?usp=share_linkhttps://docs.google.com/document/d/1km6T0_OrD2quYkzHoDMGXYUrf3tvk2ytGvf0juUaFT0/edit?usp=share_link"
           >
             {" "}
-            Instruções aos administradores do RI{" "}
+            Instruções
           </a>
         </div>
 
