@@ -55,7 +55,7 @@ export default function SuperAdm(props) {
           </div>
           <Link href={"/"}>
             <h1 className="cursor-pointer md:text-3xl page-title">
-              Repositório Institucional
+              Voltar para Repositório 
             </h1>
           </Link>
           <Image
