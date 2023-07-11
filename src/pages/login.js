@@ -223,7 +223,7 @@ export default function Login() {
                       onClick={(e) => sendCode()}
                       className="cursor-pointer text-sm font-medium text-primary-600 hover:underline"
                     >
-                      * Redefinir senha
+                      * Primeiro acesso/ Redefinir senha
                     </a>
                   </>
                 )}

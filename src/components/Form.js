@@ -161,9 +161,10 @@ export default function Form(req) {
             </li>
 
             <li className="p-1">
-              Preencha o formulário para deposito de trabalho (todos os campos
-              são obrigatórios para publicação).
+              Preencha o formulário para deposito de trabalho (os campos
+              marcados com " * " são obrigatórios).
             </li>
+            <li className="p-1">Selecione o documento e aceite os temos.</li>
             <li className="p-1">
               Envie e aguarde o retorno de seu orientador pelo email.
             </li>
@@ -171,11 +172,11 @@ export default function Form(req) {
           </ul>
           <div className="mt-8">
             <a className="text-2xl font-bold text-blue-600">
-              Contato da Biblioteca
+              Contato
             </a>
 
             <p className="text-sm mt-2 not-italic mb-6 lg:mb-0">
-              (Em caso de dúvidas, entre em contato)
+              (Em caso de dúvidas, entre em contato com seu coordenador ou responsável de curso)
             </p>
           </div>
         </div>
@@ -356,9 +357,8 @@ export default function Form(req) {
                 </div>
                 <div className="flex flex-col text-end">
                   <input
-                    required
                     className="inputForms"
-                    placeholder="Sub-Título *"
+                    placeholder="Sub-Título"
                     type="text"
                     id="subTitle"
                     maxLength={254}
@@ -392,8 +392,10 @@ export default function Form(req) {
                         !document.getElementById("originInfo").hidden)
                     }
                   >
-                    <p className="text-md font-medium text-gray-700">Origem</p>
-                    <BsQuestionDiamond className=" text-lg soft-transition animate-pulse" />
+                    <p className="text-md font-medium text-gray-700">
+                      Origem (Curso)
+                    </p>
+                    <BsQuestionDiamond className=" text-2xl soft-transition animate-pulse text-green-800" />
                   </div>
                   <p id="originInfo" hidden className=" mt-2">
                     Cada origem contém um ou mais responsáveis para analisar e
@@ -439,9 +441,9 @@ export default function Form(req) {
                     }
                   >
                     <p className=" text-md font-medium text-gray-700">
-                      Categoria
+                      Categoria (Tipo de documento)
                     </p>
-                    <BsQuestionDiamond className=" text-lg soft-transition animate-pulse" />
+                    <BsQuestionDiamond className="text-green-800 text-2xl soft-transition animate-pulse" />
                   </div>
                   <p id="categoryInfo" hidden className="mt-2">
                     Categorias são referentes ao tipo de trabalho realizado. Ex:
@@ -474,8 +476,10 @@ export default function Form(req) {
                         !document.getElementById("tagsInfo").hidden)
                     }
                   >
-                    <p className=" text-md font-medium text-gray-700">Tags</p>
-                    <BsQuestionDiamond className="text-lg soft-transition animate-pulse" />
+                    <p className=" text-md font-medium text-gray-700">
+                      Tags (Palavras-Chave)
+                    </p>
+                    <BsQuestionDiamond className="text-green-800 text-2xl soft-transition animate-pulse" />
                   </div>
                   <p id="tagsInfo" hidden className=" mt-2">
                     Tags são filtros para localizar seu trabalho na página do
@@ -623,6 +627,7 @@ export default function Form(req) {
                     utilizados pela instituição de ensino Uniplac, para realizar
                     a publicação do documento, controlar o credenciamento dos
                     participantes e enviar comunicados pelo Email informado.
+                    Plágios não serão aceitos.
                   </label>
                 </div>
 
