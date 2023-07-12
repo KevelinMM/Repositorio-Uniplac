@@ -141,7 +141,7 @@ export default function Request(props) {
           height={80}
         />
       </div>
-      <Back />
+
 
       <div className="w-full lg:w-4/5 p-8  mt-2 text-gray-900 leading-normal border-opacity-50 bg-white border border-gray-400 border-rounded mx-auto">
         <div className="flex items-center justify-between">
