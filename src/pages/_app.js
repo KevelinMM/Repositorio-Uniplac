@@ -17,6 +17,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         <GoogleAnalytics measurementId="G-HLXR7QF7J2" />
         <Component {...pageProps} />
       </div>
+
     </SessionProvider>
   );
 }

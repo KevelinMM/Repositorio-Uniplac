@@ -17,8 +17,7 @@ export default function Footer() {
           </div>
           <div className="flex w-full lg:w-1/2 lg:justify-end lg:text-right">
             <div className="px-8">
-              <ul className="list-reset items-center text-sm pt-3 flex">
-           
+              <ul className="list-reset items-start md:items-center text-sm pt-3 flex flex-col md:flex-row">
                 <li className="text-black flex cursor-default pr-2">
                   {" "}
                   Copyright &copy; {new Date().getFullYear()}{" "}
@@ -31,6 +30,15 @@ export default function Footer() {
                     src={`/logoUniplac.png`}
                     alt="Logo Uniplac"
                     width={70}
+                    height={70}
+                  />
+                </li>{" "}
+                <li className="flex items-center md:pl-4">
+                  <p className="">Apoio </p>
+                  <Image
+                    src={`/fapesc.png`}
+                    alt="Logo Uniplac"
+                    width={160}
                     height={70}
                   />
                 </li>{" "}
