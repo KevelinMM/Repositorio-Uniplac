@@ -544,7 +544,7 @@ export default function Form(req) {
                     onClick={(e) =>
                       document.getElementById("tags").value != ""
                         ? lista.push({
-                            tag: document.getElementById("tags").value,
+                            tag: document.getElementById("tags").value.replaceAll("-", ""),
                           }) +
                           (document.getElementById("tags").value = "") +
                           setTagListId([]) +

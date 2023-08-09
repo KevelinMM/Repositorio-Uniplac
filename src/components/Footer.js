@@ -9,7 +9,7 @@ export default function Footer() {
             <div className="px-8">
               <h3 className="font-bold text-gray-900">Repositório</h3>
               <p className="py-4 text-gray-600 text-sm">
-                Repositório institucional da Uniplac, voltado ao armazenanmento,
+                Repositório institucional da Uniplac, voltado ao armazenamento,
                 à divulgação, ao acesso e à preservação da produção da
                 instituição.
               </p>
