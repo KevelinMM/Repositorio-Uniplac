@@ -166,7 +166,8 @@ export async function getServerSideProps(context) {
   const infoUser = user.data.shift();
 
   var documents;
-  if (infoUser.origin_id) {
+
+  if (infoUser.origin_id && infoUser.origin_id.id != 2) {
     const doc = await axios.get(
       process.env.BACKEND + "documentsByOrigin/" + infoUser.origin_id.id
     );
