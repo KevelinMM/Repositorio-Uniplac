@@ -29,8 +29,8 @@ export default function SuperAdm(props) {
   const [allTypes, setAllTypes] = useState(
     userInfo[0].origin_id != null
       ? props.allTypes.filter(
-          (e) => e.origin_id == userInfo[0].origin_id.id || e.origin_id == 1
-        )
+        (e) => e.origin_id == userInfo[0].origin_id.id || e.origin_id == 1
+      )
       : props.allTypes
   );
 
@@ -44,6 +44,12 @@ export default function SuperAdm(props) {
       <Report user={userInfo[0]} />
       <div className="bg-blue-50 min-h-screen px-2 sm:px-5 lg:px-10 xl:px-24 pt-8 md:pt-16 pb-6">
         <div className="flex justify-between pb-6 xl:pb-12 items-center lg:px-4">
+          <Image
+            src={`/logoUniplac.png`}
+            alt="Logo Uniplac"
+            width={70}
+            height={70}
+          />
           <div className="flex items-center page-title">
             <p>{origin}</p>
             <p
@@ -53,18 +59,14 @@ export default function SuperAdm(props) {
               <MdOutlineLogout />
             </p>
           </div>
-          <Link href={"/"}>
-            <h1 className="cursor-pointer md:text-3xl page-title">
-              Voltar para Repositório 
-            </h1>
-          </Link>
-          <Image
-            src={`/logoUniplac.png`}
-            alt="Logo Uniplac"
-            width={70}
-            height={70}
-          />
+
+
         </div>
+        <Link href={"/"}>
+          <h1 className="mb-8 cursor-pointer md:text-base text-blue-500 hover:underline">
+            {"<- Voltar para Repositório"}
+          </h1>
+        </Link>
         <div className="px-4 pb-4 text-justify">
           <p>
             Página destinada a administração de publicações no repositório da
@@ -90,8 +92,8 @@ export default function SuperAdm(props) {
                 e.target.value == 1 || e.target.value == "all"
                   ? props.documents
                   : props.documents.filter(
-                      (z) => e.target.value * 1 == z.origin_id.id
-                    )
+                    (z) => e.target.value * 1 == z.origin_id.id
+                  )
               )
             }
           >

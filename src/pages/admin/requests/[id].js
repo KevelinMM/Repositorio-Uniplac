@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import sendEmail from "../../../helpers/sendEmail";
 import { useSession, getSession, signIn } from "next-auth/react";
 import Back from "../../../components/Back";
+import { Link } from "@mui/material";
 
 export default function Request(props) {
   const [origin, setOrigin] = useState(props.document[0].origin_id.origin);
@@ -142,6 +143,11 @@ export default function Request(props) {
         />
       </div>
 
+      <Link href={"/admin"}>
+          <h1 className="mb-8 cursor-pointer md:text-base text-blue-500 hover:underline">
+            {"<- Voltar"}
+          </h1>
+        </Link>
 
       <div className="w-full lg:w-4/5 p-8  mt-2 text-gray-900 leading-normal border-opacity-50 bg-white border border-gray-400 border-rounded mx-auto">
         <div className="flex items-center justify-between">
