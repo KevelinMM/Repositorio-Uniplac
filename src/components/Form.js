@@ -60,7 +60,7 @@ export default function Form(req) {
 
     await sendEmail(
       email,
-      "Seu código de ativação para envio de documento é " + randomNumber
+      "Seu código de ativação para envio de documento é " + randomNumber,
     );
   }
 
@@ -102,7 +102,7 @@ export default function Form(req) {
         origin,
         type,
         lista,
-        file
+        file,
       );
       if (create == false) {
         document.getElementById("loading").hidden = true;
@@ -113,13 +113,13 @@ export default function Form(req) {
         allOrigins.filter((e) => e[0].origin_id == origin)[0][0].email,
         "Uma nova solicitação de " +
           name +
-          " foi enviada e aguarda sua validação para ser publicado no Repositório Institucional Uniplac! <br/> acesse: https://repositorio.uniplaclages.edu.br/login"
+          " foi enviada e aguarda sua validação para ser publicado no Repositório Institucional Uniplac! <br/> acesse: https://repositorio.uniplaclages.edu.br/login",
       );
       const email2 = await sendEmail(
         email,
         "Sua solicitação para publicar o documento " +
           title +
-          " no Repositório Institucional Uniplac foi enviada para analise, você será informado sobre o andamento da publicação pelo email! <br/> Segundo a Lei Geral de Proteção de Dados Pessoais, ao enviar a solicitação, você autorizou que seus dados fossem coletados pela instituição Uniplac."
+          " no Repositório Institucional Uniplac foi enviada para analise, você será informado sobre o andamento da publicação pelo email! <br/> Segundo a Lei Geral de Proteção de Dados Pessoais, ao enviar a solicitação, você autorizou que seus dados fossem coletados pela instituição Uniplac.",
       );
       if (email1 == false || email2 == false) {
         document.getElementById("loading").hidden = true;
@@ -171,12 +171,11 @@ export default function Form(req) {
             <li className="p-1">Apenas documentos em PDF são permitidos.</li>
           </ul>
           <div className="mt-8">
-            <a className="text-2xl font-bold text-blue-600">
-              Contato
-            </a>
+            <a className="text-2xl font-bold text-blue-600">Contato</a>
 
             <p className="text-sm mt-2 not-italic mb-6 lg:mb-0">
-              (Em caso de dúvidas, entre em contato com seu coordenador ou responsável de curso)
+              (Em caso de dúvidas, entre em contato com seu coordenador ou
+              responsável de curso)
             </p>
           </div>
         </div>
@@ -210,7 +209,9 @@ export default function Form(req) {
                 <MdOutlineReportGmailerrorred className="text-6xl text-red-600 animate-bounce" />
               </div>
               <h1 className="mx-auto">
-                Ocorreu um erro ao cadastrar seu documento!
+                Ocorreu um erro ao cadastrar seu documento! Verifique o tamanho
+                do arquivo, o limite é de 2MB. Caso o erro persista, entre em
+                contato por email: niu.atendimento@uniplaclages.edu.br
               </h1>
             </div>
           </div>
@@ -414,8 +415,9 @@ export default function Form(req) {
                     setOrigin(e.target.value) +
                     setAllTypes(
                       req.types.filter(
-                        (z) => e.target.value == z.origin_id || z.origin_id == 1
-                      )
+                        (z) =>
+                          e.target.value == z.origin_id || z.origin_id == 1,
+                      ),
                     )
                   }
                 >
@@ -428,7 +430,7 @@ export default function Form(req) {
                       <option key={e[0].origin_id} value={e[0].origin_id}>
                         {e[0].origin_name}
                       </option>
-                    )
+                    ),
                   )}
                 </select>
 
@@ -502,8 +504,8 @@ export default function Form(req) {
                               .toLowerCase()
                               .includes(e.target.value.toLowerCase()) &&
                             element.approved == true
-                          : ""
-                      )
+                          : "",
+                      ),
                     );
                     e.target.value != ""
                       ? (document.getElementById("resultTags").hidden = false) +
@@ -525,8 +527,8 @@ export default function Form(req) {
                               : lista.push({ id: e.id, tag: e.tag }) +
                                 setAllTagsSearch(
                                   allTagsSearch.filter(
-                                    (item) => item.id != e.id
-                                  )
+                                    (item) => item.id != e.id,
+                                  ),
                                 )) +
                             (document.getElementById("tags").value = "") +
                             setTagListId([]) +
@@ -544,7 +546,9 @@ export default function Form(req) {
                     onClick={(e) =>
                       document.getElementById("tags").value != ""
                         ? lista.push({
-                            tag: document.getElementById("tags").value.replaceAll("-", " "),
+                            tag: document
+                              .getElementById("tags")
+                              .value.replaceAll("-", " "),
                           }) +
                           (document.getElementById("tags").value = "") +
                           setTagListId([]) +
@@ -582,7 +586,7 @@ export default function Form(req) {
                       >
                         {e.tag} <span className="text-base pl-1">x</span>
                       </span>
-                    )
+                    ),
                   )}
                 </div>
 
